@@ -16,7 +16,9 @@ class SubscriptionMessageContentFactory : MessageContentFactory<SubscriptionMess
         val messageContent = SubscriptionOuterClass.Subscription.newBuilder()
         Arrays.stream(parameters).forEach { p ->
             val technicalMessageType = SubscriptionOuterClass.Subscription.MessageTypeSubscriptionItem.newBuilder()
-            technicalMessageType.technicalMessageType = p.technicalMessageType.key
+            if (null != p.technicalMessageType) {
+                technicalMessageType.technicalMessageType = p.technicalMessageType!!.key
+            }
 
             technicalMessageType.addAllDdis(p.ddis)
             technicalMessageType.position = p.position

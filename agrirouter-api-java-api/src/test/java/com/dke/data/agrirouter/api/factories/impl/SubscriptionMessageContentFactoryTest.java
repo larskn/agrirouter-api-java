@@ -21,8 +21,8 @@ class SubscriptionMessageContentFactoryTest
     List<Integer> ddis = new ArrayList<>();
     ddis.add(1);
     subscriptionMessageParameters.ddis = ddis;
-    subscriptionMessageParameters.technicalMessageType =
-        TechnicalMessageType.ISO_11783_TASKDATA_ZIP;
+    subscriptionMessageParameters.setTechnicalMessageType(
+        TechnicalMessageType.ISO_11783_TASKDATA_ZIP);
     subscriptionMessageParameters.setPosition(true);
     ByteString message = this.getInstanceToTest().message(subscriptionMessageParameters);
     assertFalse(message.isEmpty());
@@ -32,20 +32,6 @@ class SubscriptionMessageContentFactoryTest
   void givenEmptySubscriptionMessageParametersMessageShouldThrowException() {
     SubscriptionMessageParameters subscriptionMessageParameters =
         new SubscriptionMessageParameters();
-    assertThrows(
-        IllegalParameterDefinitionException.class,
-        () -> this.getInstanceToTest().message(subscriptionMessageParameters));
-  }
-
-  @Test
-  @SuppressWarnings("ConstantConditions")
-  void givenSubscriptionMessageParametersWithNullValuesMessageShouldNotFail() {
-    SubscriptionMessageParameters subscriptionMessageParameters =
-        new SubscriptionMessageParameters();
-    List<Integer> ddis = new ArrayList<>();
-    ddis.add(1);
-    subscriptionMessageParameters.ddis = null;
-    subscriptionMessageParameters.technicalMessageType = null;
     assertThrows(
         IllegalParameterDefinitionException.class,
         () -> this.getInstanceToTest().message(subscriptionMessageParameters));

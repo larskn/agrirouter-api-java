@@ -6,8 +6,7 @@ import javax.validation.constraints.NotNull
 
 class SubscriptionMessageParameters : ParameterValidation {
 
-    @NotNull
-    lateinit var technicalMessageType: TechnicalMessageType
+    var technicalMessageType: TechnicalMessageType? = null
 
     @NotNull
     lateinit var ddis: List<Int>
