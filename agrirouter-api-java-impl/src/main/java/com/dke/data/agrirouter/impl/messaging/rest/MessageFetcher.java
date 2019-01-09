@@ -1,10 +1,13 @@
 package com.dke.data.agrirouter.impl.messaging.rest;
 
+import agrirouter.request.Request;
 import com.dke.data.agrirouter.api.enums.CertificationType;
 import com.dke.data.agrirouter.api.service.parameters.FetchMessageParameters;
 import com.dke.data.agrirouter.impl.RequestFactory;
 import com.dke.data.agrirouter.impl.validation.ResponseValidator;
 import java.util.Optional;
+import javax.print.attribute.standard.Media;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpStatus;
@@ -16,7 +19,19 @@ public interface MessageFetcher extends ResponseValidator {
 
   String EMPTY_CONTENT = "[]";
 
-  default Optional<String> poll(FetchMessageParameters parameters, int maxTries, long interval) {
+  default void setResponseFormatJSON(){
+    RequestFactory.setRequestFormatJSON();
+  }
+
+  default void setResponseFormatProtobuf(){
+    RequestFactory.setRequestFormatProtobuf();
+  }
+
+  default MediaType getResponseFormat(){
+    return  RequestFactory.getMediaType();
+  }
+
+  default Optional<byte[]> poll(FetchMessageParameters parameters, int maxTries, long interval) {
     parameters.validate();
     int nrOfTries = 0;
     while (nrOfTries < maxTries) {
@@ -29,9 +44,17 @@ public interface MessageFetcher extends ResponseValidator {
                       parameters.getOnboardingResponse().getAuthentication().getType()))
               .get();
       this.assertResponseStatusIsValid(response, HttpStatus.SC_OK);
-      String entityContent = response.readEntity(String.class);
-      if (!StringUtils.equalsIgnoreCase(entityContent, EMPTY_CONTENT)) {
-        return Optional.of(entityContent);
+      byte[] entityContent = response.readEntity(byte[].class);
+      if(RequestFactory.getMediaType() == MediaType.APPLICATION_JSON_TYPE){
+        String entityString = String.valueOf(entityContent);
+        if (!StringUtils.equalsIgnoreCase(entityString, EMPTY_CONTENT)) {
+          return Optional.of(entityContent);
+        }
+      }
+      else {
+        if(!((entityContent == null)|| (entityContent.length == 0))) {
+          return Optional.of(entityContent);
+        }
       }
       nrOfTries++;
       try {

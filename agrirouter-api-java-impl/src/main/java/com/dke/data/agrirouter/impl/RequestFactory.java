@@ -7,6 +7,7 @@ import com.dke.data.agrirouter.impl.common.ssl.KeyStoreCreationService;
 import com.gargoylesoftware.htmlunit.util.Cookie;
 import java.security.KeyStore;
 import java.util.Set;
+import javax.print.attribute.standard.Media;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Invocation;
@@ -19,13 +20,29 @@ import org.glassfish.jersey.logging.LoggingFeature;
 /** Factory to encapsulate the requests against the agrirouter */
 public final class RequestFactory {
 
+  public static final MediaType MEDIA_TYPE_PROTOBUF = new MediaType("application", "x-protobuf");
+
+  private static MediaType mediaType = MediaType.APPLICATION_JSON_TYPE;
   /** Hidden constructor. */
   private RequestFactory() {
     // NOP
   }
 
+  public static void setRequestFormatJSON(){
+    mediaType = MediaType.APPLICATION_JSON_TYPE;
+  }
+
+  public static void setRequestFormatProtobuf(){
+    mediaType = MEDIA_TYPE_PROTOBUF;
+  }
+
+  public static MediaType getMediaType(){
+    return mediaType;
+  }
+
   /**
    * Creating a request with SSL configuration using the PEM and KEY files from the agrirouter.
+   * Used for communication of onboarded AppInstances
    *
    * @param url -
    * @param certificate -
@@ -39,8 +56,8 @@ public final class RequestFactory {
     Client client = createClient(clientConfig, keyStore, password, certificationType);
     client.property(LoggingFeature.LOGGING_FEATURE_LOGGER_LEVEL_CLIENT, "INFO");
     WebTarget target = client.target(url);
-    Invocation.Builder request = target.request(MediaType.APPLICATION_JSON_TYPE);
-    request.accept(MediaType.APPLICATION_JSON_TYPE);
+    Invocation.Builder request = target.request(mediaType);
+    request.accept(mediaType);
     return request;
   }
 
@@ -87,7 +104,7 @@ public final class RequestFactory {
   }
 
   /**
-   * Setting the 'reg_access_token' within the header.
+   * Setting the 'reg_access_token' within the header. Used for onboarding CUs
    *
    * @param url -
    * @param accessToken -
@@ -105,7 +122,7 @@ public final class RequestFactory {
   }
 
   /**
-   * Setting the 'reg_access_token' within the header.
+   * Setting the 'reg_access_token' within the header. Used for Farming Software and Telemetry
    *
    * @param url -
    * @param accessToken -
@@ -130,7 +147,7 @@ public final class RequestFactory {
   }
 
   /**
-   * Setting the cookies for the request.
+   * Setting the cookies for the request. Used for communication with agrirouter UI
    *
    * @param url -
    * @return Builder -

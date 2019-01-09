@@ -1,5 +1,6 @@
 package com.dke.data.agrirouter.api.service.parameters
 
+import com.dke.data.agrirouter.api.dto.onboard.OnboardingResponse
 import com.dke.data.agrirouter.api.enums.TechnicalMessageType
 import com.dke.data.agrirouter.api.service.ParameterValidation
 import lombok.ToString
@@ -12,6 +13,9 @@ import javax.validation.constraints.NotNull
 class EndpointsUnfilteredMessageParameters : ParameterValidation {
 
     @NotNull
+    lateinit var onboardingResponse: OnboardingResponse
+
+
     lateinit var technicalMessageType: TechnicalMessageType
 
     @NotNull
