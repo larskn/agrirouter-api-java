@@ -17,14 +17,33 @@ import com.dke.data.agrirouter.impl.messaging.encoding.EncodeMessageServiceImpl;
 import com.dke.data.agrirouter.impl.validation.ResponseValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.eclipse.paho.client.mqttv3.logging.LoggerFactory;
 
+import javax.ws.rs.core.MediaType;
 import java.util.Collections;
 import java.util.UUID;
+
+import static com.dke.data.agrirouter.impl.RequestFactory.MEDIA_TYPE_PROTOBUF;
 
 public class EndpointsUnfilteredListServiceImpl extends EnvironmentalService
         implements EndpointsUnfilteredListService, MessageSender, ResponseValidator {
     private Logger LOGGER = LogManager.getLogger();
+
+    private MediaType mediaType = MediaType.APPLICATION_JSON_TYPE;
+
+    @Override
+    public void setRequestFormatJSON() {
+        mediaType = MediaType.APPLICATION_JSON_TYPE;
+    }
+
+    @Override
+    public void setRequestFormatProtobuf() {
+        mediaType = MEDIA_TYPE_PROTOBUF;
+    }
+
+    @Override
+    public MediaType getResponseFormat() {
+        return mediaType;
+    }
 
     private EncodeMessageService encodeMessageService;
     //private Logger logger;
@@ -45,7 +64,7 @@ public class EndpointsUnfilteredListServiceImpl extends EnvironmentalService
 
         SendMessageParameters sendMessageParameters = new SendMessageParameters();
         sendMessageParameters.onboardingResponse = parameters.onboardingResponse;
-        sendMessageParameters.setEncodedMessages(Collections.singletonList(encodedMessage.getEncodedMessage()));
+        sendMessageParameters.setMessages(encodedMessage);
 
         sendMessage(sendMessageParameters);
 
@@ -73,9 +92,9 @@ public class EndpointsUnfilteredListServiceImpl extends EnvironmentalService
         payloadParameters.setTypeUrl(Endpoints.ListEndpointsQuery.getDescriptor().getFullName());
         payloadParameters.value = new EndpointsUnfilteredMessageContentFactory().message(endpointListMessageParameters);
 
-        String encodedMessage = this.encodeMessageService.encode(messageHeaderParameters, payloadParameters);
+        EncodeMessageResponse encodedMessage = this.encodeMessageService.encode(messageHeaderParameters, payloadParameters);
 
-        return new EncodeMessageResponse(applicationMessageID,encodedMessage);
+        return encodedMessage;
     }
 
 

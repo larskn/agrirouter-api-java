@@ -3,9 +3,9 @@ syntax = "proto3";
 package gateway;
 
 option java_package = "com.sap.iotservices.common.protobuf.gateway";
-option java_outer_classname = "CommandResponseMessageProtos";
+option java_outer_classname = "MeasureRequestMessageProtos";
 
-message CommandResponseMessage {
+message MeasureRequestMessage {
 
     bytes message = 1;
 }

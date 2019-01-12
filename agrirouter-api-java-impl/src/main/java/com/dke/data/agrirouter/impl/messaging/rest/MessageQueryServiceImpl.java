@@ -11,12 +11,33 @@ import com.dke.data.agrirouter.impl.messaging.helper.MessageQueryService;
 import com.google.protobuf.ByteString;
 import com.google.protobuf.InvalidProtocolBufferException;
 
+import javax.ws.rs.core.MediaType;
+
+import static com.dke.data.agrirouter.impl.RequestFactory.MEDIA_TYPE_PROTOBUF;
+
 public class MessageQueryServiceImpl extends EnvironmentalService
     implements com.dke.data.agrirouter.api.service.messaging.MessageQueryService,
         MessageSender,
         MessageDecoder<FeedResponse.MessageQueryResponse> {
 
   private final MessageQueryService messageQueryService;
+
+  private MediaType mediaType = MediaType.APPLICATION_JSON_TYPE;
+
+  @Override
+  public void setRequestFormatJSON() {
+    mediaType = MediaType.APPLICATION_JSON_TYPE;
+  }
+
+  @Override
+  public void setRequestFormatProtobuf() {
+    mediaType = MEDIA_TYPE_PROTOBUF;
+  }
+
+  @Override
+  public MediaType getResponseFormat() {
+    return mediaType;
+  }
 
   public MessageQueryServiceImpl(Environment environment) {
     super(environment);

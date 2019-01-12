@@ -7,7 +7,6 @@ import com.dke.data.agrirouter.impl.common.ssl.KeyStoreCreationService;
 import com.gargoylesoftware.htmlunit.util.Cookie;
 import java.security.KeyStore;
 import java.util.Set;
-import javax.print.attribute.standard.Media;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Invocation;
@@ -20,25 +19,16 @@ import org.glassfish.jersey.logging.LoggingFeature;
 /** Factory to encapsulate the requests against the agrirouter */
 public final class RequestFactory {
 
+  public static final int DIRECTION_INBOX = 1;
+  public static final int DIRECTION_OUTBOX = 2;
+
   public static final MediaType MEDIA_TYPE_PROTOBUF = new MediaType("application", "x-protobuf");
 
-  private static MediaType mediaType = MediaType.APPLICATION_JSON_TYPE;
   /** Hidden constructor. */
   private RequestFactory() {
     // NOP
   }
 
-  public static void setRequestFormatJSON(){
-    mediaType = MediaType.APPLICATION_JSON_TYPE;
-  }
-
-  public static void setRequestFormatProtobuf(){
-    mediaType = MEDIA_TYPE_PROTOBUF;
-  }
-
-  public static MediaType getMediaType(){
-    return mediaType;
-  }
 
   /**
    * Creating a request with SSL configuration using the PEM and KEY files from the agrirouter.
@@ -50,14 +40,28 @@ public final class RequestFactory {
    * @return Builder -
    */
   public static Invocation.Builder securedRequest(
-      String url, String certificate, String password, CertificationType certificationType) {
+      String url,
+      String certificate,
+      String password,
+      CertificationType certificationType,
+      MediaType mediaType,
+      int direction
+  ) {
     ClientConfig clientConfig = new ClientConfig();
+    clientConfig.register(ProtobufEntityRequestWriter.class);
+    clientConfig.register(ProtobufEntityRequestReader.class);
     KeyStore keyStore = createKeyStore(certificate, password, certificationType);
     Client client = createClient(clientConfig, keyStore, password, certificationType);
     client.property(LoggingFeature.LOGGING_FEATURE_LOGGER_LEVEL_CLIENT, "INFO");
+
     WebTarget target = client.target(url);
     Invocation.Builder request = target.request(mediaType);
-    request.accept(mediaType);
+    if( direction == DIRECTION_INBOX) {
+      request.accept(MediaType.APPLICATION_JSON_TYPE);
+    }
+    else{
+      request.accept(mediaType);
+    }
     return request;
   }
 

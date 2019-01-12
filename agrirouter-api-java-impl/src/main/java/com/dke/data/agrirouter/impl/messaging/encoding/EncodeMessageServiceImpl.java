@@ -1,6 +1,7 @@
 package com.dke.data.agrirouter.impl.messaging.encoding;
 
 import agrirouter.request.Request;
+import com.dke.data.agrirouter.api.dto.encoding.EncodeMessageResponse;
 import com.dke.data.agrirouter.api.exception.CouldNotEncodeMessageException;
 import com.dke.data.agrirouter.api.service.messaging.encoding.EncodeMessageService;
 import com.dke.data.agrirouter.api.service.parameters.MessageHeaderParameters;
@@ -11,15 +12,17 @@ import com.google.protobuf.Any;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Base64;
+
+import com.google.protobuf.ByteString;
+import com.sap.iotservices.common.protobuf.gateway.MeasureProtos;
+import com.sap.iotservices.common.protobuf.gateway.MeasureRequestMessageProtos;
 import org.apache.commons.lang3.StringUtils;
 
 /** Internal service implementation. */
 public class EncodeMessageServiceImpl extends NonEnvironmentalService
     implements EncodeMessageService {
 
-  public String encode(
-      MessageHeaderParameters messageHeaderParameters, PayloadParameters payloadParameters) {
-    this.logMethodBegin(messageHeaderParameters, payloadParameters);
+  public EncodeMessageResponse encode(MessageHeaderParameters messageHeaderParameters, PayloadParameters payloadParameters){
 
     if (null == messageHeaderParameters || null == payloadParameters) {
       throw new IllegalArgumentException("Parameters cannot be NULL");
@@ -36,13 +39,27 @@ public class EncodeMessageServiceImpl extends NonEnvironmentalService
       this.payload(payloadParameters).writeDelimitedTo(streamedMessage);
 
       this.getNativeLogger().trace("Encoding message.");
-      String encodedMessage = Base64.getEncoder().encodeToString(streamedMessage.toByteArray());
+      byte[] encodedByteArray = streamedMessage.toByteArray();
 
-      this.logMethodEnd(encodedMessage);
-      return encodedMessage;
+      String encodedMessageBase64 = Base64.getEncoder().encodeToString(encodedByteArray);
+
+      this.logMethodEnd(encodedMessageBase64);
+      MeasureRequestMessageProtos.MeasureRequestMessage.Builder measureRequestBuilder = MeasureRequestMessageProtos.MeasureRequestMessage.newBuilder();
+
+      measureRequestBuilder.setMessage(ByteString.copyFrom(encodedByteArray));
+      MeasureRequestMessageProtos.MeasureRequestMessage measureMessageProtobuf = measureRequestBuilder.build();
+
+      return new EncodeMessageResponse(
+              messageHeaderParameters.applicationMessageId,
+              encodedMessageBase64,
+              measureMessageProtobuf
+      );
+
     } catch (IOException e) {
       throw new CouldNotEncodeMessageException(e);
     }
+
+
   }
 
   private Request.RequestEnvelope header(MessageHeaderParameters parameters) {

@@ -1,5 +1,6 @@
 package com.dke.data.agrirouter.impl.messaging.rest;
 
+import static com.dke.data.agrirouter.impl.RequestFactory.MEDIA_TYPE_PROTOBUF;
 import static com.dke.data.agrirouter.impl.messaging.rest.MessageFetcher.DEFAULT_INTERVAL;
 import static com.dke.data.agrirouter.impl.messaging.rest.MessageFetcher.MAX_TRIES_BEFORE_FAILURE;
 
@@ -30,6 +31,8 @@ import com.dke.data.agrirouter.impl.validation.ResponseValidator;
 import java.util.*;
 import org.apache.http.HttpStatus;
 
+import javax.ws.rs.core.MediaType;
+
 public class MessageConfirmationServiceImpl extends EnvironmentalService
     implements MessageConfirmationService, MessageSender, ResponseValidator {
 
@@ -37,6 +40,23 @@ public class MessageConfirmationServiceImpl extends EnvironmentalService
   private final MessageQueryService messageQueryService;
   private final FetchMessageService fetchMessageService;
   private final DecodeMessageService decodeMessageService;
+
+  private MediaType mediaType = MediaType.APPLICATION_JSON_TYPE;
+
+  @Override
+  public void setRequestFormatJSON() {
+    mediaType = MediaType.APPLICATION_JSON_TYPE;
+  }
+
+  @Override
+  public void setRequestFormatProtobuf() {
+    mediaType = MEDIA_TYPE_PROTOBUF;
+  }
+
+  @Override
+  public MediaType getResponseFormat() {
+    return mediaType;
+  }
 
   public MessageConfirmationServiceImpl(Environment environment) {
     super(environment);
@@ -54,7 +74,7 @@ public class MessageConfirmationServiceImpl extends EnvironmentalService
     SendMessageParameters sendMessageParameters = new SendMessageParameters();
     sendMessageParameters.setOnboardingResponse(parameters.getOnboardingResponse());
     sendMessageParameters.setEncodedMessages(
-        Collections.singletonList(encodedMessageResponse.getEncodedMessage()));
+        Collections.singletonList(encodedMessageResponse.getEncodedMessageBase64()));
 
     MessageSenderResponse response = this.sendMessage(sendMessageParameters);
 
@@ -82,9 +102,8 @@ public class MessageConfirmationServiceImpl extends EnvironmentalService
         new MessageConfirmationMessageContentFactory()
             .message(messageConfirmationMessageParameters));
 
-    String encodedMessage =
-        this.encodeMessageService.encode(messageHeaderParameters, payloadParameters);
-    return new EncodeMessageResponse(applicationMessageID, encodedMessage);
+    EncodeMessageResponse encodedMessage = this.encodeMessageService.encode(messageHeaderParameters, payloadParameters);
+    return encodedMessage;
   }
 
   @Override

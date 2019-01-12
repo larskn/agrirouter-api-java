@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import agrirouter.request.Request;
 import agrirouter.request.payload.endpoint.Capabilities;
 import com.dke.data.agrirouter.api.dto.encoding.DecodeMessageResponse;
+import com.dke.data.agrirouter.api.dto.encoding.EncodeMessageResponse;
 import com.dke.data.agrirouter.api.enums.TechnicalMessageType;
 import com.dke.data.agrirouter.api.service.messaging.encoding.EncodeMessageService;
 import com.dke.data.agrirouter.api.service.parameters.MessageHeaderParameters;
@@ -24,9 +25,12 @@ class EncodeMessageServiceImplTest {
     MessageHeaderParameters messageHeaderParameters = getMessageHeaderParameters();
     PayloadParameters payloadParameters = getPayloadParameters(toSendMessage);
 
-    String encodedMessage = encodeMessageService.encode(messageHeaderParameters, payloadParameters);
+
+    EncodeMessageResponse encodedMessage = encodeMessageService.encode(messageHeaderParameters, payloadParameters);
+
+    String encodedMessageBase64 = encodedMessage.getEncodedMessageBase64();
     DecodeMessageServiceImpl decodeMessageService = new DecodeMessageServiceImpl();
-    DecodeMessageResponse response = decodeMessageService.decode(encodedMessage);
+    DecodeMessageResponse response = decodeMessageService.decode(encodedMessageBase64);
     Assertions.assertEquals(
         "secretMessage",
         response.getResponsePayloadWrapper().getDetails().getValue().toStringUtf8());
@@ -40,9 +44,11 @@ class EncodeMessageServiceImplTest {
     MessageHeaderParameters messageHeaderParameters = getMessageHeaderParameters();
     PayloadParameters payloadParameters = getPayloadParameters(toSendMessage);
 
-    String encodedMessage = encodeMessageService.encode(messageHeaderParameters, payloadParameters);
+    EncodeMessageResponse encodedMessage = encodeMessageService.encode(messageHeaderParameters, payloadParameters);
+
+    String encodedMessageBase64 = encodedMessage.getEncodedMessageBase64();
     DecodeMessageServiceImpl decodeMessageService = new DecodeMessageServiceImpl();
-    DecodeMessageResponse response = decodeMessageService.decode(encodedMessage);
+    DecodeMessageResponse response = decodeMessageService.decode(encodedMessage.getEncodedMessageBase64());
     Assertions.assertNotEquals(
         "secretMessage",
         response.getResponsePayloadWrapper().getDetails().getValue().toStringUtf8());

@@ -63,25 +63,28 @@ public class Main {
 
         EndpointsUnfilteredListService unfilteredEndpointListService = new EndpointsUnfilteredListServiceImpl(environment);
 
+  /*
+        unfilteredEndpointListService.setRequestFormatJSON();
         unfilteredEndpointListService.send(unfilteredMessageParameters);
 
         fetchMessageService = new FetchMessageServiceImpl();
-        //((FetchMessageServiceImpl) fetchMessageService).setResponseFormatJSON();
+        fetchMessageService.setResponseFormatJSON();
         fetchMessageResponseListOptional = fetchMessageService.fetch(onboardingResponse,5,2000);
         if(fetchMessageResponseListOptional.isPresent()){
             List<FetchMessageResponse> fetchMessageResponseList = fetchMessageResponseListOptional.get();
             DecodeMessageService decodeMessageService = new DecodeMessageServiceImpl();
             for(FetchMessageResponse fetchMessageResponse: fetchMessageResponseList) {
                 DecodeMessageResponse message = decodeMessageService.decode(fetchMessageResponse.getCommand().getMessage());
-                System.out.println("JSON Result: " + message.toString());
                 //We do not decode, because this breaks!
                 // DecodeMessageResponse value = decodeMessageService.decode(fetchMessageResponse.getCommand().getMessage());
                 System.out.println("MessageType: "+ message.getResponseEnvelope().getType().getDescriptorForType().getFullName());
             }
         }
-        //Step 1: Get Answer in RAW Protobuf
+*/
 
+        unfilteredEndpointListService.setRequestFormatProtobuf();
         unfilteredEndpointListService.send(unfilteredMessageParameters);
+
 
         fetchMessageService = new FetchMessageServiceImpl();
         fetchMessageService.setResponseFormatProtobuf();
@@ -96,7 +99,6 @@ public class Main {
                 //System.out.println("MessageType: "+ value.getResponseEnvelope().getType().getDescriptorForType().getFullName());
             }
         }
-        //Step 2: Get Answer in JSON
 
     }
 

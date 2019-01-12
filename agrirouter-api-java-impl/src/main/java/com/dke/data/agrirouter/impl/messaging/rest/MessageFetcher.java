@@ -17,19 +17,14 @@ public interface MessageFetcher extends ResponseValidator {
   int MAX_TRIES_BEFORE_FAILURE = 10;
   long DEFAULT_INTERVAL = 500;
 
+
   String EMPTY_CONTENT = "[]";
 
-  default void setResponseFormatJSON(){
-    RequestFactory.setRequestFormatJSON();
-  }
+  void setResponseFormatJSON();
 
-  default void setResponseFormatProtobuf(){
-    RequestFactory.setRequestFormatProtobuf();
-  }
+  void setResponseFormatProtobuf();
 
-  default MediaType getResponseFormat(){
-    return  RequestFactory.getMediaType();
-  }
+  MediaType getResponseFormat();
 
   default Optional<byte[]> poll(FetchMessageParameters parameters, int maxTries, long interval) {
     parameters.validate();
@@ -41,11 +36,13 @@ public interface MessageFetcher extends ResponseValidator {
                   parameters.getOnboardingResponse().getAuthentication().getCertificate(),
                   parameters.getOnboardingResponse().getAuthentication().getSecret(),
                   CertificationType.valueOf(
-                      parameters.getOnboardingResponse().getAuthentication().getType()))
+                      parameters.getOnboardingResponse().getAuthentication().getType()),
+                  this.getResponseFormat(),
+                  RequestFactory.DIRECTION_OUTBOX)
               .get();
       this.assertResponseStatusIsValid(response, HttpStatus.SC_OK);
       byte[] entityContent = response.readEntity(byte[].class);
-      if(RequestFactory.getMediaType() == MediaType.APPLICATION_JSON_TYPE){
+      if(getResponseFormat() == MediaType.APPLICATION_JSON_TYPE){
         String entityString = String.valueOf(entityContent);
         if (!StringUtils.equalsIgnoreCase(entityString, EMPTY_CONTENT)) {
           return Optional.of(entityContent);

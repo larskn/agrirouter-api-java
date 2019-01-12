@@ -8,22 +8,43 @@ import com.dke.data.agrirouter.impl.RequestFactory;
 import com.dke.data.agrirouter.impl.common.UtcTimeService;
 import com.dke.data.agrirouter.impl.gson.MessageTypeAdapter;
 import com.google.gson.GsonBuilder;
+import com.google.protobuf.Any;
+import com.google.protobuf.ByteString;
+import com.google.protobuf.BytesValue;
+import com.google.protobuf.Timestamp;
+import com.sap.iotservices.common.protobuf.gateway.MeasureProtos;
+import com.sap.iotservices.common.protobuf.gateway.MeasureRequestMessageProtos;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ws.rs.client.Entity;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import static com.dke.data.agrirouter.impl.RequestFactory.MEDIA_TYPE_PROTOBUF;
+import static javax.ws.rs.client.Entity.entity;
+
 public interface MessageSender {
+
+  void setRequestFormatJSON();
+
+  void setRequestFormatProtobuf();
+
+  MediaType getResponseFormat();
+
 
   default String createMessageBody(SendMessageParameters parameters) {
     parameters.validate();
     GsonBuilder gsonBuilder = new GsonBuilder();
     gsonBuilder.registerTypeAdapter(Message.class, new MessageTypeAdapter());
-    String json = gsonBuilder.create().toJson(this.createSendMessageRequest(parameters));
+    String json = gsonBuilder.create().toJson(this.createSendMessageJSONRequest(parameters));
     return json;
   }
 
-  default SendMessageRequest createSendMessageRequest(SendMessageParameters parameters) {
+  default SendMessageRequest createSendMessageJSONRequest(SendMessageParameters parameters) {
     parameters.validate();
     SendMessageRequest sendMessageRequest = new SendMessageRequest();
     sendMessageRequest.setSensorAlternateId(
@@ -44,15 +65,84 @@ public interface MessageSender {
     return sendMessageRequest;
   }
 
+  default MeasureProtos.MeasureRequest createSendMessageProtobufRequest(SendMessageParameters sendMessageParameters){
+    sendMessageParameters.validate();
+
+    MeasureProtos.MeasureRequest.Builder measureMessageBuilder =
+            MeasureProtos.MeasureRequest.newBuilder()
+            .setCapabilityAlternateId(sendMessageParameters.onboardingResponse.capabilityAlternateId)
+            .setSensorAlternateId(sendMessageParameters.onboardingResponse.sensorAlternateId)
+            .setTimestamp(UtcTimeService.now().toEpochSecond());
+
+    for(
+            MeasureRequestMessageProtos.MeasureRequestMessage measureMessage:
+            sendMessageParameters.measureMessages)
+    {
+      MeasureProtos.MeasureRequest.Measure.Builder measureBuilder =
+              MeasureProtos.MeasureRequest.Measure.newBuilder();
+      Timestamp timestamp =
+              Timestamp.newBuilder().setSeconds(
+                      UtcTimeService.now().toEpochSecond()
+              ).build();
+
+      ByteString protobufMessage = measureMessage.toByteString();
+      com.google.protobuf.Message message = BytesValue.newBuilder().setValue(protobufMessage).build();
+      measureBuilder.addValues( Any.pack(message));
+      com.google.protobuf.Message protobufTimestamp = BytesValue.newBuilder().setValue(timestamp.toByteString()).build();
+      measureBuilder.addValues( Any.pack(protobufTimestamp));
+
+      measureMessageBuilder.addMeasures(measureBuilder.build());
+    }
+
+    MeasureProtos.MeasureRequest sendMessageProtobufRequest = measureMessageBuilder.build();
+
+    return sendMessageProtobufRequest;
+  }
+
   default MessageSenderResponse sendMessage(SendMessageParameters parameters) {
-    Response response =
-        RequestFactory.securedRequest(
-                parameters.getOnboardingResponse().getConnectionCriteria().getMeasures(),
-                parameters.getOnboardingResponse().getAuthentication().getCertificate(),
-                parameters.getOnboardingResponse().getAuthentication().getSecret(),
-                CertificationType.valueOf(
-                    parameters.getOnboardingResponse().getAuthentication().getType()))
-            .post(Entity.json(this.createSendMessageRequest(parameters)));
+
+    Response response;
+
+    if(getResponseFormat() == MEDIA_TYPE_PROTOBUF)
+    {
+      MeasureProtos.MeasureRequest data =this.createSendMessageProtobufRequest(parameters);
+      try {
+      FileOutputStream fos = null;
+      fos = new FileOutputStream("C:\\src\\SAP\\2018-12-18-SAP-Example\\iot-protobuf-java-code-samples-project\\iot-protobuf-java\\measure_compare.bin");
+      fos.write(data.toByteArray(), 0, data.toByteArray().length);
+      fos.flush();
+      fos.close();
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+      Entity<MeasureProtos.MeasureRequest> protobufContent = Entity.entity(this.createSendMessageProtobufRequest(parameters),MEDIA_TYPE_PROTOBUF);
+      response = RequestFactory.securedRequest(
+              parameters.getOnboardingResponse().getConnectionCriteria().getMeasures(),
+              parameters.getOnboardingResponse().getAuthentication().getCertificate(),
+              parameters.getOnboardingResponse().getAuthentication().getSecret(),
+              CertificationType.valueOf(
+                      parameters.getOnboardingResponse().getAuthentication().getType()
+              ),
+              getResponseFormat(),
+              RequestFactory.DIRECTION_INBOX
+      ).post(protobufContent);
+    }
+    else
+    {
+      Entity<SendMessageRequest> jsonContent = Entity.json(this.createSendMessageJSONRequest(parameters));
+      response = RequestFactory.securedRequest(
+              parameters.getOnboardingResponse().getConnectionCriteria().getMeasures(),
+              parameters.getOnboardingResponse().getAuthentication().getCertificate(),
+              parameters.getOnboardingResponse().getAuthentication().getSecret(),
+              CertificationType.valueOf(
+                      parameters.getOnboardingResponse().getAuthentication().getType()),
+              getResponseFormat(),
+              RequestFactory.DIRECTION_INBOX)
+              .post(jsonContent);
+    }
+
     return new MessageSenderResponse(response);
   }
 

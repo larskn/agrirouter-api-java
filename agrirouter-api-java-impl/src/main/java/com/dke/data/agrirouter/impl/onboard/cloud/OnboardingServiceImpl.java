@@ -1,5 +1,6 @@
 package com.dke.data.agrirouter.impl.onboard.cloud;
 
+import static com.dke.data.agrirouter.impl.RequestFactory.MEDIA_TYPE_PROTOBUF;
 import static com.dke.data.agrirouter.impl.messaging.rest.MessageFetcher.DEFAULT_INTERVAL;
 import static com.dke.data.agrirouter.impl.messaging.rest.MessageFetcher.MAX_TRIES_BEFORE_FAILURE;
 
@@ -37,11 +38,31 @@ import java.util.List;
 import java.util.Optional;
 import org.apache.http.HttpStatus;
 
+import javax.ws.rs.core.MediaType;
+
 public class OnboardingServiceImpl implements OnboardingService, MessageSender, ResponseValidator {
 
   private final EncodeMessageService encodeMessageService;
   private final FetchMessageService fetchMessageService;
   private final DecodeMessageService decodeMessageService;
+
+
+  private MediaType mediaType = MediaType.APPLICATION_JSON_TYPE;
+
+  @Override
+  public void setRequestFormatJSON() {
+    mediaType = MediaType.APPLICATION_JSON_TYPE;
+  }
+
+  @Override
+  public void setRequestFormatProtobuf() {
+    mediaType = MEDIA_TYPE_PROTOBUF;
+  }
+
+  @Override
+  public MediaType getResponseFormat() {
+    return mediaType;
+  }
 
   public OnboardingServiceImpl() {
     this.encodeMessageService = new EncodeMessageServiceImpl();
@@ -170,10 +191,11 @@ public class OnboardingServiceImpl implements OnboardingService, MessageSender, 
                     new CloudEndpointOnboardingMessageParameters
                         [onboardCloudEndpointMessageParameters.size()])));
 
-    String encodedMessage =
-        this.encodeMessageService.encode(
-            this.createMessageHeaderParameters(applicationMessageID), payloadParameters);
-    return new EncodeMessageResponse(applicationMessageID, encodedMessage);
+    MessageHeaderParameters messageHeaderParameters = this.createMessageHeaderParameters(applicationMessageID);
+
+    EncodeMessageResponse encodedMessage = this.encodeMessageService.encode(messageHeaderParameters, payloadParameters);
+
+    return encodedMessage;
   }
 
   private EncodeMessageResponse encodeOffboardingMessage(CloudOffboardingParameters parameters) {
@@ -196,10 +218,11 @@ public class OnboardingServiceImpl implements OnboardingService, MessageSender, 
     payloadParameters.setValue(
         new CloudEndpointOffboardingMessageContentFactory().message(cloudOffboardingParameters));
 
-    String encodedMessage =
-        this.encodeMessageService.encode(
-            this.createMessageHeaderParameters(applicationMessageID), payloadParameters);
-    return new EncodeMessageResponse(applicationMessageID, encodedMessage);
+    MessageHeaderParameters messageHeaderParameters = this.createMessageHeaderParameters(applicationMessageID);
+
+    EncodeMessageResponse encodedMessage = this.encodeMessageService.encode(messageHeaderParameters, payloadParameters);
+
+    return encodedMessage;
   }
 
   private MessageHeaderParameters createMessageHeaderParameters(String applicationMessageID) {
@@ -216,7 +239,7 @@ public class OnboardingServiceImpl implements OnboardingService, MessageSender, 
     SendMessageParameters sendMessageParameters = new SendMessageParameters();
     sendMessageParameters.setOnboardingResponse(onboardingResponse);
     sendMessageParameters.setEncodedMessages(
-        Collections.singletonList(encodedMessageResponse.getEncodedMessage()));
+        Collections.singletonList(encodedMessageResponse.getEncodedMessageBase64()));
     return sendMessageParameters;
   }
 

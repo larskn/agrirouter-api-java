@@ -22,11 +22,33 @@ import java.util.Collections;
 import java.util.List;
 import org.apache.http.HttpStatus;
 
+import javax.ws.rs.core.MediaType;
+
+import static com.dke.data.agrirouter.impl.RequestFactory.MEDIA_TYPE_PROTOBUF;
+
 public class SetCapabilityServiceImpl extends EnvironmentalService
     implements SetCapabilityService, MessageSender, ResponseValidator {
 
   private final EncodeMessageService encodeMessageService;
 
+  private MediaType mediaType = MediaType.APPLICATION_JSON_TYPE;
+
+  @Override
+  public void setRequestFormatJSON() {
+    mediaType = MediaType.APPLICATION_JSON_TYPE;
+  }
+
+  @Override
+  public void setRequestFormatProtobuf() {
+    mediaType = MEDIA_TYPE_PROTOBUF;
+  }
+
+  @Override
+  public MediaType getResponseFormat() {
+    return mediaType;
+  }
+
+  
   public SetCapabilityServiceImpl(Environment environment) {
     super(environment);
     this.encodeMessageService = new EncodeMessageServiceImpl();
@@ -40,7 +62,7 @@ public class SetCapabilityServiceImpl extends EnvironmentalService
     SendMessageParameters sendMessageParameters = new SendMessageParameters();
     sendMessageParameters.setOnboardingResponse(parameters.getOnboardingResponse());
     sendMessageParameters.setEncodedMessages(
-        Collections.singletonList(encodeMessageResponse.getEncodedMessage()));
+        Collections.singletonList(encodeMessageResponse.getEncodedMessageBase64()));
 
     MessageSenderResponse response = this.sendMessage(sendMessageParameters);
 
@@ -87,8 +109,7 @@ public class SetCapabilityServiceImpl extends EnvironmentalService
     payloadParameters.setValue(
         new CapabilitiesMessageContentFactory().message(capabilitiesMessageParameters));
 
-    String encodedMessage =
-        this.encodeMessageService.encode(messageHeaderParameters, payloadParameters);
-    return new EncodeMessageResponse(applicationMessageID, encodedMessage);
+    EncodeMessageResponse encodedMessage = this.encodeMessageService.encode(messageHeaderParameters, payloadParameters);
+    return encodedMessage;
   }
 }

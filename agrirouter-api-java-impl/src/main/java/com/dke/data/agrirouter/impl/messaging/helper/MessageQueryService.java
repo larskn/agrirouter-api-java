@@ -19,9 +19,28 @@ import java.util.Collections;
 import java.util.Objects;
 import org.apache.http.HttpStatus;
 
+import javax.ws.rs.core.MediaType;
+
+import static com.dke.data.agrirouter.impl.RequestFactory.MEDIA_TYPE_PROTOBUF;
+
 public class MessageQueryService extends NonEnvironmentalService
     implements MessageSender, ResponseValidator {
+  private MediaType mediaType = MediaType.APPLICATION_JSON_TYPE;
 
+  @Override
+  public void setRequestFormatJSON() {
+    mediaType = MediaType.APPLICATION_JSON_TYPE;
+  }
+
+  @Override
+  public void setRequestFormatProtobuf() {
+    mediaType = MEDIA_TYPE_PROTOBUF;
+  }
+
+  @Override
+  public MediaType getResponseFormat() {
+    return mediaType;
+  }
   private final EncodeMessageService encodeMessageService;
   private final TechnicalMessageType technicalMessageType;
 
@@ -46,7 +65,7 @@ public class MessageQueryService extends NonEnvironmentalService
     SendMessageParameters sendMessageParameters = new SendMessageParameters();
     sendMessageParameters.setOnboardingResponse(parameters.getOnboardingResponse());
     sendMessageParameters.setEncodedMessages(
-        Collections.singletonList(encodedMessageResponse.getEncodedMessage()));
+        Collections.singletonList(encodedMessageResponse.getEncodedMessageBase64()));
 
     this.getNativeLogger().trace("Send and fetch message response.");
     MessageSender.MessageSenderResponse response = this.sendMessage(sendMessageParameters);
@@ -86,10 +105,10 @@ public class MessageQueryService extends NonEnvironmentalService
         new MessageQueryMessageContentFactory().message(messageQueryMessageParameters));
 
     this.getNativeLogger().trace("Encode message.");
-    String encodedMessage =
+    EncodeMessageResponse encodedMessage =
         this.encodeMessageService.encode(messageHeaderParameters, payloadParameters);
 
     this.logMethodEnd(encodedMessage);
-    return new EncodeMessageResponse(applicationMessageID, encodedMessage);
+    return encodedMessage;
   }
 }

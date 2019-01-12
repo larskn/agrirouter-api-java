@@ -17,10 +17,33 @@ import com.dke.data.agrirouter.impl.messaging.encoding.EncodeMessageServiceImpl;
 import com.dke.data.agrirouter.impl.validation.ResponseValidator;
 import java.util.Collections;
 import java.util.Objects;
+
+import com.sap.iotservices.common.protobuf.gateway.MeasureRequestMessageProtos;
 import org.apache.http.HttpStatus;
+
+import javax.ws.rs.core.MediaType;
+
+import static com.dke.data.agrirouter.impl.RequestFactory.MEDIA_TYPE_PROTOBUF;
 
 public class DeleteMessageServiceImpl
     implements DeleteMessageService, MessageSender, ResponseValidator {
+
+  private MediaType mediaType = MediaType.APPLICATION_JSON_TYPE;
+
+  @Override
+  public void setRequestFormatJSON() {
+    mediaType = MediaType.APPLICATION_JSON_TYPE;
+  }
+
+  @Override
+  public void setRequestFormatProtobuf() {
+    mediaType = MEDIA_TYPE_PROTOBUF;
+  }
+
+  @Override
+  public MediaType getResponseFormat() {
+    return mediaType;
+  }
 
   private final EncodeMessageService encodeMessageService;
 
@@ -32,11 +55,24 @@ public class DeleteMessageServiceImpl
   public String send(DeleteMessageParameters parameters) {
     parameters.validate();
 
-    EncodeMessageResponse encodedMessageResponse = encodeMessage(parameters);
     SendMessageParameters sendMessageParameters = new SendMessageParameters();
     sendMessageParameters.setOnboardingResponse(parameters.getOnboardingResponse());
-    sendMessageParameters.setEncodedMessages(
-        Collections.singletonList(encodedMessageResponse.getEncodedMessage()));
+    EncodeMessageResponse encodedMessageResponse = encodeMessage(parameters);
+
+    if(this.getResponseFormat() == MEDIA_TYPE_PROTOBUF) {
+
+      sendMessageParameters.setMeasureMessages(
+              Collections.singletonList(encodedMessageResponse.getEncodedMessageProtobuf()));
+
+    }
+    else
+    {
+      sendMessageParameters.setEncodedMessages(
+              Collections.singletonList(encodedMessageResponse.getEncodedMessageBase64()));
+
+    }
+
+
 
     MessageSenderResponse response = this.sendMessage(sendMessageParameters);
 
@@ -65,8 +101,8 @@ public class DeleteMessageServiceImpl
     payloadParameters.setValue(
         new DeleteMessageMessageContentFactory().message(deleteMessageMessageParameters));
 
-    String encodedMessage =
-        this.encodeMessageService.encode(messageHeaderParameters, payloadParameters);
-    return new EncodeMessageResponse(applicationMessageID, encodedMessage);
+
+    EncodeMessageResponse encodedMessage = this.encodeMessageService.encode(messageHeaderParameters, payloadParameters);
+    return encodedMessage;
   }
 }

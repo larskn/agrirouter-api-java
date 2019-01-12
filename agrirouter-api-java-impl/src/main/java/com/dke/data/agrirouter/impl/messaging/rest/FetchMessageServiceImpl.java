@@ -19,10 +19,20 @@ import com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos;
 import com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command;
 import org.eclipse.paho.client.mqttv3.internal.websocket.Base64;
 
+import javax.print.attribute.standard.Media;
+import javax.ws.rs.core.MediaType;
 import java.lang.reflect.Type;
 import java.util.*;
 
+import static com.dke.data.agrirouter.impl.RequestFactory.MEDIA_TYPE_PROTOBUF;
+
 public class FetchMessageServiceImpl implements FetchMessageService, MessageFetcher {
+
+    private MediaType mediaType;
+
+    public FetchMessageServiceImpl(){
+        setResponseFormatJSON();
+    }
 
     @Override
     public Optional<List<FetchMessageResponse>> fetch(
@@ -38,7 +48,7 @@ public class FetchMessageServiceImpl implements FetchMessageService, MessageFetc
         parameters.validate();
         Optional<byte[]> response = this.poll(parameters, maxTries, interval);
         Optional<List<FetchMessageResponse>> responses = Optional.empty();
-        if(this.getResponseFormat() == RequestFactory.MEDIA_TYPE_PROTOBUF){
+        if(this.getResponseFormat() == MEDIA_TYPE_PROTOBUF){
             if(response.isPresent()) {
                 try {
                     List<FetchMessageResponse> responseList = new ArrayList<>();
@@ -92,5 +102,20 @@ public class FetchMessageServiceImpl implements FetchMessageService, MessageFetc
     public FetchMessageResponse parseJson(byte[] json) {
         Type type = new TypeToken<FetchMessageResponse>() {}.getType();
         return new Gson().fromJson(new String(json), type);
+    }
+
+    @Override
+    public void setResponseFormatJSON() {
+        this.mediaType = MediaType.APPLICATION_JSON_TYPE;
+    }
+
+    @Override
+    public void setResponseFormatProtobuf() {
+        this.mediaType = MEDIA_TYPE_PROTOBUF;
+    }
+
+    @Override
+    public MediaType getResponseFormat() {
+        return this.mediaType;
     }
 }
