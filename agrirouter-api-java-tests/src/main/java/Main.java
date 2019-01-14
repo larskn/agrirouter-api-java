@@ -63,7 +63,7 @@ public class Main {
 
         EndpointsUnfilteredListService unfilteredEndpointListService = new EndpointsUnfilteredListServiceImpl(environment);
 
-  /*
+
         unfilteredEndpointListService.setRequestFormatJSON();
         unfilteredEndpointListService.send(unfilteredMessageParameters);
 
@@ -80,7 +80,7 @@ public class Main {
                 System.out.println("MessageType: "+ message.getResponseEnvelope().getType().getDescriptorForType().getFullName());
             }
         }
-*/
+
 
         unfilteredEndpointListService.setRequestFormatProtobuf();
         unfilteredEndpointListService.send(unfilteredMessageParameters);
@@ -100,8 +100,8 @@ public class Main {
             }
         }
 
-    }
 
+    }
 
 
 }

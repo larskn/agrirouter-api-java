@@ -21,6 +21,7 @@ import java.lang.reflect.Type;
 @Consumes("application/x-protobuf")
 public class ProtobufEntityRequestReader implements MessageBodyReader<Message> {
     public boolean isReadable(Class<?> type, Type genericType, Annotation[] annotations, MediaType mediaType) {
+        System.out.println("IsReadable was called, sooo sad");
         return Message.class.isAssignableFrom(type);
     }
 

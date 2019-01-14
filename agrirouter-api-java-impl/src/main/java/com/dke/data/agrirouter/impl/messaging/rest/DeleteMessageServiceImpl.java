@@ -59,18 +59,7 @@ public class DeleteMessageServiceImpl
     sendMessageParameters.setOnboardingResponse(parameters.getOnboardingResponse());
     EncodeMessageResponse encodedMessageResponse = encodeMessage(parameters);
 
-    if(this.getResponseFormat() == MEDIA_TYPE_PROTOBUF) {
-
-      sendMessageParameters.setMeasureMessages(
-              Collections.singletonList(encodedMessageResponse.getEncodedMessageProtobuf()));
-
-    }
-    else
-    {
-      sendMessageParameters.setEncodedMessages(
-              Collections.singletonList(encodedMessageResponse.getEncodedMessageBase64()));
-
-    }
+    sendMessageParameters.setMessages(encodedMessageResponse);
 
 
 

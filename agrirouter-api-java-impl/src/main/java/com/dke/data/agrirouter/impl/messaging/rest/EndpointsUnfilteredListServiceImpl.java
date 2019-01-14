@@ -80,7 +80,7 @@ public class EndpointsUnfilteredListServiceImpl extends EnvironmentalService
         MessageHeaderParameters messageHeaderParameters = new MessageHeaderParameters();
         messageHeaderParameters.setApplicationMessageId(applicationMessageID);
         messageHeaderParameters.setApplicationMessageSeqNo(1);
-        messageHeaderParameters.technicalMessageType = parameters.technicalMessageType;
+        messageHeaderParameters.technicalMessageType = TechnicalMessageType.DKE_LIST_ENDPOINTS_UNFILTERED;
         messageHeaderParameters.mode = Request.RequestEnvelope.Mode.DIRECT;
 
         EndpointsUnfilteredMessageParameters endpointListMessageParameters = new EndpointsUnfilteredMessageParameters();

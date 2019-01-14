@@ -8,16 +8,16 @@ import com.dke.data.agrirouter.impl.RequestFactory;
 import com.dke.data.agrirouter.impl.common.UtcTimeService;
 import com.dke.data.agrirouter.impl.gson.MessageTypeAdapter;
 import com.google.gson.GsonBuilder;
-import com.google.protobuf.Any;
-import com.google.protobuf.ByteString;
-import com.google.protobuf.BytesValue;
-import com.google.protobuf.Timestamp;
+import com.google.protobuf.*;
+import com.google.protobuf.Descriptors.FieldDescriptor;
 import com.sap.iotservices.common.protobuf.gateway.MeasureProtos;
 import com.sap.iotservices.common.protobuf.gateway.MeasureRequestMessageProtos;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ws.rs.client.Entity;
@@ -72,7 +72,8 @@ public interface MessageSender {
             MeasureProtos.MeasureRequest.newBuilder()
             .setCapabilityAlternateId(sendMessageParameters.onboardingResponse.capabilityAlternateId)
             .setSensorAlternateId(sendMessageParameters.onboardingResponse.sensorAlternateId)
-            .setTimestamp(UtcTimeService.now().toEpochSecond());
+            .setTimestamp(UtcTimeService.now().toEpochSecond())
+            .setSensorTypeAlternateId("");
 
     for(
             MeasureRequestMessageProtos.MeasureRequestMessage measureMessage:
@@ -80,16 +81,27 @@ public interface MessageSender {
     {
       MeasureProtos.MeasureRequest.Measure.Builder measureBuilder =
               MeasureProtos.MeasureRequest.Measure.newBuilder();
+
+      ByteString protobufMessage = ByteString.copyFrom(measureMessage.getMessage().toByteArray());//measureMessage.toByteString().substring(3);
+
+
+
+      com.google.protobuf.Message message =
+              BytesValue.newBuilder()
+              .setValue(protobufMessage)
+              .build();
+      measureBuilder.addValues( Any.pack(message,"message"));
+
+
       Timestamp timestamp =
               Timestamp.newBuilder().setSeconds(
                       UtcTimeService.now().toEpochSecond()
-              ).build();
+              ).setNanos(0).build();
 
-      ByteString protobufMessage = measureMessage.toByteString();
-      com.google.protobuf.Message message = BytesValue.newBuilder().setValue(protobufMessage).build();
-      measureBuilder.addValues( Any.pack(message));
-      com.google.protobuf.Message protobufTimestamp = BytesValue.newBuilder().setValue(timestamp.toByteString()).build();
-      measureBuilder.addValues( Any.pack(protobufTimestamp));
+      String protobufTimeStampString = String.valueOf(timestamp.getSeconds()*1000 + timestamp.getNanos());
+
+      com.google.protobuf.Message protobufTimestamp = StringValue.newBuilder().setValue(protobufTimeStampString).build();
+      measureBuilder.addValues( Any.pack(protobufTimestamp,"timestamp"));
 
       measureMessageBuilder.addMeasures(measureBuilder.build());
     }
@@ -106,18 +118,21 @@ public interface MessageSender {
     if(getResponseFormat() == MEDIA_TYPE_PROTOBUF)
     {
       MeasureProtos.MeasureRequest data =this.createSendMessageProtobufRequest(parameters);
+      /*
       try {
-      FileOutputStream fos = null;
-      fos = new FileOutputStream("C:\\src\\SAP\\2018-12-18-SAP-Example\\iot-protobuf-java-code-samples-project\\iot-protobuf-java\\measure_compare.bin");
-      fos.write(data.toByteArray(), 0, data.toByteArray().length);
-      fos.flush();
-      fos.close();
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-      Entity<MeasureProtos.MeasureRequest> protobufContent = Entity.entity(this.createSendMessageProtobufRequest(parameters),MEDIA_TYPE_PROTOBUF);
+          FileOutputStream fos = null;
+          fos = new FileOutputStream("C:\\src\\SAP\\2018-12-21-SAP-EndpointLister\\iot-protobuf-java-endpoint-list\\measure_compare.bin");
+          fos.write(data.toByteArray(), 0, data.toByteArray().length);
+          fos.flush();
+          fos.close();
+      } catch (FileNotFoundException e) {
+          e.printStackTrace();
+      } catch (IOException e) {
+          e.printStackTrace();
+      }
+      */
+
+      Entity<MeasureProtos.MeasureRequest> protobufContent = Entity.entity(data,MEDIA_TYPE_PROTOBUF);
       response = RequestFactory.securedRequest(
               parameters.getOnboardingResponse().getConnectionCriteria().getMeasures(),
               parameters.getOnboardingResponse().getAuthentication().getCertificate(),
@@ -128,6 +143,7 @@ public interface MessageSender {
               getResponseFormat(),
               RequestFactory.DIRECTION_INBOX
       ).post(protobufContent);
+
     }
     else
     {
