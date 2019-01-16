@@ -5,52 +5,43 @@ package com.sap.iotservices.common.protobuf.gateway;
 
 public final class MeasureRequestTimeStampProtos {
   private MeasureRequestTimeStampProtos() {}
-  public static void registerAllExtensions(
-      com.google.protobuf.ExtensionRegistryLite registry) {
+
+  public static void registerAllExtensions(com.google.protobuf.ExtensionRegistryLite registry) {}
+
+  public static void registerAllExtensions(com.google.protobuf.ExtensionRegistry registry) {
+    registerAllExtensions((com.google.protobuf.ExtensionRegistryLite) registry);
   }
 
-  public static void registerAllExtensions(
-      com.google.protobuf.ExtensionRegistry registry) {
-    registerAllExtensions(
-        (com.google.protobuf.ExtensionRegistryLite) registry);
-  }
-  public interface MeasureRequestTimeStampOrBuilder extends
+  public interface MeasureRequestTimeStampOrBuilder
+      extends
       // @@protoc_insertion_point(interface_extends:gateway.MeasureRequestTimeStamp)
       com.google.protobuf.MessageOrBuilder {
 
-    /**
-     * <code>.google.protobuf.Timestamp timestamp = 1;</code>
-     */
+    /** <code>.google.protobuf.Timestamp timestamp = 1;</code> */
     boolean hasTimestamp();
-    /**
-     * <code>.google.protobuf.Timestamp timestamp = 1;</code>
-     */
+    /** <code>.google.protobuf.Timestamp timestamp = 1;</code> */
     com.google.protobuf.Timestamp getTimestamp();
-    /**
-     * <code>.google.protobuf.Timestamp timestamp = 1;</code>
-     */
+    /** <code>.google.protobuf.Timestamp timestamp = 1;</code> */
     com.google.protobuf.TimestampOrBuilder getTimestampOrBuilder();
   }
-  /**
-   * Protobuf type {@code gateway.MeasureRequestTimeStamp}
-   */
-  public  static final class MeasureRequestTimeStamp extends
-      com.google.protobuf.GeneratedMessageV3 implements
+  /** Protobuf type {@code gateway.MeasureRequestTimeStamp} */
+  public static final class MeasureRequestTimeStamp extends com.google.protobuf.GeneratedMessageV3
+      implements
       // @@protoc_insertion_point(message_implements:gateway.MeasureRequestTimeStamp)
       MeasureRequestTimeStampOrBuilder {
-  private static final long serialVersionUID = 0L;
+    private static final long serialVersionUID = 0L;
     // Use MeasureRequestTimeStamp.newBuilder() to construct.
     private MeasureRequestTimeStamp(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private MeasureRequestTimeStamp() {
-    }
+
+    private MeasureRequestTimeStamp() {}
 
     @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
+    public final com.google.protobuf.UnknownFieldSet getUnknownFields() {
       return this.unknownFields;
     }
+
     private MeasureRequestTimeStamp(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -70,73 +61,74 @@ public final class MeasureRequestTimeStampProtos {
             case 0:
               done = true;
               break;
-            case 10: {
-              com.google.protobuf.Timestamp.Builder subBuilder = null;
-              if (timestamp_ != null) {
-                subBuilder = timestamp_.toBuilder();
-              }
-              timestamp_ = input.readMessage(com.google.protobuf.Timestamp.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(timestamp_);
-                timestamp_ = subBuilder.buildPartial();
-              }
+            case 10:
+              {
+                com.google.protobuf.Timestamp.Builder subBuilder = null;
+                if (timestamp_ != null) {
+                  subBuilder = timestamp_.toBuilder();
+                }
+                timestamp_ =
+                    input.readMessage(com.google.protobuf.Timestamp.parser(), extensionRegistry);
+                if (subBuilder != null) {
+                  subBuilder.mergeFrom(timestamp_);
+                  timestamp_ = subBuilder.buildPartial();
+                }
 
-              break;
-            }
-            default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
+                break;
               }
-              break;
-            }
+            default:
+              {
+                if (!parseUnknownFieldProto3(input, unknownFields, extensionRegistry, tag)) {
+                  done = true;
+                }
+                break;
+              }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
+        throw new com.google.protobuf.InvalidProtocolBufferException(e).setUnfinishedMessage(this);
       } finally {
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos.internal_static_gateway_MeasureRequestTimeStamp_descriptor;
+
+    public static final com.google.protobuf.Descriptors.Descriptor getDescriptor() {
+      return com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos
+          .internal_static_gateway_MeasureRequestTimeStamp_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos.internal_static_gateway_MeasureRequestTimeStamp_fieldAccessorTable
+      return com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos
+          .internal_static_gateway_MeasureRequestTimeStamp_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos.MeasureRequestTimeStamp.class, com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos.MeasureRequestTimeStamp.Builder.class);
+              com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos
+                  .MeasureRequestTimeStamp.class,
+              com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos
+                  .MeasureRequestTimeStamp.Builder.class);
     }
 
     public static final int TIMESTAMP_FIELD_NUMBER = 1;
     private com.google.protobuf.Timestamp timestamp_;
-    /**
-     * <code>.google.protobuf.Timestamp timestamp = 1;</code>
-     */
+    /** <code>.google.protobuf.Timestamp timestamp = 1;</code> */
     public boolean hasTimestamp() {
       return timestamp_ != null;
     }
-    /**
-     * <code>.google.protobuf.Timestamp timestamp = 1;</code>
-     */
+    /** <code>.google.protobuf.Timestamp timestamp = 1;</code> */
     public com.google.protobuf.Timestamp getTimestamp() {
       return timestamp_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : timestamp_;
     }
-    /**
-     * <code>.google.protobuf.Timestamp timestamp = 1;</code>
-     */
+    /** <code>.google.protobuf.Timestamp timestamp = 1;</code> */
     public com.google.protobuf.TimestampOrBuilder getTimestampOrBuilder() {
       return getTimestamp();
     }
 
     private byte memoizedIsInitialized = -1;
+
     @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -148,8 +140,7 @@ public final class MeasureRequestTimeStampProtos {
     }
 
     @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
+    public void writeTo(com.google.protobuf.CodedOutputStream output) throws java.io.IOException {
       if (timestamp_ != null) {
         output.writeMessage(1, getTimestamp());
       }
@@ -163,8 +154,7 @@ public final class MeasureRequestTimeStampProtos {
 
       size = 0;
       if (timestamp_ != null) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, getTimestamp());
+        size += com.google.protobuf.CodedOutputStream.computeMessageSize(1, getTimestamp());
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -174,18 +164,25 @@ public final class MeasureRequestTimeStampProtos {
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
-       return true;
+        return true;
       }
-      if (!(obj instanceof com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos.MeasureRequestTimeStamp)) {
+      if (!(obj
+          instanceof
+          com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos
+              .MeasureRequestTimeStamp)) {
         return super.equals(obj);
       }
-      com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos.MeasureRequestTimeStamp other = (com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos.MeasureRequestTimeStamp) obj;
+      com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos
+              .MeasureRequestTimeStamp
+          other =
+              (com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos
+                      .MeasureRequestTimeStamp)
+                  obj;
 
       boolean result = true;
       result = result && (hasTimestamp() == other.hasTimestamp());
       if (hasTimestamp()) {
-        result = result && getTimestamp()
-            .equals(other.getTimestamp());
+        result = result && getTimestamp().equals(other.getTimestamp());
       }
       result = result && unknownFields.equals(other.unknownFields);
       return result;
@@ -207,88 +204,115 @@ public final class MeasureRequestTimeStampProtos {
       return hash;
     }
 
-    public static com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos.MeasureRequestTimeStamp parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+    public static com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos
+            .MeasureRequestTimeStamp
+        parseFrom(java.nio.ByteBuffer data)
+            throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos.MeasureRequestTimeStamp parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+
+    public static com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos
+            .MeasureRequestTimeStamp
+        parseFrom(
+            java.nio.ByteBuffer data, com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos.MeasureRequestTimeStamp parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+
+    public static com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos
+            .MeasureRequestTimeStamp
+        parseFrom(com.google.protobuf.ByteString data)
+            throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos.MeasureRequestTimeStamp parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+
+    public static com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos
+            .MeasureRequestTimeStamp
+        parseFrom(
+            com.google.protobuf.ByteString data,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos.MeasureRequestTimeStamp parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+
+    public static com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos
+            .MeasureRequestTimeStamp
+        parseFrom(byte[] data) throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos.MeasureRequestTimeStamp parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+
+    public static com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos
+            .MeasureRequestTimeStamp
+        parseFrom(byte[] data, com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos.MeasureRequestTimeStamp parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
+
+    public static com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos
+            .MeasureRequestTimeStamp
+        parseFrom(java.io.InputStream input) throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3.parseWithIOException(PARSER, input);
     }
-    public static com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos.MeasureRequestTimeStamp parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
+
+    public static com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos
+            .MeasureRequestTimeStamp
+        parseFrom(
+            java.io.InputStream input, com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3.parseWithIOException(
+          PARSER, input, extensionRegistry);
     }
-    public static com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos.MeasureRequestTimeStamp parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
+
+    public static com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos
+            .MeasureRequestTimeStamp
+        parseDelimitedFrom(java.io.InputStream input) throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3.parseDelimitedWithIOException(PARSER, input);
     }
-    public static com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos.MeasureRequestTimeStamp parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+
+    public static com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos
+            .MeasureRequestTimeStamp
+        parseDelimitedFrom(
+            java.io.InputStream input, com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3.parseDelimitedWithIOException(
+          PARSER, input, extensionRegistry);
     }
-    public static com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos.MeasureRequestTimeStamp parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
+
+    public static com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos
+            .MeasureRequestTimeStamp
+        parseFrom(com.google.protobuf.CodedInputStream input) throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3.parseWithIOException(PARSER, input);
     }
-    public static com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos.MeasureRequestTimeStamp parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
+
+    public static com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos
+            .MeasureRequestTimeStamp
+        parseFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3.parseWithIOException(
+          PARSER, input, extensionRegistry);
     }
 
     @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
+    public Builder newBuilderForType() {
+      return newBuilder();
+    }
+
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos.MeasureRequestTimeStamp prototype) {
+
+    public static Builder newBuilder(
+        com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos
+                .MeasureRequestTimeStamp
+            prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+
     @java.lang.Override
     public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
+      return this == DEFAULT_INSTANCE ? new Builder() : new Builder().mergeFrom(this);
     }
 
     @java.lang.Override
@@ -297,41 +321,45 @@ public final class MeasureRequestTimeStampProtos {
       Builder builder = new Builder(parent);
       return builder;
     }
-    /**
-     * Protobuf type {@code gateway.MeasureRequestTimeStamp}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+    /** Protobuf type {@code gateway.MeasureRequestTimeStamp} */
+    public static final class Builder
+        extends com.google.protobuf.GeneratedMessageV3.Builder<Builder>
+        implements
         // @@protoc_insertion_point(builder_implements:gateway.MeasureRequestTimeStamp)
-        com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos.MeasureRequestTimeStampOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos.internal_static_gateway_MeasureRequestTimeStamp_descriptor;
+        com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos
+            .MeasureRequestTimeStampOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor getDescriptor() {
+        return com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos
+            .internal_static_gateway_MeasureRequestTimeStamp_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos.internal_static_gateway_MeasureRequestTimeStamp_fieldAccessorTable
+        return com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos
+            .internal_static_gateway_MeasureRequestTimeStamp_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos.MeasureRequestTimeStamp.class, com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos.MeasureRequestTimeStamp.Builder.class);
+                com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos
+                    .MeasureRequestTimeStamp.class,
+                com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos
+                    .MeasureRequestTimeStamp.Builder.class);
       }
 
-      // Construct using com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos.MeasureRequestTimeStamp.newBuilder()
+      // Construct using
+      // com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos.MeasureRequestTimeStamp.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
 
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      private Builder(com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
+
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
+        if (com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders) {}
       }
+
       @java.lang.Override
       public Builder clear() {
         super.clear();
@@ -345,19 +373,26 @@ public final class MeasureRequestTimeStampProtos {
       }
 
       @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos.internal_static_gateway_MeasureRequestTimeStamp_descriptor;
+      public com.google.protobuf.Descriptors.Descriptor getDescriptorForType() {
+        return com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos
+            .internal_static_gateway_MeasureRequestTimeStamp_descriptor;
       }
 
       @java.lang.Override
-      public com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos.MeasureRequestTimeStamp getDefaultInstanceForType() {
-        return com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos.MeasureRequestTimeStamp.getDefaultInstance();
+      public com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos
+              .MeasureRequestTimeStamp
+          getDefaultInstanceForType() {
+        return com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos
+            .MeasureRequestTimeStamp.getDefaultInstance();
       }
 
       @java.lang.Override
-      public com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos.MeasureRequestTimeStamp build() {
-        com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos.MeasureRequestTimeStamp result = buildPartial();
+      public com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos
+              .MeasureRequestTimeStamp
+          build() {
+        com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos
+                .MeasureRequestTimeStamp
+            result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -365,8 +400,14 @@ public final class MeasureRequestTimeStampProtos {
       }
 
       @java.lang.Override
-      public com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos.MeasureRequestTimeStamp buildPartial() {
-        com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos.MeasureRequestTimeStamp result = new com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos.MeasureRequestTimeStamp(this);
+      public com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos
+              .MeasureRequestTimeStamp
+          buildPartial() {
+        com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos
+                .MeasureRequestTimeStamp
+            result =
+                new com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos
+                    .MeasureRequestTimeStamp(this);
         if (timestampBuilder_ == null) {
           result.timestamp_ = timestamp_;
         } else {
@@ -380,46 +421,60 @@ public final class MeasureRequestTimeStampProtos {
       public Builder clone() {
         return (Builder) super.clone();
       }
+
       @java.lang.Override
       public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          com.google.protobuf.Descriptors.FieldDescriptor field, java.lang.Object value) {
         return (Builder) super.setField(field, value);
       }
+
       @java.lang.Override
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
+      public Builder clearField(com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
+
       @java.lang.Override
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+      public Builder clearOneof(com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
+
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
+          int index,
+          java.lang.Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
+
       @java.lang.Override
       public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          com.google.protobuf.Descriptors.FieldDescriptor field, java.lang.Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
+
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos.MeasureRequestTimeStamp) {
-          return mergeFrom((com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos.MeasureRequestTimeStamp)other);
+        if (other
+            instanceof
+            com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos
+                .MeasureRequestTimeStamp) {
+          return mergeFrom(
+              (com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos
+                      .MeasureRequestTimeStamp)
+                  other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos.MeasureRequestTimeStamp other) {
-        if (other == com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos.MeasureRequestTimeStamp.getDefaultInstance()) return this;
+      public Builder mergeFrom(
+          com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos
+                  .MeasureRequestTimeStamp
+              other) {
+        if (other
+            == com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos
+                .MeasureRequestTimeStamp.getDefaultInstance()) return this;
         if (other.hasTimestamp()) {
           mergeTimestamp(other.getTimestamp());
         }
@@ -438,11 +493,16 @@ public final class MeasureRequestTimeStampProtos {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos.MeasureRequestTimeStamp parsedMessage = null;
+        com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos
+                .MeasureRequestTimeStamp
+            parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos.MeasureRequestTimeStamp) e.getUnfinishedMessage();
+          parsedMessage =
+              (com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos
+                      .MeasureRequestTimeStamp)
+                  e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -454,26 +514,25 @@ public final class MeasureRequestTimeStampProtos {
 
       private com.google.protobuf.Timestamp timestamp_ = null;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> timestampBuilder_;
-      /**
-       * <code>.google.protobuf.Timestamp timestamp = 1;</code>
-       */
+              com.google.protobuf.Timestamp,
+              com.google.protobuf.Timestamp.Builder,
+              com.google.protobuf.TimestampOrBuilder>
+          timestampBuilder_;
+      /** <code>.google.protobuf.Timestamp timestamp = 1;</code> */
       public boolean hasTimestamp() {
         return timestampBuilder_ != null || timestamp_ != null;
       }
-      /**
-       * <code>.google.protobuf.Timestamp timestamp = 1;</code>
-       */
+      /** <code>.google.protobuf.Timestamp timestamp = 1;</code> */
       public com.google.protobuf.Timestamp getTimestamp() {
         if (timestampBuilder_ == null) {
-          return timestamp_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : timestamp_;
+          return timestamp_ == null
+              ? com.google.protobuf.Timestamp.getDefaultInstance()
+              : timestamp_;
         } else {
           return timestampBuilder_.getMessage();
         }
       }
-      /**
-       * <code>.google.protobuf.Timestamp timestamp = 1;</code>
-       */
+      /** <code>.google.protobuf.Timestamp timestamp = 1;</code> */
       public Builder setTimestamp(com.google.protobuf.Timestamp value) {
         if (timestampBuilder_ == null) {
           if (value == null) {
@@ -487,11 +546,8 @@ public final class MeasureRequestTimeStampProtos {
 
         return this;
       }
-      /**
-       * <code>.google.protobuf.Timestamp timestamp = 1;</code>
-       */
-      public Builder setTimestamp(
-          com.google.protobuf.Timestamp.Builder builderForValue) {
+      /** <code>.google.protobuf.Timestamp timestamp = 1;</code> */
+      public Builder setTimestamp(com.google.protobuf.Timestamp.Builder builderForValue) {
         if (timestampBuilder_ == null) {
           timestamp_ = builderForValue.build();
           onChanged();
@@ -501,14 +557,14 @@ public final class MeasureRequestTimeStampProtos {
 
         return this;
       }
-      /**
-       * <code>.google.protobuf.Timestamp timestamp = 1;</code>
-       */
+      /** <code>.google.protobuf.Timestamp timestamp = 1;</code> */
       public Builder mergeTimestamp(com.google.protobuf.Timestamp value) {
         if (timestampBuilder_ == null) {
           if (timestamp_ != null) {
             timestamp_ =
-              com.google.protobuf.Timestamp.newBuilder(timestamp_).mergeFrom(value).buildPartial();
+                com.google.protobuf.Timestamp.newBuilder(timestamp_)
+                    .mergeFrom(value)
+                    .buildPartial();
           } else {
             timestamp_ = value;
           }
@@ -519,9 +575,7 @@ public final class MeasureRequestTimeStampProtos {
 
         return this;
       }
-      /**
-       * <code>.google.protobuf.Timestamp timestamp = 1;</code>
-       */
+      /** <code>.google.protobuf.Timestamp timestamp = 1;</code> */
       public Builder clearTimestamp() {
         if (timestampBuilder_ == null) {
           timestamp_ = null;
@@ -533,41 +587,40 @@ public final class MeasureRequestTimeStampProtos {
 
         return this;
       }
-      /**
-       * <code>.google.protobuf.Timestamp timestamp = 1;</code>
-       */
+      /** <code>.google.protobuf.Timestamp timestamp = 1;</code> */
       public com.google.protobuf.Timestamp.Builder getTimestampBuilder() {
-        
+
         onChanged();
         return getTimestampFieldBuilder().getBuilder();
       }
-      /**
-       * <code>.google.protobuf.Timestamp timestamp = 1;</code>
-       */
+      /** <code>.google.protobuf.Timestamp timestamp = 1;</code> */
       public com.google.protobuf.TimestampOrBuilder getTimestampOrBuilder() {
         if (timestampBuilder_ != null) {
           return timestampBuilder_.getMessageOrBuilder();
         } else {
-          return timestamp_ == null ?
-              com.google.protobuf.Timestamp.getDefaultInstance() : timestamp_;
+          return timestamp_ == null
+              ? com.google.protobuf.Timestamp.getDefaultInstance()
+              : timestamp_;
         }
       }
-      /**
-       * <code>.google.protobuf.Timestamp timestamp = 1;</code>
-       */
+      /** <code>.google.protobuf.Timestamp timestamp = 1;</code> */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> 
+              com.google.protobuf.Timestamp,
+              com.google.protobuf.Timestamp.Builder,
+              com.google.protobuf.TimestampOrBuilder>
           getTimestampFieldBuilder() {
         if (timestampBuilder_ == null) {
-          timestampBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder>(
-                  getTimestamp(),
-                  getParentForChildren(),
-                  isClean());
+          timestampBuilder_ =
+              new com.google.protobuf.SingleFieldBuilderV3<
+                  com.google.protobuf.Timestamp,
+                  com.google.protobuf.Timestamp.Builder,
+                  com.google.protobuf.TimestampOrBuilder>(
+                  getTimestamp(), getParentForChildren(), isClean());
           timestamp_ = null;
         }
         return timestampBuilder_;
       }
+
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -580,30 +633,36 @@ public final class MeasureRequestTimeStampProtos {
         return super.mergeUnknownFields(unknownFields);
       }
 
-
       // @@protoc_insertion_point(builder_scope:gateway.MeasureRequestTimeStamp)
     }
 
     // @@protoc_insertion_point(class_scope:gateway.MeasureRequestTimeStamp)
-    private static final com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos.MeasureRequestTimeStamp DEFAULT_INSTANCE;
+    private static final com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos
+            .MeasureRequestTimeStamp
+        DEFAULT_INSTANCE;
+
     static {
-      DEFAULT_INSTANCE = new com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos.MeasureRequestTimeStamp();
+      DEFAULT_INSTANCE =
+          new com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos
+              .MeasureRequestTimeStamp();
     }
 
-    public static com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos.MeasureRequestTimeStamp getDefaultInstance() {
+    public static com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos
+            .MeasureRequestTimeStamp
+        getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<MeasureRequestTimeStamp>
-        PARSER = new com.google.protobuf.AbstractParser<MeasureRequestTimeStamp>() {
-      @java.lang.Override
-      public MeasureRequestTimeStamp parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new MeasureRequestTimeStamp(input, extensionRegistry);
-      }
-    };
+    private static final com.google.protobuf.Parser<MeasureRequestTimeStamp> PARSER =
+        new com.google.protobuf.AbstractParser<MeasureRequestTimeStamp>() {
+          @java.lang.Override
+          public MeasureRequestTimeStamp parsePartialFrom(
+              com.google.protobuf.CodedInputStream input,
+              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+              throws com.google.protobuf.InvalidProtocolBufferException {
+            return new MeasureRequestTimeStamp(input, extensionRegistry);
+          }
+        };
 
     public static com.google.protobuf.Parser<MeasureRequestTimeStamp> parser() {
       return PARSER;
@@ -615,52 +674,55 @@ public final class MeasureRequestTimeStampProtos {
     }
 
     @java.lang.Override
-    public com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos.MeasureRequestTimeStamp getDefaultInstanceForType() {
+    public com.sap.iotservices.common.protobuf.gateway.MeasureRequestTimeStampProtos
+            .MeasureRequestTimeStamp
+        getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
-
   }
 
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_gateway_MeasureRequestTimeStamp_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_gateway_MeasureRequestTimeStamp_descriptor;
+  private static final com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_gateway_MeasureRequestTimeStamp_fieldAccessorTable;
 
-  public static com.google.protobuf.Descriptors.FileDescriptor
-      getDescriptor() {
+  public static com.google.protobuf.Descriptors.FileDescriptor getDescriptor() {
     return descriptor;
   }
-  private static  com.google.protobuf.Descriptors.FileDescriptor
-      descriptor;
+
+  private static com.google.protobuf.Descriptors.FileDescriptor descriptor;
+
   static {
     java.lang.String[] descriptorData = {
-      "\n\035MeasureRequestTimeStamp.proto\022\007gateway" +
-      "\032\037google/protobuf/timestamp.proto\"H\n\027Mea" +
-      "sureRequestTimeStamp\022-\n\ttimestamp\030\001 \001(\0132" +
-      "\032.google.protobuf.TimestampBL\n+com.sap.i" +
-      "otservices.common.protobuf.gatewayB\035Meas" +
-      "ureRequestTimeStampProtosb\006proto3"
+      "\n\035MeasureRequestTimeStamp.proto\022\007gateway"
+          + "\032\037google/protobuf/timestamp.proto\"H\n\027Mea"
+          + "sureRequestTimeStamp\022-\n\ttimestamp\030\001 \001(\0132"
+          + "\032.google.protobuf.TimestampBL\n+com.sap.i"
+          + "otservices.common.protobuf.gatewayB\035Meas"
+          + "ureRequestTimeStampProtosb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
-        new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
+        new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
           public com.google.protobuf.ExtensionRegistry assignDescriptors(
               com.google.protobuf.Descriptors.FileDescriptor root) {
             descriptor = root;
             return null;
           }
         };
-    com.google.protobuf.Descriptors.FileDescriptor
-      .internalBuildGeneratedFileFrom(descriptorData,
+    com.google.protobuf.Descriptors.FileDescriptor.internalBuildGeneratedFileFrom(
+        descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.google.protobuf.TimestampProto.getDescriptor(),
-        }, assigner);
+        },
+        assigner);
     internal_static_gateway_MeasureRequestTimeStamp_descriptor =
-      getDescriptor().getMessageTypes().get(0);
-    internal_static_gateway_MeasureRequestTimeStamp_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_gateway_MeasureRequestTimeStamp_descriptor,
-        new java.lang.String[] { "Timestamp", });
+        getDescriptor().getMessageTypes().get(0);
+    internal_static_gateway_MeasureRequestTimeStamp_fieldAccessorTable =
+        new com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+            internal_static_gateway_MeasureRequestTimeStamp_descriptor,
+            new java.lang.String[] {
+              "Timestamp",
+            });
     com.google.protobuf.TimestampProto.getDescriptor();
   }
 

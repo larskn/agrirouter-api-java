@@ -1,5 +1,7 @@
 package com.dke.data.agrirouter.impl.messaging.helper;
 
+import static com.dke.data.agrirouter.impl.RequestFactory.MEDIA_TYPE_PROTOBUF;
+
 import agrirouter.feed.request.FeedRequests;
 import agrirouter.request.Request;
 import com.dke.data.agrirouter.api.dto.encoding.EncodeMessageResponse;
@@ -17,11 +19,8 @@ import com.dke.data.agrirouter.impl.messaging.rest.MessageSender;
 import com.dke.data.agrirouter.impl.validation.ResponseValidator;
 import java.util.Collections;
 import java.util.Objects;
-import org.apache.http.HttpStatus;
-
 import javax.ws.rs.core.MediaType;
-
-import static com.dke.data.agrirouter.impl.RequestFactory.MEDIA_TYPE_PROTOBUF;
+import org.apache.http.HttpStatus;
 
 public class MessageQueryService extends NonEnvironmentalService
     implements MessageSender, ResponseValidator {
@@ -41,6 +40,7 @@ public class MessageQueryService extends NonEnvironmentalService
   public MediaType getResponseFormat() {
     return mediaType;
   }
+
   private final EncodeMessageService encodeMessageService;
   private final TechnicalMessageType technicalMessageType;
 

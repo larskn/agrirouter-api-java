@@ -29,9 +29,8 @@ import com.dke.data.agrirouter.impl.messaging.encoding.DecodeMessageServiceImpl;
 import com.dke.data.agrirouter.impl.messaging.encoding.EncodeMessageServiceImpl;
 import com.dke.data.agrirouter.impl.validation.ResponseValidator;
 import java.util.*;
-import org.apache.http.HttpStatus;
-
 import javax.ws.rs.core.MediaType;
+import org.apache.http.HttpStatus;
 
 public class MessageConfirmationServiceImpl extends EnvironmentalService
     implements MessageConfirmationService, MessageSender, ResponseValidator {
@@ -102,7 +101,8 @@ public class MessageConfirmationServiceImpl extends EnvironmentalService
         new MessageConfirmationMessageContentFactory()
             .message(messageConfirmationMessageParameters));
 
-    EncodeMessageResponse encodedMessage = this.encodeMessageService.encode(messageHeaderParameters, payloadParameters);
+    EncodeMessageResponse encodedMessage =
+        this.encodeMessageService.encode(messageHeaderParameters, payloadParameters);
     return encodedMessage;
   }
 
@@ -139,9 +139,6 @@ public class MessageConfirmationServiceImpl extends EnvironmentalService
             .forEach(feedMessage -> messageIds.add(feedMessage.getHeader().getMessageId()));
         MessageConfirmationParameters messageConfirmationParameters =
             new MessageConfirmationParameters();
-        messageConfirmationParameters.setApplicationId(parameters.getApplicationId());
-        messageConfirmationParameters.setCertificationVersionId(
-            parameters.getCertificationVersionId());
         messageConfirmationParameters.setOnboardingResponse(parameters.getOnboardingResponse());
         messageConfirmationParameters.setMessageIds(messageIds);
         this.send(messageConfirmationParameters);
@@ -152,8 +149,8 @@ public class MessageConfirmationServiceImpl extends EnvironmentalService
           decodedMessageQueryResponse =
               this.decodeMessageService.decode(
                   fetchMessageResponses.get().get(0).getCommand().getMessage());
-          if (decodedMessageQueryResponse.getResponseEnvelope().getResponseCode()
-              != HttpStatus.SC_CREATED) {
+          if ((decodedMessageQueryResponse.getResponseEnvelope().getResponseCode() < 200)
+              || (decodedMessageQueryResponse.getResponseEnvelope().getResponseCode() > 299)) {
             throw new UnexpectedHttpStatusException(
                 decodedMessageQueryResponse.getResponseEnvelope().getResponseCode(),
                 HttpStatus.SC_CREATED);

@@ -25,8 +25,8 @@ class EncodeMessageServiceImplTest {
     MessageHeaderParameters messageHeaderParameters = getMessageHeaderParameters();
     PayloadParameters payloadParameters = getPayloadParameters(toSendMessage);
 
-
-    EncodeMessageResponse encodedMessage = encodeMessageService.encode(messageHeaderParameters, payloadParameters);
+    EncodeMessageResponse encodedMessage =
+        encodeMessageService.encode(messageHeaderParameters, payloadParameters);
 
     String encodedMessageBase64 = encodedMessage.getEncodedMessageBase64();
     DecodeMessageServiceImpl decodeMessageService = new DecodeMessageServiceImpl();
@@ -44,11 +44,13 @@ class EncodeMessageServiceImplTest {
     MessageHeaderParameters messageHeaderParameters = getMessageHeaderParameters();
     PayloadParameters payloadParameters = getPayloadParameters(toSendMessage);
 
-    EncodeMessageResponse encodedMessage = encodeMessageService.encode(messageHeaderParameters, payloadParameters);
+    EncodeMessageResponse encodedMessage =
+        encodeMessageService.encode(messageHeaderParameters, payloadParameters);
 
     String encodedMessageBase64 = encodedMessage.getEncodedMessageBase64();
     DecodeMessageServiceImpl decodeMessageService = new DecodeMessageServiceImpl();
-    DecodeMessageResponse response = decodeMessageService.decode(encodedMessage.getEncodedMessageBase64());
+    DecodeMessageResponse response =
+        decodeMessageService.decode(encodedMessage.getEncodedMessageBase64());
     Assertions.assertNotEquals(
         "secretMessage",
         response.getResponsePayloadWrapper().getDetails().getValue().toStringUtf8());

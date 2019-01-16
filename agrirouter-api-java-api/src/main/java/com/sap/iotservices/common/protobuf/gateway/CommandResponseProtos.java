@@ -5,74 +5,59 @@ package com.sap.iotservices.common.protobuf.gateway;
 
 public final class CommandResponseProtos {
   private CommandResponseProtos() {}
-  public static void registerAllExtensions(
-      com.google.protobuf.ExtensionRegistryLite registry) {
+
+  public static void registerAllExtensions(com.google.protobuf.ExtensionRegistryLite registry) {}
+
+  public static void registerAllExtensions(com.google.protobuf.ExtensionRegistry registry) {
+    registerAllExtensions((com.google.protobuf.ExtensionRegistryLite) registry);
   }
 
-  public static void registerAllExtensions(
-      com.google.protobuf.ExtensionRegistry registry) {
-    registerAllExtensions(
-        (com.google.protobuf.ExtensionRegistryLite) registry);
-  }
-  public interface CommandResponseOrBuilder extends
+  public interface CommandResponseOrBuilder
+      extends
       // @@protoc_insertion_point(interface_extends:gateway.CommandResponse)
       com.google.protobuf.MessageOrBuilder {
 
-    /**
-     * <code>string capabilityAlternateId = 1;</code>
-     */
+    /** <code>string capabilityAlternateId = 1;</code> */
     java.lang.String getCapabilityAlternateId();
-    /**
-     * <code>string capabilityAlternateId = 1;</code>
-     */
-    com.google.protobuf.ByteString
-        getCapabilityAlternateIdBytes();
+    /** <code>string capabilityAlternateId = 1;</code> */
+    com.google.protobuf.ByteString getCapabilityAlternateIdBytes();
 
-    /**
-     * <code>string sensorAlternateId = 2;</code>
-     */
+    /** <code>string sensorAlternateId = 2;</code> */
     java.lang.String getSensorAlternateId();
-    /**
-     * <code>string sensorAlternateId = 2;</code>
-     */
-    com.google.protobuf.ByteString
-        getSensorAlternateIdBytes();
+    /** <code>string sensorAlternateId = 2;</code> */
+    com.google.protobuf.ByteString getSensorAlternateIdBytes();
 
-    /**
-     * <code>.gateway.CommandResponse.Command command = 3;</code>
-     */
+    /** <code>.gateway.CommandResponse.Command command = 3;</code> */
     boolean hasCommand();
-    /**
-     * <code>.gateway.CommandResponse.Command command = 3;</code>
-     */
-    com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command getCommand();
-    /**
-     * <code>.gateway.CommandResponse.Command command = 3;</code>
-     */
-    com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.CommandOrBuilder getCommandOrBuilder();
+    /** <code>.gateway.CommandResponse.Command command = 3;</code> */
+    com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command
+        getCommand();
+    /** <code>.gateway.CommandResponse.Command command = 3;</code> */
+    com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+            .CommandOrBuilder
+        getCommandOrBuilder();
   }
-  /**
-   * Protobuf type {@code gateway.CommandResponse}
-   */
-  public  static final class CommandResponse extends
-      com.google.protobuf.GeneratedMessageV3 implements
+  /** Protobuf type {@code gateway.CommandResponse} */
+  public static final class CommandResponse extends com.google.protobuf.GeneratedMessageV3
+      implements
       // @@protoc_insertion_point(message_implements:gateway.CommandResponse)
       CommandResponseOrBuilder {
-  private static final long serialVersionUID = 0L;
+    private static final long serialVersionUID = 0L;
     // Use CommandResponse.newBuilder() to construct.
     private CommandResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
+
     private CommandResponse() {
       capabilityAlternateId_ = "";
       sensorAlternateId_ = "";
     }
 
     @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
+    public final com.google.protobuf.UnknownFieldSet getUnknownFields() {
       return this.unknownFields;
     }
+
     private CommandResponse(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -92,112 +77,112 @@ public final class CommandResponseProtos {
             case 0:
               done = true;
               break;
-            case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
+            case 10:
+              {
+                java.lang.String s = input.readStringRequireUtf8();
 
-              capabilityAlternateId_ = s;
-              break;
-            }
-            case 18: {
-              java.lang.String s = input.readStringRequireUtf8();
+                capabilityAlternateId_ = s;
+                break;
+              }
+            case 18:
+              {
+                java.lang.String s = input.readStringRequireUtf8();
 
-              sensorAlternateId_ = s;
-              break;
-            }
-            case 26: {
-              com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command.Builder subBuilder = null;
-              if (command_ != null) {
-                subBuilder = command_.toBuilder();
+                sensorAlternateId_ = s;
+                break;
               }
-              command_ = input.readMessage(com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(command_);
-                command_ = subBuilder.buildPartial();
-              }
+            case 26:
+              {
+                com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+                        .Command.Builder
+                    subBuilder = null;
+                if (command_ != null) {
+                  subBuilder = command_.toBuilder();
+                }
+                command_ =
+                    input.readMessage(
+                        com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos
+                            .CommandResponse.Command.parser(),
+                        extensionRegistry);
+                if (subBuilder != null) {
+                  subBuilder.mergeFrom(command_);
+                  command_ = subBuilder.buildPartial();
+                }
 
-              break;
-            }
-            default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
+                break;
               }
-              break;
-            }
+            default:
+              {
+                if (!parseUnknownFieldProto3(input, unknownFields, extensionRegistry, tag)) {
+                  done = true;
+                }
+                break;
+              }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
+        throw new com.google.protobuf.InvalidProtocolBufferException(e).setUnfinishedMessage(this);
       } finally {
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.internal_static_gateway_CommandResponse_descriptor;
+
+    public static final com.google.protobuf.Descriptors.Descriptor getDescriptor() {
+      return com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos
+          .internal_static_gateway_CommandResponse_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.internal_static_gateway_CommandResponse_fieldAccessorTable
+      return com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos
+          .internal_static_gateway_CommandResponse_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.class, com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Builder.class);
+              com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+                  .class,
+              com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+                  .Builder.class);
     }
 
-    public interface CommandOrBuilder extends
+    public interface CommandOrBuilder
+        extends
         // @@protoc_insertion_point(interface_extends:gateway.CommandResponse.Command)
         com.google.protobuf.MessageOrBuilder {
 
-      /**
-       * <code>repeated .google.protobuf.Any values = 1;</code>
-       */
-      java.util.List<com.google.protobuf.Any> 
-          getValuesList();
-      /**
-       * <code>repeated .google.protobuf.Any values = 1;</code>
-       */
+      /** <code>repeated .google.protobuf.Any values = 1;</code> */
+      java.util.List<com.google.protobuf.Any> getValuesList();
+      /** <code>repeated .google.protobuf.Any values = 1;</code> */
       com.google.protobuf.Any getValues(int index);
-      /**
-       * <code>repeated .google.protobuf.Any values = 1;</code>
-       */
+      /** <code>repeated .google.protobuf.Any values = 1;</code> */
       int getValuesCount();
-      /**
-       * <code>repeated .google.protobuf.Any values = 1;</code>
-       */
-      java.util.List<? extends com.google.protobuf.AnyOrBuilder> 
-          getValuesOrBuilderList();
-      /**
-       * <code>repeated .google.protobuf.Any values = 1;</code>
-       */
-      com.google.protobuf.AnyOrBuilder getValuesOrBuilder(
-          int index);
+      /** <code>repeated .google.protobuf.Any values = 1;</code> */
+      java.util.List<? extends com.google.protobuf.AnyOrBuilder> getValuesOrBuilderList();
+      /** <code>repeated .google.protobuf.Any values = 1;</code> */
+      com.google.protobuf.AnyOrBuilder getValuesOrBuilder(int index);
     }
-    /**
-     * Protobuf type {@code gateway.CommandResponse.Command}
-     */
-    public  static final class Command extends
-        com.google.protobuf.GeneratedMessageV3 implements
+    /** Protobuf type {@code gateway.CommandResponse.Command} */
+    public static final class Command extends com.google.protobuf.GeneratedMessageV3
+        implements
         // @@protoc_insertion_point(message_implements:gateway.CommandResponse.Command)
         CommandOrBuilder {
-    private static final long serialVersionUID = 0L;
+      private static final long serialVersionUID = 0L;
       // Use Command.newBuilder() to construct.
       private Command(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
         super(builder);
       }
+
       private Command() {
         values_ = java.util.Collections.emptyList();
       }
 
       @java.lang.Override
-      public final com.google.protobuf.UnknownFieldSet
-      getUnknownFields() {
+      public final com.google.protobuf.UnknownFieldSet getUnknownFields() {
         return this.unknownFields;
       }
+
       private Command(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -217,29 +202,30 @@ public final class CommandResponseProtos {
               case 0:
                 done = true;
                 break;
-              case 10: {
-                if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
-                  values_ = new java.util.ArrayList<com.google.protobuf.Any>();
-                  mutable_bitField0_ |= 0x00000001;
+              case 10:
+                {
+                  if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+                    values_ = new java.util.ArrayList<com.google.protobuf.Any>();
+                    mutable_bitField0_ |= 0x00000001;
+                  }
+                  values_.add(
+                      input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry));
+                  break;
                 }
-                values_.add(
-                    input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry));
-                break;
-              }
-              default: {
-                if (!parseUnknownFieldProto3(
-                    input, unknownFields, extensionRegistry, tag)) {
-                  done = true;
+              default:
+                {
+                  if (!parseUnknownFieldProto3(input, unknownFields, extensionRegistry, tag)) {
+                    done = true;
+                  }
+                  break;
                 }
-                break;
-              }
             }
           }
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           throw e.setUnfinishedMessage(this);
         } catch (java.io.IOException e) {
-          throw new com.google.protobuf.InvalidProtocolBufferException(
-              e).setUnfinishedMessage(this);
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(this);
         } finally {
           if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
             values_ = java.util.Collections.unmodifiableList(values_);
@@ -248,55 +234,49 @@ public final class CommandResponseProtos {
           makeExtensionsImmutable();
         }
       }
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.internal_static_gateway_CommandResponse_Command_descriptor;
+
+      public static final com.google.protobuf.Descriptors.Descriptor getDescriptor() {
+        return com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos
+            .internal_static_gateway_CommandResponse_Command_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.internal_static_gateway_CommandResponse_Command_fieldAccessorTable
+        return com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos
+            .internal_static_gateway_CommandResponse_Command_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command.class, com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command.Builder.class);
+                com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+                    .Command.class,
+                com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+                    .Command.Builder.class);
       }
 
       public static final int VALUES_FIELD_NUMBER = 1;
       private java.util.List<com.google.protobuf.Any> values_;
-      /**
-       * <code>repeated .google.protobuf.Any values = 1;</code>
-       */
+      /** <code>repeated .google.protobuf.Any values = 1;</code> */
       public java.util.List<com.google.protobuf.Any> getValuesList() {
         return values_;
       }
-      /**
-       * <code>repeated .google.protobuf.Any values = 1;</code>
-       */
-      public java.util.List<? extends com.google.protobuf.AnyOrBuilder> 
-          getValuesOrBuilderList() {
+      /** <code>repeated .google.protobuf.Any values = 1;</code> */
+      public java.util.List<? extends com.google.protobuf.AnyOrBuilder> getValuesOrBuilderList() {
         return values_;
       }
-      /**
-       * <code>repeated .google.protobuf.Any values = 1;</code>
-       */
+      /** <code>repeated .google.protobuf.Any values = 1;</code> */
       public int getValuesCount() {
         return values_.size();
       }
-      /**
-       * <code>repeated .google.protobuf.Any values = 1;</code>
-       */
+      /** <code>repeated .google.protobuf.Any values = 1;</code> */
       public com.google.protobuf.Any getValues(int index) {
         return values_.get(index);
       }
-      /**
-       * <code>repeated .google.protobuf.Any values = 1;</code>
-       */
-      public com.google.protobuf.AnyOrBuilder getValuesOrBuilder(
-          int index) {
+      /** <code>repeated .google.protobuf.Any values = 1;</code> */
+      public com.google.protobuf.AnyOrBuilder getValuesOrBuilder(int index) {
         return values_.get(index);
       }
 
       private byte memoizedIsInitialized = -1;
+
       @java.lang.Override
       public final boolean isInitialized() {
         byte isInitialized = memoizedIsInitialized;
@@ -308,8 +288,7 @@ public final class CommandResponseProtos {
       }
 
       @java.lang.Override
-      public void writeTo(com.google.protobuf.CodedOutputStream output)
-                          throws java.io.IOException {
+      public void writeTo(com.google.protobuf.CodedOutputStream output) throws java.io.IOException {
         for (int i = 0; i < values_.size(); i++) {
           output.writeMessage(1, values_.get(i));
         }
@@ -323,8 +302,7 @@ public final class CommandResponseProtos {
 
         size = 0;
         for (int i = 0; i < values_.size(); i++) {
-          size += com.google.protobuf.CodedOutputStream
-            .computeMessageSize(1, values_.get(i));
+          size += com.google.protobuf.CodedOutputStream.computeMessageSize(1, values_.get(i));
         }
         size += unknownFields.getSerializedSize();
         memoizedSize = size;
@@ -334,16 +312,22 @@ public final class CommandResponseProtos {
       @java.lang.Override
       public boolean equals(final java.lang.Object obj) {
         if (obj == this) {
-         return true;
+          return true;
         }
-        if (!(obj instanceof com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command)) {
+        if (!(obj
+            instanceof
+            com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+                .Command)) {
           return super.equals(obj);
         }
-        com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command other = (com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command) obj;
+        com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command
+            other =
+                (com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+                        .Command)
+                    obj;
 
         boolean result = true;
-        result = result && getValuesList()
-            .equals(other.getValuesList());
+        result = result && getValuesList().equals(other.getValuesList());
         result = result && unknownFields.equals(other.unknownFields);
         return result;
       }
@@ -364,88 +348,116 @@ public final class CommandResponseProtos {
         return hash;
       }
 
-      public static com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command parseFrom(
-          java.nio.ByteBuffer data)
-          throws com.google.protobuf.InvalidProtocolBufferException {
+      public static com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos
+              .CommandResponse.Command
+          parseFrom(java.nio.ByteBuffer data)
+              throws com.google.protobuf.InvalidProtocolBufferException {
         return PARSER.parseFrom(data);
       }
-      public static com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command parseFrom(
-          java.nio.ByteBuffer data,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
+
+      public static com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos
+              .CommandResponse.Command
+          parseFrom(
+              java.nio.ByteBuffer data, com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+              throws com.google.protobuf.InvalidProtocolBufferException {
         return PARSER.parseFrom(data, extensionRegistry);
       }
-      public static com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command parseFrom(
-          com.google.protobuf.ByteString data)
-          throws com.google.protobuf.InvalidProtocolBufferException {
+
+      public static com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos
+              .CommandResponse.Command
+          parseFrom(com.google.protobuf.ByteString data)
+              throws com.google.protobuf.InvalidProtocolBufferException {
         return PARSER.parseFrom(data);
       }
-      public static com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command parseFrom(
-          com.google.protobuf.ByteString data,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
+
+      public static com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos
+              .CommandResponse.Command
+          parseFrom(
+              com.google.protobuf.ByteString data,
+              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+              throws com.google.protobuf.InvalidProtocolBufferException {
         return PARSER.parseFrom(data, extensionRegistry);
       }
-      public static com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command parseFrom(byte[] data)
-          throws com.google.protobuf.InvalidProtocolBufferException {
+
+      public static com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos
+              .CommandResponse.Command
+          parseFrom(byte[] data) throws com.google.protobuf.InvalidProtocolBufferException {
         return PARSER.parseFrom(data);
       }
-      public static com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command parseFrom(
-          byte[] data,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
+
+      public static com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos
+              .CommandResponse.Command
+          parseFrom(byte[] data, com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+              throws com.google.protobuf.InvalidProtocolBufferException {
         return PARSER.parseFrom(data, extensionRegistry);
       }
-      public static com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command parseFrom(java.io.InputStream input)
-          throws java.io.IOException {
-        return com.google.protobuf.GeneratedMessageV3
-            .parseWithIOException(PARSER, input);
+
+      public static com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos
+              .CommandResponse.Command
+          parseFrom(java.io.InputStream input) throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3.parseWithIOException(PARSER, input);
       }
-      public static com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command parseFrom(
-          java.io.InputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        return com.google.protobuf.GeneratedMessageV3
-            .parseWithIOException(PARSER, input, extensionRegistry);
+
+      public static com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos
+              .CommandResponse.Command
+          parseFrom(
+              java.io.InputStream input,
+              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+              throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3.parseWithIOException(
+            PARSER, input, extensionRegistry);
       }
-      public static com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command parseDelimitedFrom(java.io.InputStream input)
-          throws java.io.IOException {
-        return com.google.protobuf.GeneratedMessageV3
-            .parseDelimitedWithIOException(PARSER, input);
+
+      public static com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos
+              .CommandResponse.Command
+          parseDelimitedFrom(java.io.InputStream input) throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3.parseDelimitedWithIOException(PARSER, input);
       }
-      public static com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command parseDelimitedFrom(
-          java.io.InputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        return com.google.protobuf.GeneratedMessageV3
-            .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+
+      public static com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos
+              .CommandResponse.Command
+          parseDelimitedFrom(
+              java.io.InputStream input,
+              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+              throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3.parseDelimitedWithIOException(
+            PARSER, input, extensionRegistry);
       }
-      public static com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command parseFrom(
-          com.google.protobuf.CodedInputStream input)
-          throws java.io.IOException {
-        return com.google.protobuf.GeneratedMessageV3
-            .parseWithIOException(PARSER, input);
+
+      public static com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos
+              .CommandResponse.Command
+          parseFrom(com.google.protobuf.CodedInputStream input) throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3.parseWithIOException(PARSER, input);
       }
-      public static com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command parseFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        return com.google.protobuf.GeneratedMessageV3
-            .parseWithIOException(PARSER, input, extensionRegistry);
+
+      public static com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos
+              .CommandResponse.Command
+          parseFrom(
+              com.google.protobuf.CodedInputStream input,
+              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+              throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3.parseWithIOException(
+            PARSER, input, extensionRegistry);
       }
 
       @java.lang.Override
-      public Builder newBuilderForType() { return newBuilder(); }
+      public Builder newBuilderForType() {
+        return newBuilder();
+      }
+
       public static Builder newBuilder() {
         return DEFAULT_INSTANCE.toBuilder();
       }
-      public static Builder newBuilder(com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command prototype) {
+
+      public static Builder newBuilder(
+          com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command
+              prototype) {
         return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
       }
+
       @java.lang.Override
       public Builder toBuilder() {
-        return this == DEFAULT_INSTANCE
-            ? new Builder() : new Builder().mergeFrom(this);
+        return this == DEFAULT_INSTANCE ? new Builder() : new Builder().mergeFrom(this);
       }
 
       @java.lang.Override
@@ -454,42 +466,47 @@ public final class CommandResponseProtos {
         Builder builder = new Builder(parent);
         return builder;
       }
-      /**
-       * Protobuf type {@code gateway.CommandResponse.Command}
-       */
-      public static final class Builder extends
-          com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+      /** Protobuf type {@code gateway.CommandResponse.Command} */
+      public static final class Builder
+          extends com.google.protobuf.GeneratedMessageV3.Builder<Builder>
+          implements
           // @@protoc_insertion_point(builder_implements:gateway.CommandResponse.Command)
-          com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.CommandOrBuilder {
-        public static final com.google.protobuf.Descriptors.Descriptor
-            getDescriptor() {
-          return com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.internal_static_gateway_CommandResponse_Command_descriptor;
+          com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+              .CommandOrBuilder {
+        public static final com.google.protobuf.Descriptors.Descriptor getDescriptor() {
+          return com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos
+              .internal_static_gateway_CommandResponse_Command_descriptor;
         }
 
         @java.lang.Override
         protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
             internalGetFieldAccessorTable() {
-          return com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.internal_static_gateway_CommandResponse_Command_fieldAccessorTable
+          return com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos
+              .internal_static_gateway_CommandResponse_Command_fieldAccessorTable
               .ensureFieldAccessorsInitialized(
-                  com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command.class, com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command.Builder.class);
+                  com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+                      .Command.class,
+                  com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+                      .Command.Builder.class);
         }
 
-        // Construct using com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command.newBuilder()
+        // Construct using
+        // com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command.newBuilder()
         private Builder() {
           maybeForceBuilderInitialization();
         }
 
-        private Builder(
-            com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        private Builder(com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
           super(parent);
           maybeForceBuilderInitialization();
         }
+
         private void maybeForceBuilderInitialization() {
-          if (com.google.protobuf.GeneratedMessageV3
-                  .alwaysUseFieldBuilders) {
+          if (com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders) {
             getValuesFieldBuilder();
           }
         }
+
         @java.lang.Override
         public Builder clear() {
           super.clear();
@@ -503,19 +520,25 @@ public final class CommandResponseProtos {
         }
 
         @java.lang.Override
-        public com.google.protobuf.Descriptors.Descriptor
-            getDescriptorForType() {
-          return com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.internal_static_gateway_CommandResponse_Command_descriptor;
+        public com.google.protobuf.Descriptors.Descriptor getDescriptorForType() {
+          return com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos
+              .internal_static_gateway_CommandResponse_Command_descriptor;
         }
 
         @java.lang.Override
-        public com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command getDefaultInstanceForType() {
-          return com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command.getDefaultInstance();
+        public com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+                .Command
+            getDefaultInstanceForType() {
+          return com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+              .Command.getDefaultInstance();
         }
 
         @java.lang.Override
-        public com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command build() {
-          com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command result = buildPartial();
+        public com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+                .Command
+            build() {
+          com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command
+              result = buildPartial();
           if (!result.isInitialized()) {
             throw newUninitializedMessageException(result);
           }
@@ -523,8 +546,13 @@ public final class CommandResponseProtos {
         }
 
         @java.lang.Override
-        public com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command buildPartial() {
-          com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command result = new com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command(this);
+        public com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+                .Command
+            buildPartial() {
+          com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command
+              result =
+                  new com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos
+                      .CommandResponse.Command(this);
           int from_bitField0_ = bitField0_;
           if (valuesBuilder_ == null) {
             if (((bitField0_ & 0x00000001) == 0x00000001)) {
@@ -543,46 +571,60 @@ public final class CommandResponseProtos {
         public Builder clone() {
           return (Builder) super.clone();
         }
+
         @java.lang.Override
         public Builder setField(
-            com.google.protobuf.Descriptors.FieldDescriptor field,
-            java.lang.Object value) {
+            com.google.protobuf.Descriptors.FieldDescriptor field, java.lang.Object value) {
           return (Builder) super.setField(field, value);
         }
+
         @java.lang.Override
-        public Builder clearField(
-            com.google.protobuf.Descriptors.FieldDescriptor field) {
+        public Builder clearField(com.google.protobuf.Descriptors.FieldDescriptor field) {
           return (Builder) super.clearField(field);
         }
+
         @java.lang.Override
-        public Builder clearOneof(
-            com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        public Builder clearOneof(com.google.protobuf.Descriptors.OneofDescriptor oneof) {
           return (Builder) super.clearOneof(oneof);
         }
+
         @java.lang.Override
         public Builder setRepeatedField(
             com.google.protobuf.Descriptors.FieldDescriptor field,
-            int index, java.lang.Object value) {
+            int index,
+            java.lang.Object value) {
           return (Builder) super.setRepeatedField(field, index, value);
         }
+
         @java.lang.Override
         public Builder addRepeatedField(
-            com.google.protobuf.Descriptors.FieldDescriptor field,
-            java.lang.Object value) {
+            com.google.protobuf.Descriptors.FieldDescriptor field, java.lang.Object value) {
           return (Builder) super.addRepeatedField(field, value);
         }
+
         @java.lang.Override
         public Builder mergeFrom(com.google.protobuf.Message other) {
-          if (other instanceof com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command) {
-            return mergeFrom((com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command)other);
+          if (other
+              instanceof
+              com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+                  .Command) {
+            return mergeFrom(
+                (com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+                        .Command)
+                    other);
           } else {
             super.mergeFrom(other);
             return this;
           }
         }
 
-        public Builder mergeFrom(com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command other) {
-          if (other == com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command.getDefaultInstance()) return this;
+        public Builder mergeFrom(
+            com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+                    .Command
+                other) {
+          if (other
+              == com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+                  .Command.getDefaultInstance()) return this;
           if (valuesBuilder_ == null) {
             if (!other.values_.isEmpty()) {
               if (values_.isEmpty()) {
@@ -601,9 +643,10 @@ public final class CommandResponseProtos {
                 valuesBuilder_ = null;
                 values_ = other.values_;
                 bitField0_ = (bitField0_ & ~0x00000001);
-                valuesBuilder_ = 
-                  com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
-                     getValuesFieldBuilder() : null;
+                valuesBuilder_ =
+                    com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders
+                        ? getValuesFieldBuilder()
+                        : null;
               } else {
                 valuesBuilder_.addAllMessages(other.values_);
               }
@@ -624,11 +667,15 @@ public final class CommandResponseProtos {
             com.google.protobuf.CodedInputStream input,
             com.google.protobuf.ExtensionRegistryLite extensionRegistry)
             throws java.io.IOException {
-          com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command parsedMessage = null;
+          com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command
+              parsedMessage = null;
           try {
             parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
           } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-            parsedMessage = (com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command) e.getUnfinishedMessage();
+            parsedMessage =
+                (com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+                        .Command)
+                    e.getUnfinishedMessage();
             throw e.unwrapIOException();
           } finally {
             if (parsedMessage != null) {
@@ -637,23 +684,25 @@ public final class CommandResponseProtos {
           }
           return this;
         }
+
         private int bitField0_;
 
-        private java.util.List<com.google.protobuf.Any> values_ =
-          java.util.Collections.emptyList();
+        private java.util.List<com.google.protobuf.Any> values_ = java.util.Collections.emptyList();
+
         private void ensureValuesIsMutable() {
           if (!((bitField0_ & 0x00000001) == 0x00000001)) {
             values_ = new java.util.ArrayList<com.google.protobuf.Any>(values_);
             bitField0_ |= 0x00000001;
-           }
+          }
         }
 
         private com.google.protobuf.RepeatedFieldBuilderV3<
-            com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> valuesBuilder_;
+                com.google.protobuf.Any,
+                com.google.protobuf.Any.Builder,
+                com.google.protobuf.AnyOrBuilder>
+            valuesBuilder_;
 
-        /**
-         * <code>repeated .google.protobuf.Any values = 1;</code>
-         */
+        /** <code>repeated .google.protobuf.Any values = 1;</code> */
         public java.util.List<com.google.protobuf.Any> getValuesList() {
           if (valuesBuilder_ == null) {
             return java.util.Collections.unmodifiableList(values_);
@@ -661,9 +710,7 @@ public final class CommandResponseProtos {
             return valuesBuilder_.getMessageList();
           }
         }
-        /**
-         * <code>repeated .google.protobuf.Any values = 1;</code>
-         */
+        /** <code>repeated .google.protobuf.Any values = 1;</code> */
         public int getValuesCount() {
           if (valuesBuilder_ == null) {
             return values_.size();
@@ -671,9 +718,7 @@ public final class CommandResponseProtos {
             return valuesBuilder_.getCount();
           }
         }
-        /**
-         * <code>repeated .google.protobuf.Any values = 1;</code>
-         */
+        /** <code>repeated .google.protobuf.Any values = 1;</code> */
         public com.google.protobuf.Any getValues(int index) {
           if (valuesBuilder_ == null) {
             return values_.get(index);
@@ -681,11 +726,8 @@ public final class CommandResponseProtos {
             return valuesBuilder_.getMessage(index);
           }
         }
-        /**
-         * <code>repeated .google.protobuf.Any values = 1;</code>
-         */
-        public Builder setValues(
-            int index, com.google.protobuf.Any value) {
+        /** <code>repeated .google.protobuf.Any values = 1;</code> */
+        public Builder setValues(int index, com.google.protobuf.Any value) {
           if (valuesBuilder_ == null) {
             if (value == null) {
               throw new NullPointerException();
@@ -698,11 +740,8 @@ public final class CommandResponseProtos {
           }
           return this;
         }
-        /**
-         * <code>repeated .google.protobuf.Any values = 1;</code>
-         */
-        public Builder setValues(
-            int index, com.google.protobuf.Any.Builder builderForValue) {
+        /** <code>repeated .google.protobuf.Any values = 1;</code> */
+        public Builder setValues(int index, com.google.protobuf.Any.Builder builderForValue) {
           if (valuesBuilder_ == null) {
             ensureValuesIsMutable();
             values_.set(index, builderForValue.build());
@@ -712,9 +751,7 @@ public final class CommandResponseProtos {
           }
           return this;
         }
-        /**
-         * <code>repeated .google.protobuf.Any values = 1;</code>
-         */
+        /** <code>repeated .google.protobuf.Any values = 1;</code> */
         public Builder addValues(com.google.protobuf.Any value) {
           if (valuesBuilder_ == null) {
             if (value == null) {
@@ -728,11 +765,8 @@ public final class CommandResponseProtos {
           }
           return this;
         }
-        /**
-         * <code>repeated .google.protobuf.Any values = 1;</code>
-         */
-        public Builder addValues(
-            int index, com.google.protobuf.Any value) {
+        /** <code>repeated .google.protobuf.Any values = 1;</code> */
+        public Builder addValues(int index, com.google.protobuf.Any value) {
           if (valuesBuilder_ == null) {
             if (value == null) {
               throw new NullPointerException();
@@ -745,11 +779,8 @@ public final class CommandResponseProtos {
           }
           return this;
         }
-        /**
-         * <code>repeated .google.protobuf.Any values = 1;</code>
-         */
-        public Builder addValues(
-            com.google.protobuf.Any.Builder builderForValue) {
+        /** <code>repeated .google.protobuf.Any values = 1;</code> */
+        public Builder addValues(com.google.protobuf.Any.Builder builderForValue) {
           if (valuesBuilder_ == null) {
             ensureValuesIsMutable();
             values_.add(builderForValue.build());
@@ -759,11 +790,8 @@ public final class CommandResponseProtos {
           }
           return this;
         }
-        /**
-         * <code>repeated .google.protobuf.Any values = 1;</code>
-         */
-        public Builder addValues(
-            int index, com.google.protobuf.Any.Builder builderForValue) {
+        /** <code>repeated .google.protobuf.Any values = 1;</code> */
+        public Builder addValues(int index, com.google.protobuf.Any.Builder builderForValue) {
           if (valuesBuilder_ == null) {
             ensureValuesIsMutable();
             values_.add(index, builderForValue.build());
@@ -773,24 +801,18 @@ public final class CommandResponseProtos {
           }
           return this;
         }
-        /**
-         * <code>repeated .google.protobuf.Any values = 1;</code>
-         */
-        public Builder addAllValues(
-            java.lang.Iterable<? extends com.google.protobuf.Any> values) {
+        /** <code>repeated .google.protobuf.Any values = 1;</code> */
+        public Builder addAllValues(java.lang.Iterable<? extends com.google.protobuf.Any> values) {
           if (valuesBuilder_ == null) {
             ensureValuesIsMutable();
-            com.google.protobuf.AbstractMessageLite.Builder.addAll(
-                values, values_);
+            com.google.protobuf.AbstractMessageLite.Builder.addAll(values, values_);
             onChanged();
           } else {
             valuesBuilder_.addAllMessages(values);
           }
           return this;
         }
-        /**
-         * <code>repeated .google.protobuf.Any values = 1;</code>
-         */
+        /** <code>repeated .google.protobuf.Any values = 1;</code> */
         public Builder clearValues() {
           if (valuesBuilder_ == null) {
             values_ = java.util.Collections.emptyList();
@@ -801,9 +823,7 @@ public final class CommandResponseProtos {
           }
           return this;
         }
-        /**
-         * <code>repeated .google.protobuf.Any values = 1;</code>
-         */
+        /** <code>repeated .google.protobuf.Any values = 1;</code> */
         public Builder removeValues(int index) {
           if (valuesBuilder_ == null) {
             ensureValuesIsMutable();
@@ -814,62 +834,51 @@ public final class CommandResponseProtos {
           }
           return this;
         }
-        /**
-         * <code>repeated .google.protobuf.Any values = 1;</code>
-         */
-        public com.google.protobuf.Any.Builder getValuesBuilder(
-            int index) {
+        /** <code>repeated .google.protobuf.Any values = 1;</code> */
+        public com.google.protobuf.Any.Builder getValuesBuilder(int index) {
           return getValuesFieldBuilder().getBuilder(index);
         }
-        /**
-         * <code>repeated .google.protobuf.Any values = 1;</code>
-         */
-        public com.google.protobuf.AnyOrBuilder getValuesOrBuilder(
-            int index) {
+        /** <code>repeated .google.protobuf.Any values = 1;</code> */
+        public com.google.protobuf.AnyOrBuilder getValuesOrBuilder(int index) {
           if (valuesBuilder_ == null) {
-            return values_.get(index);  } else {
+            return values_.get(index);
+          } else {
             return valuesBuilder_.getMessageOrBuilder(index);
           }
         }
-        /**
-         * <code>repeated .google.protobuf.Any values = 1;</code>
-         */
-        public java.util.List<? extends com.google.protobuf.AnyOrBuilder> 
-             getValuesOrBuilderList() {
+        /** <code>repeated .google.protobuf.Any values = 1;</code> */
+        public java.util.List<? extends com.google.protobuf.AnyOrBuilder> getValuesOrBuilderList() {
           if (valuesBuilder_ != null) {
             return valuesBuilder_.getMessageOrBuilderList();
           } else {
             return java.util.Collections.unmodifiableList(values_);
           }
         }
-        /**
-         * <code>repeated .google.protobuf.Any values = 1;</code>
-         */
+        /** <code>repeated .google.protobuf.Any values = 1;</code> */
         public com.google.protobuf.Any.Builder addValuesBuilder() {
-          return getValuesFieldBuilder().addBuilder(
-              com.google.protobuf.Any.getDefaultInstance());
+          return getValuesFieldBuilder().addBuilder(com.google.protobuf.Any.getDefaultInstance());
         }
-        /**
-         * <code>repeated .google.protobuf.Any values = 1;</code>
-         */
-        public com.google.protobuf.Any.Builder addValuesBuilder(
-            int index) {
-          return getValuesFieldBuilder().addBuilder(
-              index, com.google.protobuf.Any.getDefaultInstance());
+        /** <code>repeated .google.protobuf.Any values = 1;</code> */
+        public com.google.protobuf.Any.Builder addValuesBuilder(int index) {
+          return getValuesFieldBuilder()
+              .addBuilder(index, com.google.protobuf.Any.getDefaultInstance());
         }
-        /**
-         * <code>repeated .google.protobuf.Any values = 1;</code>
-         */
-        public java.util.List<com.google.protobuf.Any.Builder> 
-             getValuesBuilderList() {
+        /** <code>repeated .google.protobuf.Any values = 1;</code> */
+        public java.util.List<com.google.protobuf.Any.Builder> getValuesBuilderList() {
           return getValuesFieldBuilder().getBuilderList();
         }
+
         private com.google.protobuf.RepeatedFieldBuilderV3<
-            com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+                com.google.protobuf.Any,
+                com.google.protobuf.Any.Builder,
+                com.google.protobuf.AnyOrBuilder>
             getValuesFieldBuilder() {
           if (valuesBuilder_ == null) {
-            valuesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-                com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+            valuesBuilder_ =
+                new com.google.protobuf.RepeatedFieldBuilderV3<
+                    com.google.protobuf.Any,
+                    com.google.protobuf.Any.Builder,
+                    com.google.protobuf.AnyOrBuilder>(
                     values_,
                     ((bitField0_ & 0x00000001) == 0x00000001),
                     getParentForChildren(),
@@ -878,6 +887,7 @@ public final class CommandResponseProtos {
           }
           return valuesBuilder_;
         }
+
         @java.lang.Override
         public final Builder setUnknownFields(
             final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -890,30 +900,36 @@ public final class CommandResponseProtos {
           return super.mergeUnknownFields(unknownFields);
         }
 
-
         // @@protoc_insertion_point(builder_scope:gateway.CommandResponse.Command)
       }
 
       // @@protoc_insertion_point(class_scope:gateway.CommandResponse.Command)
-      private static final com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command DEFAULT_INSTANCE;
+      private static final com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos
+              .CommandResponse.Command
+          DEFAULT_INSTANCE;
+
       static {
-        DEFAULT_INSTANCE = new com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command();
+        DEFAULT_INSTANCE =
+            new com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+                .Command();
       }
 
-      public static com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command getDefaultInstance() {
+      public static com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos
+              .CommandResponse.Command
+          getDefaultInstance() {
         return DEFAULT_INSTANCE;
       }
 
-      private static final com.google.protobuf.Parser<Command>
-          PARSER = new com.google.protobuf.AbstractParser<Command>() {
-        @java.lang.Override
-        public Command parsePartialFrom(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
-          return new Command(input, extensionRegistry);
-        }
-      };
+      private static final com.google.protobuf.Parser<Command> PARSER =
+          new com.google.protobuf.AbstractParser<Command>() {
+            @java.lang.Override
+            public Command parsePartialFrom(
+                com.google.protobuf.CodedInputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+              return new Command(input, extensionRegistry);
+            }
+          };
 
       public static com.google.protobuf.Parser<Command> parser() {
         return PARSER;
@@ -925,39 +941,33 @@ public final class CommandResponseProtos {
       }
 
       @java.lang.Override
-      public com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command getDefaultInstanceForType() {
+      public com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+              .Command
+          getDefaultInstanceForType() {
         return DEFAULT_INSTANCE;
       }
-
     }
 
     public static final int CAPABILITYALTERNATEID_FIELD_NUMBER = 1;
     private volatile java.lang.Object capabilityAlternateId_;
-    /**
-     * <code>string capabilityAlternateId = 1;</code>
-     */
+    /** <code>string capabilityAlternateId = 1;</code> */
     public java.lang.String getCapabilityAlternateId() {
       java.lang.Object ref = capabilityAlternateId_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
+        com.google.protobuf.ByteString bs = (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
         capabilityAlternateId_ = s;
         return s;
       }
     }
-    /**
-     * <code>string capabilityAlternateId = 1;</code>
-     */
-    public com.google.protobuf.ByteString
-        getCapabilityAlternateIdBytes() {
+    /** <code>string capabilityAlternateId = 1;</code> */
+    public com.google.protobuf.ByteString getCapabilityAlternateIdBytes() {
       java.lang.Object ref = capabilityAlternateId_;
       if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+        com.google.protobuf.ByteString b =
+            com.google.protobuf.ByteString.copyFromUtf8((java.lang.String) ref);
         capabilityAlternateId_ = b;
         return b;
       } else {
@@ -967,31 +977,24 @@ public final class CommandResponseProtos {
 
     public static final int SENSORALTERNATEID_FIELD_NUMBER = 2;
     private volatile java.lang.Object sensorAlternateId_;
-    /**
-     * <code>string sensorAlternateId = 2;</code>
-     */
+    /** <code>string sensorAlternateId = 2;</code> */
     public java.lang.String getSensorAlternateId() {
       java.lang.Object ref = sensorAlternateId_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
+        com.google.protobuf.ByteString bs = (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
         sensorAlternateId_ = s;
         return s;
       }
     }
-    /**
-     * <code>string sensorAlternateId = 2;</code>
-     */
-    public com.google.protobuf.ByteString
-        getSensorAlternateIdBytes() {
+    /** <code>string sensorAlternateId = 2;</code> */
+    public com.google.protobuf.ByteString getSensorAlternateIdBytes() {
       java.lang.Object ref = sensorAlternateId_;
       if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+        com.google.protobuf.ByteString b =
+            com.google.protobuf.ByteString.copyFromUtf8((java.lang.String) ref);
         sensorAlternateId_ = b;
         return b;
       } else {
@@ -1000,27 +1003,30 @@ public final class CommandResponseProtos {
     }
 
     public static final int COMMAND_FIELD_NUMBER = 3;
-    private com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command command_;
-    /**
-     * <code>.gateway.CommandResponse.Command command = 3;</code>
-     */
+    private com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+            .Command
+        command_;
+    /** <code>.gateway.CommandResponse.Command command = 3;</code> */
     public boolean hasCommand() {
       return command_ != null;
     }
-    /**
-     * <code>.gateway.CommandResponse.Command command = 3;</code>
-     */
-    public com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command getCommand() {
-      return command_ == null ? com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command.getDefaultInstance() : command_;
+    /** <code>.gateway.CommandResponse.Command command = 3;</code> */
+    public com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command
+        getCommand() {
+      return command_ == null
+          ? com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+              .Command.getDefaultInstance()
+          : command_;
     }
-    /**
-     * <code>.gateway.CommandResponse.Command command = 3;</code>
-     */
-    public com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.CommandOrBuilder getCommandOrBuilder() {
+    /** <code>.gateway.CommandResponse.Command command = 3;</code> */
+    public com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+            .CommandOrBuilder
+        getCommandOrBuilder() {
       return getCommand();
     }
 
     private byte memoizedIsInitialized = -1;
+
     @java.lang.Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -1032,8 +1038,7 @@ public final class CommandResponseProtos {
     }
 
     @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
+    public void writeTo(com.google.protobuf.CodedOutputStream output) throws java.io.IOException {
       if (!getCapabilityAlternateIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, capabilityAlternateId_);
       }
@@ -1059,8 +1064,7 @@ public final class CommandResponseProtos {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, sensorAlternateId_);
       }
       if (command_ != null) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(3, getCommand());
+        size += com.google.protobuf.CodedOutputStream.computeMessageSize(3, getCommand());
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -1070,22 +1074,22 @@ public final class CommandResponseProtos {
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
-       return true;
+        return true;
       }
-      if (!(obj instanceof com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse)) {
+      if (!(obj
+          instanceof
+          com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse)) {
         return super.equals(obj);
       }
-      com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse other = (com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse) obj;
+      com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse other =
+          (com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse) obj;
 
       boolean result = true;
-      result = result && getCapabilityAlternateId()
-          .equals(other.getCapabilityAlternateId());
-      result = result && getSensorAlternateId()
-          .equals(other.getSensorAlternateId());
+      result = result && getCapabilityAlternateId().equals(other.getCapabilityAlternateId());
+      result = result && getSensorAlternateId().equals(other.getSensorAlternateId());
       result = result && (hasCommand() == other.hasCommand());
       if (hasCommand()) {
-        result = result && getCommand()
-            .equals(other.getCommand());
+        result = result && getCommand().equals(other.getCommand());
       }
       result = result && unknownFields.equals(other.unknownFields);
       return result;
@@ -1111,88 +1115,102 @@ public final class CommandResponseProtos {
       return hash;
     }
 
-    public static com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+    public static com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+        parseFrom(java.nio.ByteBuffer data)
+            throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+
+    public static com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+        parseFrom(
+            java.nio.ByteBuffer data, com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+
+    public static com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+        parseFrom(com.google.protobuf.ByteString data)
+            throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+
+    public static com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+        parseFrom(
+            com.google.protobuf.ByteString data,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+
+    public static com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+        parseFrom(byte[] data) throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+
+    public static com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+        parseFrom(byte[] data, com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
+
+    public static com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+        parseFrom(java.io.InputStream input) throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3.parseWithIOException(PARSER, input);
     }
-    public static com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
+
+    public static com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+        parseFrom(
+            java.io.InputStream input, com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3.parseWithIOException(
+          PARSER, input, extensionRegistry);
     }
-    public static com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
+
+    public static com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+        parseDelimitedFrom(java.io.InputStream input) throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3.parseDelimitedWithIOException(PARSER, input);
     }
-    public static com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+
+    public static com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+        parseDelimitedFrom(
+            java.io.InputStream input, com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3.parseDelimitedWithIOException(
+          PARSER, input, extensionRegistry);
     }
-    public static com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
+
+    public static com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+        parseFrom(com.google.protobuf.CodedInputStream input) throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3.parseWithIOException(PARSER, input);
     }
-    public static com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
+
+    public static com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+        parseFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3.parseWithIOException(
+          PARSER, input, extensionRegistry);
     }
 
     @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
+    public Builder newBuilderForType() {
+      return newBuilder();
+    }
+
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse prototype) {
+
+    public static Builder newBuilder(
+        com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+            prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+
     @java.lang.Override
     public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
+      return this == DEFAULT_INSTANCE ? new Builder() : new Builder().mergeFrom(this);
     }
 
     @java.lang.Override
@@ -1201,41 +1219,44 @@ public final class CommandResponseProtos {
       Builder builder = new Builder(parent);
       return builder;
     }
-    /**
-     * Protobuf type {@code gateway.CommandResponse}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+    /** Protobuf type {@code gateway.CommandResponse} */
+    public static final class Builder
+        extends com.google.protobuf.GeneratedMessageV3.Builder<Builder>
+        implements
         // @@protoc_insertion_point(builder_implements:gateway.CommandResponse)
         com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponseOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.internal_static_gateway_CommandResponse_descriptor;
+      public static final com.google.protobuf.Descriptors.Descriptor getDescriptor() {
+        return com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos
+            .internal_static_gateway_CommandResponse_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.internal_static_gateway_CommandResponse_fieldAccessorTable
+        return com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos
+            .internal_static_gateway_CommandResponse_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.class, com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Builder.class);
+                com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+                    .class,
+                com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+                    .Builder.class);
       }
 
-      // Construct using com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.newBuilder()
+      // Construct using
+      // com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
 
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      private Builder(com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
+
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
+        if (com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders) {}
       }
+
       @java.lang.Override
       public Builder clear() {
         super.clear();
@@ -1253,19 +1274,23 @@ public final class CommandResponseProtos {
       }
 
       @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.internal_static_gateway_CommandResponse_descriptor;
+      public com.google.protobuf.Descriptors.Descriptor getDescriptorForType() {
+        return com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos
+            .internal_static_gateway_CommandResponse_descriptor;
       }
 
       @java.lang.Override
-      public com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse getDefaultInstanceForType() {
-        return com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.getDefaultInstance();
+      public com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+          getDefaultInstanceForType() {
+        return com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+            .getDefaultInstance();
       }
 
       @java.lang.Override
-      public com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse build() {
-        com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse result = buildPartial();
+      public com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+          build() {
+        com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse result =
+            buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -1273,8 +1298,11 @@ public final class CommandResponseProtos {
       }
 
       @java.lang.Override
-      public com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse buildPartial() {
-        com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse result = new com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse(this);
+      public com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+          buildPartial() {
+        com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse result =
+            new com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse(
+                this);
         result.capabilityAlternateId_ = capabilityAlternateId_;
         result.sensorAlternateId_ = sensorAlternateId_;
         if (commandBuilder_ == null) {
@@ -1290,46 +1318,56 @@ public final class CommandResponseProtos {
       public Builder clone() {
         return (Builder) super.clone();
       }
+
       @java.lang.Override
       public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          com.google.protobuf.Descriptors.FieldDescriptor field, java.lang.Object value) {
         return (Builder) super.setField(field, value);
       }
+
       @java.lang.Override
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
+      public Builder clearField(com.google.protobuf.Descriptors.FieldDescriptor field) {
         return (Builder) super.clearField(field);
       }
+
       @java.lang.Override
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+      public Builder clearOneof(com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return (Builder) super.clearOneof(oneof);
       }
+
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
+          int index,
+          java.lang.Object value) {
         return (Builder) super.setRepeatedField(field, index, value);
       }
+
       @java.lang.Override
       public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          com.google.protobuf.Descriptors.FieldDescriptor field, java.lang.Object value) {
         return (Builder) super.addRepeatedField(field, value);
       }
+
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse) {
-          return mergeFrom((com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse)other);
+        if (other
+            instanceof
+            com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse) {
+          return mergeFrom(
+              (com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse)
+                  other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse other) {
-        if (other == com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.getDefaultInstance()) return this;
+      public Builder mergeFrom(
+          com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse other) {
+        if (other
+            == com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+                .getDefaultInstance()) return this;
         if (!other.getCapabilityAlternateId().isEmpty()) {
           capabilityAlternateId_ = other.capabilityAlternateId_;
           onChanged();
@@ -1356,11 +1394,14 @@ public final class CommandResponseProtos {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse parsedMessage = null;
+        com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+            parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse) e.getUnfinishedMessage();
+          parsedMessage =
+              (com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse)
+                  e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -1371,14 +1412,11 @@ public final class CommandResponseProtos {
       }
 
       private java.lang.Object capabilityAlternateId_ = "";
-      /**
-       * <code>string capabilityAlternateId = 1;</code>
-       */
+      /** <code>string capabilityAlternateId = 1;</code> */
       public java.lang.String getCapabilityAlternateId() {
         java.lang.Object ref = capabilityAlternateId_;
         if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
+          com.google.protobuf.ByteString bs = (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
           capabilityAlternateId_ = s;
           return s;
@@ -1386,68 +1424,53 @@ public final class CommandResponseProtos {
           return (java.lang.String) ref;
         }
       }
-      /**
-       * <code>string capabilityAlternateId = 1;</code>
-       */
-      public com.google.protobuf.ByteString
-          getCapabilityAlternateIdBytes() {
+      /** <code>string capabilityAlternateId = 1;</code> */
+      public com.google.protobuf.ByteString getCapabilityAlternateIdBytes() {
         java.lang.Object ref = capabilityAlternateId_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
+          com.google.protobuf.ByteString b =
+              com.google.protobuf.ByteString.copyFromUtf8((java.lang.String) ref);
           capabilityAlternateId_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
-      /**
-       * <code>string capabilityAlternateId = 1;</code>
-       */
-      public Builder setCapabilityAlternateId(
-          java.lang.String value) {
+      /** <code>string capabilityAlternateId = 1;</code> */
+      public Builder setCapabilityAlternateId(java.lang.String value) {
         if (value == null) {
-    throw new NullPointerException();
-  }
-  
+          throw new NullPointerException();
+        }
+
         capabilityAlternateId_ = value;
         onChanged();
         return this;
       }
-      /**
-       * <code>string capabilityAlternateId = 1;</code>
-       */
+      /** <code>string capabilityAlternateId = 1;</code> */
       public Builder clearCapabilityAlternateId() {
-        
+
         capabilityAlternateId_ = getDefaultInstance().getCapabilityAlternateId();
         onChanged();
         return this;
       }
-      /**
-       * <code>string capabilityAlternateId = 1;</code>
-       */
-      public Builder setCapabilityAlternateIdBytes(
-          com.google.protobuf.ByteString value) {
+      /** <code>string capabilityAlternateId = 1;</code> */
+      public Builder setCapabilityAlternateIdBytes(com.google.protobuf.ByteString value) {
         if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
+          throw new NullPointerException();
+        }
+        checkByteStringIsUtf8(value);
+
         capabilityAlternateId_ = value;
         onChanged();
         return this;
       }
 
       private java.lang.Object sensorAlternateId_ = "";
-      /**
-       * <code>string sensorAlternateId = 2;</code>
-       */
+      /** <code>string sensorAlternateId = 2;</code> */
       public java.lang.String getSensorAlternateId() {
         java.lang.Object ref = sensorAlternateId_;
         if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
+          com.google.protobuf.ByteString bs = (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
           sensorAlternateId_ = s;
           return s;
@@ -1455,82 +1478,79 @@ public final class CommandResponseProtos {
           return (java.lang.String) ref;
         }
       }
-      /**
-       * <code>string sensorAlternateId = 2;</code>
-       */
-      public com.google.protobuf.ByteString
-          getSensorAlternateIdBytes() {
+      /** <code>string sensorAlternateId = 2;</code> */
+      public com.google.protobuf.ByteString getSensorAlternateIdBytes() {
         java.lang.Object ref = sensorAlternateId_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
+          com.google.protobuf.ByteString b =
+              com.google.protobuf.ByteString.copyFromUtf8((java.lang.String) ref);
           sensorAlternateId_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
-      /**
-       * <code>string sensorAlternateId = 2;</code>
-       */
-      public Builder setSensorAlternateId(
-          java.lang.String value) {
+      /** <code>string sensorAlternateId = 2;</code> */
+      public Builder setSensorAlternateId(java.lang.String value) {
         if (value == null) {
-    throw new NullPointerException();
-  }
-  
+          throw new NullPointerException();
+        }
+
         sensorAlternateId_ = value;
         onChanged();
         return this;
       }
-      /**
-       * <code>string sensorAlternateId = 2;</code>
-       */
+      /** <code>string sensorAlternateId = 2;</code> */
       public Builder clearSensorAlternateId() {
-        
+
         sensorAlternateId_ = getDefaultInstance().getSensorAlternateId();
         onChanged();
         return this;
       }
-      /**
-       * <code>string sensorAlternateId = 2;</code>
-       */
-      public Builder setSensorAlternateIdBytes(
-          com.google.protobuf.ByteString value) {
+      /** <code>string sensorAlternateId = 2;</code> */
+      public Builder setSensorAlternateIdBytes(com.google.protobuf.ByteString value) {
         if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
+          throw new NullPointerException();
+        }
+        checkByteStringIsUtf8(value);
+
         sensorAlternateId_ = value;
         onChanged();
         return this;
       }
 
-      private com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command command_ = null;
+      private com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+              .Command
+          command_ = null;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command, com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command.Builder, com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.CommandOrBuilder> commandBuilder_;
-      /**
-       * <code>.gateway.CommandResponse.Command command = 3;</code>
-       */
+              com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+                  .Command,
+              com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+                  .Command.Builder,
+              com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+                  .CommandOrBuilder>
+          commandBuilder_;
+      /** <code>.gateway.CommandResponse.Command command = 3;</code> */
       public boolean hasCommand() {
         return commandBuilder_ != null || command_ != null;
       }
-      /**
-       * <code>.gateway.CommandResponse.Command command = 3;</code>
-       */
-      public com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command getCommand() {
+      /** <code>.gateway.CommandResponse.Command command = 3;</code> */
+      public com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+              .Command
+          getCommand() {
         if (commandBuilder_ == null) {
-          return command_ == null ? com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command.getDefaultInstance() : command_;
+          return command_ == null
+              ? com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+                  .Command.getDefaultInstance()
+              : command_;
         } else {
           return commandBuilder_.getMessage();
         }
       }
-      /**
-       * <code>.gateway.CommandResponse.Command command = 3;</code>
-       */
-      public Builder setCommand(com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command value) {
+      /** <code>.gateway.CommandResponse.Command command = 3;</code> */
+      public Builder setCommand(
+          com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command
+              value) {
         if (commandBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -1543,11 +1563,11 @@ public final class CommandResponseProtos {
 
         return this;
       }
-      /**
-       * <code>.gateway.CommandResponse.Command command = 3;</code>
-       */
+      /** <code>.gateway.CommandResponse.Command command = 3;</code> */
       public Builder setCommand(
-          com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command.Builder builderForValue) {
+          com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command
+                  .Builder
+              builderForValue) {
         if (commandBuilder_ == null) {
           command_ = builderForValue.build();
           onChanged();
@@ -1557,14 +1577,17 @@ public final class CommandResponseProtos {
 
         return this;
       }
-      /**
-       * <code>.gateway.CommandResponse.Command command = 3;</code>
-       */
-      public Builder mergeCommand(com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command value) {
+      /** <code>.gateway.CommandResponse.Command command = 3;</code> */
+      public Builder mergeCommand(
+          com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command
+              value) {
         if (commandBuilder_ == null) {
           if (command_ != null) {
             command_ =
-              com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command.newBuilder(command_).mergeFrom(value).buildPartial();
+                com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+                    .Command.newBuilder(command_)
+                    .mergeFrom(value)
+                    .buildPartial();
           } else {
             command_ = value;
           }
@@ -1575,9 +1598,7 @@ public final class CommandResponseProtos {
 
         return this;
       }
-      /**
-       * <code>.gateway.CommandResponse.Command command = 3;</code>
-       */
+      /** <code>.gateway.CommandResponse.Command command = 3;</code> */
       public Builder clearCommand() {
         if (commandBuilder_ == null) {
           command_ = null;
@@ -1589,41 +1610,50 @@ public final class CommandResponseProtos {
 
         return this;
       }
-      /**
-       * <code>.gateway.CommandResponse.Command command = 3;</code>
-       */
-      public com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command.Builder getCommandBuilder() {
-        
+      /** <code>.gateway.CommandResponse.Command command = 3;</code> */
+      public com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+              .Command.Builder
+          getCommandBuilder() {
+
         onChanged();
         return getCommandFieldBuilder().getBuilder();
       }
-      /**
-       * <code>.gateway.CommandResponse.Command command = 3;</code>
-       */
-      public com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.CommandOrBuilder getCommandOrBuilder() {
+      /** <code>.gateway.CommandResponse.Command command = 3;</code> */
+      public com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+              .CommandOrBuilder
+          getCommandOrBuilder() {
         if (commandBuilder_ != null) {
           return commandBuilder_.getMessageOrBuilder();
         } else {
-          return command_ == null ?
-              com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command.getDefaultInstance() : command_;
+          return command_ == null
+              ? com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+                  .Command.getDefaultInstance()
+              : command_;
         }
       }
-      /**
-       * <code>.gateway.CommandResponse.Command command = 3;</code>
-       */
+      /** <code>.gateway.CommandResponse.Command command = 3;</code> */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command, com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command.Builder, com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.CommandOrBuilder> 
+              com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+                  .Command,
+              com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+                  .Command.Builder,
+              com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+                  .CommandOrBuilder>
           getCommandFieldBuilder() {
         if (commandBuilder_ == null) {
-          commandBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command, com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.Command.Builder, com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse.CommandOrBuilder>(
-                  getCommand(),
-                  getParentForChildren(),
-                  isClean());
+          commandBuilder_ =
+              new com.google.protobuf.SingleFieldBuilderV3<
+                  com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+                      .Command,
+                  com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+                      .Command.Builder,
+                  com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+                      .CommandOrBuilder>(getCommand(), getParentForChildren(), isClean());
           command_ = null;
         }
         return commandBuilder_;
       }
+
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -1636,30 +1666,34 @@ public final class CommandResponseProtos {
         return super.mergeUnknownFields(unknownFields);
       }
 
-
       // @@protoc_insertion_point(builder_scope:gateway.CommandResponse)
     }
 
     // @@protoc_insertion_point(class_scope:gateway.CommandResponse)
-    private static final com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse DEFAULT_INSTANCE;
+    private static final com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos
+            .CommandResponse
+        DEFAULT_INSTANCE;
+
     static {
-      DEFAULT_INSTANCE = new com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse();
+      DEFAULT_INSTANCE =
+          new com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse();
     }
 
-    public static com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse getDefaultInstance() {
+    public static com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+        getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<CommandResponse>
-        PARSER = new com.google.protobuf.AbstractParser<CommandResponse>() {
-      @java.lang.Override
-      public CommandResponse parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new CommandResponse(input, extensionRegistry);
-      }
-    };
+    private static final com.google.protobuf.Parser<CommandResponse> PARSER =
+        new com.google.protobuf.AbstractParser<CommandResponse>() {
+          @java.lang.Override
+          public CommandResponse parsePartialFrom(
+              com.google.protobuf.CodedInputStream input,
+              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+              throws com.google.protobuf.InvalidProtocolBufferException {
+            return new CommandResponse(input, extensionRegistry);
+          }
+        };
 
     public static com.google.protobuf.Parser<CommandResponse> parser() {
       return PARSER;
@@ -1671,65 +1705,67 @@ public final class CommandResponseProtos {
     }
 
     @java.lang.Override
-    public com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse getDefaultInstanceForType() {
+    public com.sap.iotservices.common.protobuf.gateway.CommandResponseProtos.CommandResponse
+        getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
-
   }
 
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_gateway_CommandResponse_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_gateway_CommandResponse_descriptor;
+  private static final com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_gateway_CommandResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_gateway_CommandResponse_Command_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_gateway_CommandResponse_Command_descriptor;
+  private static final com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_gateway_CommandResponse_Command_fieldAccessorTable;
 
-  public static com.google.protobuf.Descriptors.FileDescriptor
-      getDescriptor() {
+  public static com.google.protobuf.Descriptors.FileDescriptor getDescriptor() {
     return descriptor;
   }
-  private static  com.google.protobuf.Descriptors.FileDescriptor
-      descriptor;
+
+  private static com.google.protobuf.Descriptors.FileDescriptor descriptor;
+
   static {
     java.lang.String[] descriptorData = {
-      "\n\025CommandResponse.proto\022\007gateway\032\031google" +
-      "/protobuf/any.proto\"\257\001\n\017CommandResponse\022" +
-      "\035\n\025capabilityAlternateId\030\001 \001(\t\022\031\n\021sensor" +
-      "AlternateId\030\002 \001(\t\0221\n\007command\030\003 \001(\0132 .gat" +
-      "eway.CommandResponse.Command\032/\n\007Command\022" +
-      "$\n\006values\030\001 \003(\0132\024.google.protobuf.AnyBD\n" +
-      "+com.sap.iotservices.common.protobuf.gat" +
-      "ewayB\025CommandResponseProtosb\006proto3"
+      "\n\025CommandResponse.proto\022\007gateway\032\031google"
+          + "/protobuf/any.proto\"\257\001\n\017CommandResponse\022"
+          + "\035\n\025capabilityAlternateId\030\001 \001(\t\022\031\n\021sensor"
+          + "AlternateId\030\002 \001(\t\0221\n\007command\030\003 \001(\0132 .gat"
+          + "eway.CommandResponse.Command\032/\n\007Command\022"
+          + "$\n\006values\030\001 \003(\0132\024.google.protobuf.AnyBD\n"
+          + "+com.sap.iotservices.common.protobuf.gat"
+          + "ewayB\025CommandResponseProtosb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
-        new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
+        new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
           public com.google.protobuf.ExtensionRegistry assignDescriptors(
               com.google.protobuf.Descriptors.FileDescriptor root) {
             descriptor = root;
             return null;
           }
         };
-    com.google.protobuf.Descriptors.FileDescriptor
-      .internalBuildGeneratedFileFrom(descriptorData,
+    com.google.protobuf.Descriptors.FileDescriptor.internalBuildGeneratedFileFrom(
+        descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.google.protobuf.AnyProto.getDescriptor(),
-        }, assigner);
-    internal_static_gateway_CommandResponse_descriptor =
-      getDescriptor().getMessageTypes().get(0);
-    internal_static_gateway_CommandResponse_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_gateway_CommandResponse_descriptor,
-        new java.lang.String[] { "CapabilityAlternateId", "SensorAlternateId", "Command", });
+        },
+        assigner);
+    internal_static_gateway_CommandResponse_descriptor = getDescriptor().getMessageTypes().get(0);
+    internal_static_gateway_CommandResponse_fieldAccessorTable =
+        new com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+            internal_static_gateway_CommandResponse_descriptor,
+            new java.lang.String[] {
+              "CapabilityAlternateId", "SensorAlternateId", "Command",
+            });
     internal_static_gateway_CommandResponse_Command_descriptor =
-      internal_static_gateway_CommandResponse_descriptor.getNestedTypes().get(0);
-    internal_static_gateway_CommandResponse_Command_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_gateway_CommandResponse_Command_descriptor,
-        new java.lang.String[] { "Values", });
+        internal_static_gateway_CommandResponse_descriptor.getNestedTypes().get(0);
+    internal_static_gateway_CommandResponse_Command_fieldAccessorTable =
+        new com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+            internal_static_gateway_CommandResponse_Command_descriptor,
+            new java.lang.String[] {
+              "Values",
+            });
     com.google.protobuf.AnyProto.getDescriptor();
   }
 

@@ -1,5 +1,7 @@
 package com.dke.data.agrirouter.impl.messaging.rest;
 
+import static com.dke.data.agrirouter.impl.RequestFactory.MEDIA_TYPE_PROTOBUF;
+
 import agrirouter.feed.request.FeedRequests;
 import agrirouter.request.Request;
 import com.dke.data.agrirouter.api.dto.encoding.EncodeMessageResponse;
@@ -15,15 +17,9 @@ import com.dke.data.agrirouter.api.service.parameters.SendMessageParameters;
 import com.dke.data.agrirouter.impl.common.MessageIdService;
 import com.dke.data.agrirouter.impl.messaging.encoding.EncodeMessageServiceImpl;
 import com.dke.data.agrirouter.impl.validation.ResponseValidator;
-import java.util.Collections;
 import java.util.Objects;
-
-import com.sap.iotservices.common.protobuf.gateway.MeasureRequestMessageProtos;
-import org.apache.http.HttpStatus;
-
 import javax.ws.rs.core.MediaType;
-
-import static com.dke.data.agrirouter.impl.RequestFactory.MEDIA_TYPE_PROTOBUF;
+import org.apache.http.HttpStatus;
 
 public class DeleteMessageServiceImpl
     implements DeleteMessageService, MessageSender, ResponseValidator {
@@ -61,8 +57,6 @@ public class DeleteMessageServiceImpl
 
     sendMessageParameters.setMessages(encodedMessageResponse);
 
-
-
     MessageSenderResponse response = this.sendMessage(sendMessageParameters);
 
     this.assertResponseStatusIsValid(response.getNativeResponse(), HttpStatus.SC_OK);
@@ -90,8 +84,8 @@ public class DeleteMessageServiceImpl
     payloadParameters.setValue(
         new DeleteMessageMessageContentFactory().message(deleteMessageMessageParameters));
 
-
-    EncodeMessageResponse encodedMessage = this.encodeMessageService.encode(messageHeaderParameters, payloadParameters);
+    EncodeMessageResponse encodedMessage =
+        this.encodeMessageService.encode(messageHeaderParameters, payloadParameters);
     return encodedMessage;
   }
 }

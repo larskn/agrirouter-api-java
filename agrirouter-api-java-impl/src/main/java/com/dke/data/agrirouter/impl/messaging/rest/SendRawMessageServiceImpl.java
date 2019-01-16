@@ -1,5 +1,7 @@
 package com.dke.data.agrirouter.impl.messaging.rest;
 
+import static com.dke.data.agrirouter.impl.RequestFactory.MEDIA_TYPE_PROTOBUF;
+
 import com.dke.data.agrirouter.api.dto.encoding.EncodeMessageResponse;
 import com.dke.data.agrirouter.api.service.messaging.SendRawMessageService;
 import com.dke.data.agrirouter.api.service.parameters.*;
@@ -7,12 +9,10 @@ import com.dke.data.agrirouter.impl.common.MessageIdService;
 import com.dke.data.agrirouter.impl.messaging.encoding.EncodeMessageServiceImpl;
 import com.dke.data.agrirouter.impl.validation.ResponseValidator;
 import com.google.protobuf.ByteString;
-import org.apache.http.HttpStatus;
-
+import java.io.UnsupportedEncodingException;
 import javax.ws.rs.core.MediaType;
-
-
-import static com.dke.data.agrirouter.impl.RequestFactory.MEDIA_TYPE_PROTOBUF;
+import org.apache.http.HttpStatus;
+import org.apache.xerces.impl.dv.util.Base64;
 
 public class SendRawMessageServiceImpl
     implements SendRawMessageService, ResponseValidator, MessageSender {
@@ -24,7 +24,6 @@ public class SendRawMessageServiceImpl
 
     this.encodeMessageService = new EncodeMessageServiceImpl();
   }
-
 
   @Override
   public void setRequestFormatJSON() {
@@ -71,10 +70,19 @@ public class SendRawMessageServiceImpl
 
     PayloadParameters payloadParameters = new PayloadParameters();
     payloadParameters.setTypeUrl(parameters.getTypeURL());
-    payloadParameters.setValue(ByteString.copyFrom(parameters.getRawData()));
+    if (parameters.getShallEncodeBase64() == true) {
+      String base64 = Base64.encode(parameters.getRawData());
+      try {
+        payloadParameters.setValue(ByteString.copyFrom(base64, "ascii"));
+      } catch (UnsupportedEncodingException e) {
+        e.printStackTrace();
+      }
+    } else {
+      payloadParameters.setValue(ByteString.copyFrom(parameters.getRawData()));
+    }
 
-
-    EncodeMessageResponse encodedMessage = this.encodeMessageService.encode(messageHeaderParameters, payloadParameters);
+    EncodeMessageResponse encodedMessage =
+        this.encodeMessageService.encode(messageHeaderParameters, payloadParameters);
     return encodedMessage;
   }
 }

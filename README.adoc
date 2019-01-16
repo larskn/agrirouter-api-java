@@ -134,3 +134,13 @@ Here are some external resources for the development:
 * https://my-agrirouter.com[My Agrirouter Website]
 * https://www.aef-online.org[EFDI Protobuf Definition]
 * https://www.lmis.de[LMIS - Maintenance & Support]
+
+
+== Contribution
+The agrirouter java api is an open source project and any contribution is very welcome.
+
+Please make sure, you execute
+
+  mvn clean compile
+
+before commiting, so that the code is formatted correctly.

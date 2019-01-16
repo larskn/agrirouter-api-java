@@ -1,12 +1,10 @@
 package com.dke.data.agrirouter.impl.messaging.rest;
 
-import agrirouter.request.Request;
 import com.dke.data.agrirouter.api.enums.CertificationType;
 import com.dke.data.agrirouter.api.service.parameters.FetchMessageParameters;
 import com.dke.data.agrirouter.impl.RequestFactory;
 import com.dke.data.agrirouter.impl.validation.ResponseValidator;
 import java.util.Optional;
-import javax.print.attribute.standard.Media;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.apache.commons.lang3.StringUtils;
@@ -16,7 +14,6 @@ public interface MessageFetcher extends ResponseValidator {
 
   int MAX_TRIES_BEFORE_FAILURE = 10;
   long DEFAULT_INTERVAL = 500;
-
 
   String EMPTY_CONTENT = "[]";
 
@@ -42,14 +39,13 @@ public interface MessageFetcher extends ResponseValidator {
               .get();
       this.assertResponseStatusIsValid(response, HttpStatus.SC_OK);
       byte[] entityContent = response.readEntity(byte[].class);
-      if(getResponseFormat() == MediaType.APPLICATION_JSON_TYPE){
+      if (getResponseFormat() == MediaType.APPLICATION_JSON_TYPE) {
         String entityString = String.valueOf(entityContent);
         if (!StringUtils.equalsIgnoreCase(entityString, EMPTY_CONTENT)) {
           return Optional.of(entityContent);
         }
-      }
-      else {
-        if(!((entityContent == null)|| (entityContent.length == 0))) {
+      } else {
+        if (!((entityContent == null) || (entityContent.length == 0))) {
           return Optional.of(entityContent);
         }
       }

@@ -10,7 +10,6 @@ import com.dke.data.agrirouter.api.exception.CouldNotCreateDynamicKeyStoreExcept
 import com.dke.data.agrirouter.api.exception.IllegalParameterDefinitionException;
 import com.dke.data.agrirouter.api.service.parameters.SendMessageParameters;
 import com.dke.data.agrirouter.impl.messaging.rest.SendMessageServiceImpl;
-import com.dke.data.agrirouter.impl.messaging.rest.SendRawMessageServiceImpl;
 import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 

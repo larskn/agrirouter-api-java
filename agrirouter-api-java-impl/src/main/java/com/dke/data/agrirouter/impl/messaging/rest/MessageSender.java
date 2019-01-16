@@ -1,5 +1,7 @@
 package com.dke.data.agrirouter.impl.messaging.rest;
 
+import static com.dke.data.agrirouter.impl.RequestFactory.MEDIA_TYPE_PROTOBUF;
+
 import com.dke.data.agrirouter.api.dto.messaging.SendMessageRequest;
 import com.dke.data.agrirouter.api.dto.messaging.inner.Message;
 import com.dke.data.agrirouter.api.enums.CertificationType;
@@ -9,23 +11,13 @@ import com.dke.data.agrirouter.impl.common.UtcTimeService;
 import com.dke.data.agrirouter.impl.gson.MessageTypeAdapter;
 import com.google.gson.GsonBuilder;
 import com.google.protobuf.*;
-import com.google.protobuf.Descriptors.FieldDescriptor;
 import com.sap.iotservices.common.protobuf.gateway.MeasureProtos;
 import com.sap.iotservices.common.protobuf.gateway.MeasureRequestMessageProtos;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
-import static com.dke.data.agrirouter.impl.RequestFactory.MEDIA_TYPE_PROTOBUF;
-import static javax.ws.rs.client.Entity.entity;
 
 public interface MessageSender {
 
@@ -34,7 +26,6 @@ public interface MessageSender {
   void setRequestFormatProtobuf();
 
   MediaType getResponseFormat();
-
 
   default String createMessageBody(SendMessageParameters parameters) {
     parameters.validate();
@@ -65,43 +56,45 @@ public interface MessageSender {
     return sendMessageRequest;
   }
 
-  default MeasureProtos.MeasureRequest createSendMessageProtobufRequest(SendMessageParameters sendMessageParameters){
+  default MeasureProtos.MeasureRequest createSendMessageProtobufRequest(
+      SendMessageParameters sendMessageParameters) {
     sendMessageParameters.validate();
 
     MeasureProtos.MeasureRequest.Builder measureMessageBuilder =
-            MeasureProtos.MeasureRequest.newBuilder()
-            .setCapabilityAlternateId(sendMessageParameters.onboardingResponse.capabilityAlternateId)
+        MeasureProtos.MeasureRequest.newBuilder()
+            .setCapabilityAlternateId(
+                sendMessageParameters.onboardingResponse.capabilityAlternateId)
             .setSensorAlternateId(sendMessageParameters.onboardingResponse.sensorAlternateId)
             .setTimestamp(UtcTimeService.now().toEpochSecond())
             .setSensorTypeAlternateId("");
 
-    for(
-            MeasureRequestMessageProtos.MeasureRequestMessage measureMessage:
-            sendMessageParameters.measureMessages)
-    {
+    for (MeasureRequestMessageProtos.MeasureRequestMessage measureMessage :
+        sendMessageParameters.measureMessages) {
       MeasureProtos.MeasureRequest.Measure.Builder measureBuilder =
-              MeasureProtos.MeasureRequest.Measure.newBuilder();
+          MeasureProtos.MeasureRequest.Measure.newBuilder();
 
-      ByteString protobufMessage = ByteString.copyFrom(measureMessage.getMessage().toByteArray());//measureMessage.toByteString().substring(3);
-
-
+      ByteString protobufMessage =
+          ByteString.copyFrom(
+              measureMessage
+                  .getMessage()
+                  .toByteArray()); // measureMessage.toByteString().substring(3);
 
       com.google.protobuf.Message message =
-              BytesValue.newBuilder()
-              .setValue(protobufMessage)
-              .build();
-      measureBuilder.addValues( Any.pack(message,"message"));
-
+          BytesValue.newBuilder().setValue(protobufMessage).build();
+      measureBuilder.addValues(Any.pack(message, "message"));
 
       Timestamp timestamp =
-              Timestamp.newBuilder().setSeconds(
-                      UtcTimeService.now().toEpochSecond()
-              ).setNanos(0).build();
+          Timestamp.newBuilder()
+              .setSeconds(UtcTimeService.now().toEpochSecond())
+              .setNanos(0)
+              .build();
 
-      String protobufTimeStampString = String.valueOf(timestamp.getSeconds()*1000 + timestamp.getNanos());
+      String protobufTimeStampString =
+          String.valueOf(timestamp.getSeconds() * 1000 + timestamp.getNanos());
 
-      com.google.protobuf.Message protobufTimestamp = StringValue.newBuilder().setValue(protobufTimeStampString).build();
-      measureBuilder.addValues( Any.pack(protobufTimestamp,"timestamp"));
+      com.google.protobuf.Message protobufTimestamp =
+          StringValue.newBuilder().setValue(protobufTimeStampString).build();
+      measureBuilder.addValues(Any.pack(protobufTimestamp, "timestamp"));
 
       measureMessageBuilder.addMeasures(measureBuilder.build());
     }
@@ -115,9 +108,8 @@ public interface MessageSender {
 
     Response response;
 
-    if(getResponseFormat() == MEDIA_TYPE_PROTOBUF)
-    {
-      MeasureProtos.MeasureRequest data =this.createSendMessageProtobufRequest(parameters);
+    if (getResponseFormat() == MEDIA_TYPE_PROTOBUF) {
+      MeasureProtos.MeasureRequest data = this.createSendMessageProtobufRequest(parameters);
       /*
       try {
           FileOutputStream fos = null;
@@ -132,30 +124,31 @@ public interface MessageSender {
       }
       */
 
-      Entity<MeasureProtos.MeasureRequest> protobufContent = Entity.entity(data,MEDIA_TYPE_PROTOBUF);
-      response = RequestFactory.securedRequest(
-              parameters.getOnboardingResponse().getConnectionCriteria().getMeasures(),
-              parameters.getOnboardingResponse().getAuthentication().getCertificate(),
-              parameters.getOnboardingResponse().getAuthentication().getSecret(),
-              CertificationType.valueOf(
-                      parameters.getOnboardingResponse().getAuthentication().getType()
-              ),
-              getResponseFormat(),
-              RequestFactory.DIRECTION_INBOX
-      ).post(protobufContent);
-
-    }
-    else
-    {
-      Entity<SendMessageRequest> jsonContent = Entity.json(this.createSendMessageJSONRequest(parameters));
-      response = RequestFactory.securedRequest(
-              parameters.getOnboardingResponse().getConnectionCriteria().getMeasures(),
-              parameters.getOnboardingResponse().getAuthentication().getCertificate(),
-              parameters.getOnboardingResponse().getAuthentication().getSecret(),
-              CertificationType.valueOf(
+      Entity<MeasureProtos.MeasureRequest> protobufContent =
+          Entity.entity(data, MEDIA_TYPE_PROTOBUF);
+      response =
+          RequestFactory.securedRequest(
+                  parameters.getOnboardingResponse().getConnectionCriteria().getMeasures(),
+                  parameters.getOnboardingResponse().getAuthentication().getCertificate(),
+                  parameters.getOnboardingResponse().getAuthentication().getSecret(),
+                  CertificationType.valueOf(
                       parameters.getOnboardingResponse().getAuthentication().getType()),
-              getResponseFormat(),
-              RequestFactory.DIRECTION_INBOX)
+                  getResponseFormat(),
+                  RequestFactory.DIRECTION_INBOX)
+              .post(protobufContent);
+
+    } else {
+      Entity<SendMessageRequest> jsonContent =
+          Entity.json(this.createSendMessageJSONRequest(parameters));
+      response =
+          RequestFactory.securedRequest(
+                  parameters.getOnboardingResponse().getConnectionCriteria().getMeasures(),
+                  parameters.getOnboardingResponse().getAuthentication().getCertificate(),
+                  parameters.getOnboardingResponse().getAuthentication().getSecret(),
+                  CertificationType.valueOf(
+                      parameters.getOnboardingResponse().getAuthentication().getType()),
+                  getResponseFormat(),
+                  RequestFactory.DIRECTION_INBOX)
               .post(jsonContent);
     }
 

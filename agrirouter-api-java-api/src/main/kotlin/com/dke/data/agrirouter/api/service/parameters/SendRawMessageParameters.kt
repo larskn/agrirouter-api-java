@@ -11,9 +11,10 @@ class SendRawMessageParameters : ParameterValidation {
     var mode: Request.RequestEnvelope.Mode? = null
     var receipients: MutableList<String> = mutableListOf<String>()
     var teamSetContextId: String? = null
-    var rawData: ByteArray = ByteArray(0);
+    var rawData: ByteArray = ByteArray(0)
     var typeURL: String? = null
     var onBoardingResponse: OnboardingResponse? = null
+    var shallEncodeBase64: Boolean = false
 
     fun addReceipient(receipient:String){
         receipients.add(receipient)

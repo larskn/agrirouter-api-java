@@ -1,5 +1,7 @@
 package com.dke.data.agrirouter.impl.messaging.rest;
 
+import static com.dke.data.agrirouter.impl.RequestFactory.MEDIA_TYPE_PROTOBUF;
+
 import agrirouter.feed.response.FeedResponse;
 import com.dke.data.agrirouter.api.enums.TechnicalMessageType;
 import com.dke.data.agrirouter.api.env.Environment;
@@ -10,10 +12,7 @@ import com.dke.data.agrirouter.impl.messaging.encoding.EncodeMessageServiceImpl;
 import com.dke.data.agrirouter.impl.messaging.helper.MessageQueryService;
 import com.google.protobuf.ByteString;
 import com.google.protobuf.InvalidProtocolBufferException;
-
 import javax.ws.rs.core.MediaType;
-
-import static com.dke.data.agrirouter.impl.RequestFactory.MEDIA_TYPE_PROTOBUF;
 
 public class MessageQueryServiceImpl extends EnvironmentalService
     implements com.dke.data.agrirouter.api.service.messaging.MessageQueryService,

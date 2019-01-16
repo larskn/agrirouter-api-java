@@ -29,10 +29,9 @@ public final class RequestFactory {
     // NOP
   }
 
-
   /**
-   * Creating a request with SSL configuration using the PEM and KEY files from the agrirouter.
-   * Used for communication of onboarded AppInstances
+   * Creating a request with SSL configuration using the PEM and KEY files from the agrirouter. Used
+   * for communication of onboarded AppInstances
    *
    * @param url -
    * @param certificate -
@@ -45,8 +44,7 @@ public final class RequestFactory {
       String password,
       CertificationType certificationType,
       MediaType mediaType,
-      int direction
-  ) {
+      int direction) {
     ClientConfig clientConfig = new ClientConfig();
     clientConfig.register(ProtobufEntityRequestWriter.class);
     clientConfig.register(ProtobufEntityRequestReader.class);
@@ -56,10 +54,9 @@ public final class RequestFactory {
 
     WebTarget target = client.target(url);
     Invocation.Builder request = target.request(mediaType);
-    if( direction == DIRECTION_INBOX) {
+    if (direction == DIRECTION_INBOX) {
       request.accept(MediaType.APPLICATION_JSON_TYPE);
-    }
-    else{
+    } else {
       request.accept(mediaType);
     }
     return request;

@@ -26,3 +26,4 @@ buildNumber.properties
 
 # GENERATED #
 src/main/generated
+/agrirouter-api-java-tests

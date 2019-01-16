@@ -36,16 +36,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import org.apache.http.HttpStatus;
-
 import javax.ws.rs.core.MediaType;
+import org.apache.http.HttpStatus;
 
 public class OnboardingServiceImpl implements OnboardingService, MessageSender, ResponseValidator {
 
   private final EncodeMessageService encodeMessageService;
   private final FetchMessageService fetchMessageService;
   private final DecodeMessageService decodeMessageService;
-
 
   private MediaType mediaType = MediaType.APPLICATION_JSON_TYPE;
 
@@ -191,9 +189,11 @@ public class OnboardingServiceImpl implements OnboardingService, MessageSender, 
                     new CloudEndpointOnboardingMessageParameters
                         [onboardCloudEndpointMessageParameters.size()])));
 
-    MessageHeaderParameters messageHeaderParameters = this.createMessageHeaderParameters(applicationMessageID);
+    MessageHeaderParameters messageHeaderParameters =
+        this.createMessageHeaderParameters(applicationMessageID);
 
-    EncodeMessageResponse encodedMessage = this.encodeMessageService.encode(messageHeaderParameters, payloadParameters);
+    EncodeMessageResponse encodedMessage =
+        this.encodeMessageService.encode(messageHeaderParameters, payloadParameters);
 
     return encodedMessage;
   }
@@ -218,9 +218,11 @@ public class OnboardingServiceImpl implements OnboardingService, MessageSender, 
     payloadParameters.setValue(
         new CloudEndpointOffboardingMessageContentFactory().message(cloudOffboardingParameters));
 
-    MessageHeaderParameters messageHeaderParameters = this.createMessageHeaderParameters(applicationMessageID);
+    MessageHeaderParameters messageHeaderParameters =
+        this.createMessageHeaderParameters(applicationMessageID);
 
-    EncodeMessageResponse encodedMessage = this.encodeMessageService.encode(messageHeaderParameters, payloadParameters);
+    EncodeMessageResponse encodedMessage =
+        this.encodeMessageService.encode(messageHeaderParameters, payloadParameters);
 
     return encodedMessage;
   }

@@ -1,5 +1,7 @@
 package com.dke.data.agrirouter.impl.messaging.rest;
 
+import static com.dke.data.agrirouter.impl.RequestFactory.MEDIA_TYPE_PROTOBUF;
+
 import agrirouter.request.Request;
 import agrirouter.request.payload.endpoint.Capabilities;
 import com.dke.data.agrirouter.api.dto.encoding.EncodeMessageResponse;
@@ -20,11 +22,8 @@ import com.dke.data.agrirouter.impl.validation.ResponseValidator;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import org.apache.http.HttpStatus;
-
 import javax.ws.rs.core.MediaType;
-
-import static com.dke.data.agrirouter.impl.RequestFactory.MEDIA_TYPE_PROTOBUF;
+import org.apache.http.HttpStatus;
 
 public class SetCapabilityServiceImpl extends EnvironmentalService
     implements SetCapabilityService, MessageSender, ResponseValidator {
@@ -48,7 +47,6 @@ public class SetCapabilityServiceImpl extends EnvironmentalService
     return mediaType;
   }
 
-  
   public SetCapabilityServiceImpl(Environment environment) {
     super(environment);
     this.encodeMessageService = new EncodeMessageServiceImpl();
@@ -109,7 +107,8 @@ public class SetCapabilityServiceImpl extends EnvironmentalService
     payloadParameters.setValue(
         new CapabilitiesMessageContentFactory().message(capabilitiesMessageParameters));
 
-    EncodeMessageResponse encodedMessage = this.encodeMessageService.encode(messageHeaderParameters, payloadParameters);
+    EncodeMessageResponse encodedMessage =
+        this.encodeMessageService.encode(messageHeaderParameters, payloadParameters);
     return encodedMessage;
   }
 }
