@@ -1,5 +1,6 @@
 package com.dke.data.agrirouter.impl.messaging;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.dke.data.agrirouter.api.dto.onboard.OnboardingResponse;
@@ -114,6 +115,7 @@ class SendMessageServiceImplTest {
         IllegalParameterDefinitionException.class,
         () -> sendMessageService.send(sendMessageParameters));
   }
+
 
   @Test
   void rq43givenCertificateWithMissingPrivateKeySendShouldThrowException() {

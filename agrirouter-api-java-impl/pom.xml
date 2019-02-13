@@ -72,6 +72,16 @@
             <version>8.0</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>javax.el</artifactId>
+            <version>${javax.el.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.el</groupId>
+            <artifactId>javax.el-api</artifactId>
+            <version>${javax.el.api.version}</version>
+        </dependency>
     </dependencies>
 
 </project>

@@ -13,6 +13,8 @@ import com.google.gson.GsonBuilder;
 import com.google.protobuf.*;
 import com.sap.iotservices.common.protobuf.gateway.MeasureProtos;
 import com.sap.iotservices.common.protobuf.gateway.MeasureRequestMessageProtos;
+import org.apache.commons.net.util.Base64;
+
 import java.util.ArrayList;
 import java.util.List;
 import javax.ws.rs.client.Entity;
@@ -77,7 +79,7 @@ public interface MessageSender {
           ByteString.copyFrom(
               measureMessage
                   .getMessage()
-                  .toByteArray()); // measureMessage.toByteString().substring(3);
+                  .toByteArray());
 
       com.google.protobuf.Message message =
           BytesValue.newBuilder().setValue(protobufMessage).build();
@@ -101,6 +103,9 @@ public interface MessageSender {
 
     MeasureProtos.MeasureRequest sendMessageProtobufRequest = measureMessageBuilder.build();
 
+    String base64Representation = Base64.encodeBase64String(sendMessageProtobufRequest.toByteArray());
+    System.out.println("Representation of Command in Base64: "+ base64Representation);
+
     return sendMessageProtobufRequest;
   }
 
@@ -110,19 +115,6 @@ public interface MessageSender {
 
     if (getResponseFormat() == MEDIA_TYPE_PROTOBUF) {
       MeasureProtos.MeasureRequest data = this.createSendMessageProtobufRequest(parameters);
-      /*
-      try {
-          FileOutputStream fos = null;
-          fos = new FileOutputStream("C:\\src\\SAP\\2018-12-21-SAP-EndpointLister\\iot-protobuf-java-endpoint-list\\measure_compare.bin");
-          fos.write(data.toByteArray(), 0, data.toByteArray().length);
-          fos.flush();
-          fos.close();
-      } catch (FileNotFoundException e) {
-          e.printStackTrace();
-      } catch (IOException e) {
-          e.printStackTrace();
-      }
-      */
 
       Entity<MeasureProtos.MeasureRequest> protobufContent =
           Entity.entity(data, MEDIA_TYPE_PROTOBUF);

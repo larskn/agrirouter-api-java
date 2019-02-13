@@ -3,9 +3,16 @@ package com.dke.data.agrirouter.api.service.messaging.encoding;
 import com.dke.data.agrirouter.api.dto.encoding.EncodeMessageResponse;
 import com.dke.data.agrirouter.api.service.parameters.MessageHeaderParameters;
 import com.dke.data.agrirouter.api.service.parameters.PayloadParameters;
+import javax.ws.rs.core.MediaType;
 
 /** Encoding of messages. */
 public interface EncodeMessageService {
+
+  void setRequestFormatJSON();
+
+  void setRequestFormatProtobuf();
+
+  MediaType getRequestFormat();
 
   /**
    * Encode a given message using the internal protobuf encoding mechanism.

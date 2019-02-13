@@ -1,5 +1,7 @@
 package com.dke.data.agrirouter.impl.messaging.encoding;
 
+import static com.dke.data.agrirouter.impl.RequestFactory.MEDIA_TYPE_PROTOBUF;
+
 import agrirouter.request.Request;
 import com.dke.data.agrirouter.api.dto.encoding.EncodeMessageResponse;
 import com.dke.data.agrirouter.api.exception.CouldNotEncodeMessageException;
@@ -14,11 +16,26 @@ import com.sap.iotservices.common.protobuf.gateway.MeasureRequestMessageProtos;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Base64;
+import javax.ws.rs.core.MediaType;
 import org.apache.commons.lang3.StringUtils;
 
 /** Internal service implementation. */
 public class EncodeMessageServiceImpl extends NonEnvironmentalService
     implements EncodeMessageService {
+
+  private MediaType mediaType = MediaType.APPLICATION_JSON_TYPE;
+
+  public void setRequestFormatJSON() {
+    mediaType = MediaType.APPLICATION_JSON_TYPE;
+  }
+
+  public void setRequestFormatProtobuf() {
+    mediaType = MEDIA_TYPE_PROTOBUF;
+  }
+
+  public MediaType getRequestFormat() {
+    return mediaType;
+  }
 
   public EncodeMessageResponse encode(
       MessageHeaderParameters messageHeaderParameters, PayloadParameters payloadParameters) {
@@ -40,15 +57,18 @@ public class EncodeMessageServiceImpl extends NonEnvironmentalService
       this.getNativeLogger().trace("Encoding message.");
       byte[] encodedByteArray = streamedMessage.toByteArray();
 
-      String encodedMessageBase64 = Base64.getEncoder().encodeToString(encodedByteArray);
+      String encodedMessageBase64 = "";
+      MeasureRequestMessageProtos.MeasureRequestMessage measureMessageProtobuf = null;
+     if (getRequestFormat() == MediaType.APPLICATION_JSON_TYPE) {
+        encodedMessageBase64 = Base64.getEncoder().encodeToString(encodedByteArray);
+        this.logMethodEnd(encodedMessageBase64);
+      } else {
+        MeasureRequestMessageProtos.MeasureRequestMessage.Builder measureRequestBuilder =
+            MeasureRequestMessageProtos.MeasureRequestMessage.newBuilder();
 
-      this.logMethodEnd(encodedMessageBase64);
-      MeasureRequestMessageProtos.MeasureRequestMessage.Builder measureRequestBuilder =
-          MeasureRequestMessageProtos.MeasureRequestMessage.newBuilder();
-
-      measureRequestBuilder.setMessage(ByteString.copyFrom(encodedByteArray));
-      MeasureRequestMessageProtos.MeasureRequestMessage measureMessageProtobuf =
-          measureRequestBuilder.build();
+        measureRequestBuilder.setMessage(ByteString.copyFrom(encodedByteArray));
+        measureMessageProtobuf = measureRequestBuilder.build();
+      }
 
       return new EncodeMessageResponse(
           messageHeaderParameters.applicationMessageId,
