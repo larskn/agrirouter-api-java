@@ -54,6 +54,7 @@
     <modules>
         <module>agrirouter-api-java-api</module>
         <module>agrirouter-api-java-impl</module>
+        <module>agrirouter-api-java-tests</module>
     </modules>
 
     <properties>
@@ -91,6 +92,7 @@
         <webdrivermanager.version>2.0.0</webdrivermanager.version>
         <hibernate-validator.version>6.0.5.Final</hibernate-validator.version>
         <javax.el.version>3.0.1-b08</javax.el.version>
+        <javax.el.api.version>3.0.1-b06</javax.el.api.version>
         <protobuf.version>3.5.0</protobuf.version>
         <htmlunit.version>2.30</htmlunit.version>
         <activation.version>1.1.1</activation.version>
@@ -290,6 +292,13 @@
                 <groupId>org.glassfish</groupId>
                 <artifactId>javax.el</artifactId>
                 <version>${javax.el.version}</version>
+            </dependency>
+
+
+            <dependency>
+                <groupId>javax.el</groupId>
+                <artifactId>javax.el-api</artifactId>
+                <version>${javax.el.api.version}</version>
             </dependency>
 
             <!-- HTMLUNIT -->

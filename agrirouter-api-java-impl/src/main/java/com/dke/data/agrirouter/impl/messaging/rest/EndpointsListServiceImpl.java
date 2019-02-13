@@ -1,5 +1,7 @@
 package com.dke.data.agrirouter.impl.messaging.rest;
 
+import static com.dke.data.agrirouter.impl.RequestFactory.MEDIA_TYPE_PROTOBUF;
+
 import agrirouter.request.Request;
 import agrirouter.request.payload.account.Endpoints;
 import com.dke.data.agrirouter.api.dto.encoding.EncodeMessageResponse;
@@ -16,14 +18,31 @@ import com.dke.data.agrirouter.api.service.parameters.SendMessageParameters;
 import com.dke.data.agrirouter.impl.EnvironmentalService;
 import com.dke.data.agrirouter.impl.messaging.encoding.EncodeMessageServiceImpl;
 import com.dke.data.agrirouter.impl.validation.ResponseValidator;
-import java.util.Collections;
 import java.util.UUID;
+import javax.ws.rs.core.MediaType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class EndpointsListServiceImpl extends EnvironmentalService
     implements EndpointsListService, MessageSender, ResponseValidator {
   private Logger LOGGER = LogManager.getLogger();
+
+  private MediaType mediaType = MediaType.APPLICATION_JSON_TYPE;
+
+  @Override
+  public void setRequestFormatJSON() {
+    mediaType = MediaType.APPLICATION_JSON_TYPE;
+  }
+
+  @Override
+  public void setRequestFormatProtobuf() {
+    mediaType = MEDIA_TYPE_PROTOBUF;
+  }
+
+  @Override
+  public MediaType getResponseFormat() {
+    return mediaType;
+  }
 
   private EncodeMessageService encodeMessageService;
   // private Logger logger;
@@ -43,9 +62,7 @@ public class EndpointsListServiceImpl extends EnvironmentalService
 
     SendMessageParameters sendMessageParameters = new SendMessageParameters();
     sendMessageParameters.onboardingResponse = parameters.onboardingResponse;
-    sendMessageParameters.setEncodedMessages(
-        Collections.singletonList(encodedMessage.getEncodedMessage()));
-    
+    sendMessageParameters.setMessages(encodedMessage);
 
     sendMessage(sendMessageParameters);
 
@@ -72,17 +89,13 @@ public class EndpointsListServiceImpl extends EnvironmentalService
     payloadParameters.setTypeUrl(Endpoints.ListEndpointsQuery.getDescriptor().getFullName());
     payloadParameters.value = new EndpointsListMessageContentFactory().message(parameters);
 
-    String encodedMessage =
-        this.encodeMessageService.encode(messageHeaderParameters, payloadParameters);
-
-    return new EncodeMessageResponse(applicationMessageID, encodedMessage);
+    return this.encodeMessageService.encode(messageHeaderParameters, payloadParameters);
   }
 
   public String requestFullListFiltered(OnboardingResponse onboardingResponse) {
     EndpointsListParameters endpointsListParameters = new EndpointsListParameters();
     endpointsListParameters.direction = Endpoints.ListEndpointsQuery.Direction.SEND_RECEIVE;
-    //null marks, that there shall be no filtering for a specific message type
-    endpointsListParameters.technicalMessageType = null;
+    endpointsListParameters.technicalMessageType = TechnicalMessageType.ALL;
     endpointsListParameters.onboardingResponse = onboardingResponse;
     endpointsListParameters.setUnFilteredList(false);
 
@@ -92,8 +105,7 @@ public class EndpointsListServiceImpl extends EnvironmentalService
   public String requestFullListUnFiltered(OnboardingResponse onboardingResponse) {
     EndpointsListParameters endpointsListParameters = new EndpointsListParameters();
     endpointsListParameters.direction = Endpoints.ListEndpointsQuery.Direction.SEND_RECEIVE;
-    //null marks, that there shall be no filtering for a specific message type
-    endpointsListParameters.technicalMessageType = null;
+    endpointsListParameters.technicalMessageType = TechnicalMessageType.ALL;
     endpointsListParameters.onboardingResponse = onboardingResponse;
     endpointsListParameters.setUnFilteredList(true);
 

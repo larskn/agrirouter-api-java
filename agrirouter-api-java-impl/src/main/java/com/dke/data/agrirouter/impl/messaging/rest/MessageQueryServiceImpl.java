@@ -1,5 +1,7 @@
 package com.dke.data.agrirouter.impl.messaging.rest;
 
+import static com.dke.data.agrirouter.impl.RequestFactory.MEDIA_TYPE_PROTOBUF;
+
 import agrirouter.feed.response.FeedResponse;
 import com.dke.data.agrirouter.api.enums.TechnicalMessageType;
 import com.dke.data.agrirouter.api.env.Environment;
@@ -10,6 +12,7 @@ import com.dke.data.agrirouter.impl.messaging.encoding.EncodeMessageServiceImpl;
 import com.dke.data.agrirouter.impl.messaging.helper.MessageQueryService;
 import com.google.protobuf.ByteString;
 import com.google.protobuf.InvalidProtocolBufferException;
+import javax.ws.rs.core.MediaType;
 
 public class MessageQueryServiceImpl extends EnvironmentalService
     implements com.dke.data.agrirouter.api.service.messaging.MessageQueryService,
@@ -17,6 +20,23 @@ public class MessageQueryServiceImpl extends EnvironmentalService
         MessageDecoder<FeedResponse.MessageQueryResponse> {
 
   private final MessageQueryService messageQueryService;
+
+  private MediaType mediaType = MediaType.APPLICATION_JSON_TYPE;
+
+  @Override
+  public void setRequestFormatJSON() {
+    mediaType = MediaType.APPLICATION_JSON_TYPE;
+  }
+
+  @Override
+  public void setRequestFormatProtobuf() {
+    mediaType = MEDIA_TYPE_PROTOBUF;
+  }
+
+  @Override
+  public MediaType getResponseFormat() {
+    return mediaType;
+  }
 
   public MessageQueryServiceImpl(Environment environment) {
     super(environment);
@@ -27,8 +47,7 @@ public class MessageQueryServiceImpl extends EnvironmentalService
 
   @Override
   public String send(MessageQueryParameters parameters) {
-    String applicationMessageID = this.messageQueryService.send(parameters);
-    return applicationMessageID;
+    return this.messageQueryService.send(parameters);
   }
 
   @Override

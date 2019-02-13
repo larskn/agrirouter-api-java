@@ -12,11 +12,10 @@ import javax.validation.constraints.NotNull
 @ToString
 class EndpointsListParameters : ParameterValidation {
 
-
     @NotNull
     lateinit var onboardingResponse: OnboardingResponse
 
-    @NotNull
+
     lateinit var technicalMessageType: TechnicalMessageType
 
     @NotNull

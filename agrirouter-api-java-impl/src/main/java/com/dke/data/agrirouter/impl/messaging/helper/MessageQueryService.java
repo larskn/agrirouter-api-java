@@ -1,5 +1,7 @@
 package com.dke.data.agrirouter.impl.messaging.helper;
 
+import static com.dke.data.agrirouter.impl.RequestFactory.MEDIA_TYPE_PROTOBUF;
+
 import agrirouter.feed.request.FeedRequests;
 import agrirouter.request.Request;
 import com.dke.data.agrirouter.api.dto.encoding.EncodeMessageResponse;
@@ -15,11 +17,27 @@ import com.dke.data.agrirouter.impl.NonEnvironmentalService;
 import com.dke.data.agrirouter.impl.common.MessageIdService;
 import com.dke.data.agrirouter.impl.messaging.rest.MessageSender;
 import com.dke.data.agrirouter.impl.validation.ResponseValidator;
-import java.util.Collections;
 import java.util.Objects;
+import javax.ws.rs.core.MediaType;
 
 public class MessageQueryService extends NonEnvironmentalService
     implements MessageSender, ResponseValidator {
+  private MediaType mediaType = MediaType.APPLICATION_JSON_TYPE;
+
+  @Override
+  public void setRequestFormatJSON() {
+    mediaType = MediaType.APPLICATION_JSON_TYPE;
+  }
+
+  @Override
+  public void setRequestFormatProtobuf() {
+    mediaType = MEDIA_TYPE_PROTOBUF;
+  }
+
+  @Override
+  public MediaType getResponseFormat() {
+    return mediaType;
+  }
 
   private final EncodeMessageService encodeMessageService;
   private final TechnicalMessageType technicalMessageType;
@@ -39,13 +57,12 @@ public class MessageQueryService extends NonEnvironmentalService
     parameters.validate();
 
     this.getNativeLogger().trace("Encode message.");
-    EncodeMessageResponse encodedMessageResponse = this.encodeMessage(parameters);
+    EncodeMessageResponse encodeMessageResponse = this.encodeMessage(parameters);
 
     this.getNativeLogger().trace("Build message parameters.");
     SendMessageParameters sendMessageParameters = new SendMessageParameters();
     sendMessageParameters.setOnboardingResponse(parameters.getOnboardingResponse());
-    sendMessageParameters.setEncodedMessages(
-        Collections.singletonList(encodedMessageResponse.getEncodedMessage()));
+    sendMessageParameters.setMessages(encodeMessageResponse);
 
     this.getNativeLogger().trace("Send and fetch message response.");
     MessageSender.MessageSenderResponse response = this.sendMessage(sendMessageParameters);
@@ -54,7 +71,7 @@ public class MessageQueryService extends NonEnvironmentalService
     this.assertStatusCodeIsOk(response.getNativeResponse().getStatus());
 
     this.logMethodEnd();
-    return encodedMessageResponse.getApplicationMessageID();
+    return encodeMessageResponse.getApplicationMessageID();
   }
 
   private EncodeMessageResponse encodeMessage(MessageQueryParameters parameters) {
@@ -85,10 +102,10 @@ public class MessageQueryService extends NonEnvironmentalService
         new MessageQueryMessageContentFactory().message(messageQueryMessageParameters));
 
     this.getNativeLogger().trace("Encode message.");
-    String encodedMessage =
+    EncodeMessageResponse encodedMessage =
         this.encodeMessageService.encode(messageHeaderParameters, payloadParameters);
 
     this.logMethodEnd(encodedMessage);
-    return new EncodeMessageResponse(applicationMessageID, encodedMessage);
+    return encodedMessage;
   }
 }

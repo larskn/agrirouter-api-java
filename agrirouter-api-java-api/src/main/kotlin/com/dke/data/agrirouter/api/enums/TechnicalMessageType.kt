@@ -26,5 +26,6 @@ enum class TechnicalMessageType(val key: String) {
     VID_WMV("vid:wmv"),
 
     TESTING_PURPOSE_INVALID("SOME_INVALID_TYPE"),
-    TEST_OTHER ("test:other")
+    TEST_OTHER ("test:other"),
+    ALL("")
 }

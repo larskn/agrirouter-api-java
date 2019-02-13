@@ -9,6 +9,9 @@ import java.util.Optional;
 /** Service for fetching messages for the given endpoint. */
 public interface FetchMessageService {
 
+  void setResponseFormatProtobuf();
+
+  void setResponseFormatJSON();
   /**
    * Fetch messages using the given onboarding response using the number of tries and the given
    * interval.

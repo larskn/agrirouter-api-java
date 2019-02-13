@@ -1,5 +1,7 @@
 package com.dke.data.agrirouter.impl.messaging.rest;
 
+import static com.dke.data.agrirouter.impl.RequestFactory.MEDIA_TYPE_PROTOBUF;
+
 import agrirouter.feed.request.FeedRequests;
 import agrirouter.request.Request;
 import com.dke.data.agrirouter.api.dto.encoding.EncodeMessageResponse;
@@ -15,11 +17,28 @@ import com.dke.data.agrirouter.api.service.parameters.SendMessageParameters;
 import com.dke.data.agrirouter.impl.common.MessageIdService;
 import com.dke.data.agrirouter.impl.messaging.encoding.EncodeMessageServiceImpl;
 import com.dke.data.agrirouter.impl.validation.ResponseValidator;
-import java.util.Collections;
 import java.util.Objects;
+import javax.ws.rs.core.MediaType;
 
 public class DeleteMessageServiceImpl
     implements DeleteMessageService, MessageSender, ResponseValidator {
+
+  private MediaType mediaType = MediaType.APPLICATION_JSON_TYPE;
+
+  @Override
+  public void setRequestFormatJSON() {
+    mediaType = MediaType.APPLICATION_JSON_TYPE;
+  }
+
+  @Override
+  public void setRequestFormatProtobuf() {
+    mediaType = MEDIA_TYPE_PROTOBUF;
+  }
+
+  @Override
+  public MediaType getResponseFormat() {
+    return mediaType;
+  }
 
   private final EncodeMessageService encodeMessageService;
 
@@ -31,11 +50,11 @@ public class DeleteMessageServiceImpl
   public String send(DeleteMessageParameters parameters) {
     parameters.validate();
 
-    EncodeMessageResponse encodedMessageResponse = encodeMessage(parameters);
     SendMessageParameters sendMessageParameters = new SendMessageParameters();
     sendMessageParameters.setOnboardingResponse(parameters.getOnboardingResponse());
-    sendMessageParameters.setEncodedMessages(
-        Collections.singletonList(encodedMessageResponse.getEncodedMessage()));
+    EncodeMessageResponse encodedMessageResponse = encodeMessage(parameters);
+
+    sendMessageParameters.setMessages(encodedMessageResponse);
 
     MessageSenderResponse response = this.sendMessage(sendMessageParameters);
 
@@ -64,8 +83,7 @@ public class DeleteMessageServiceImpl
     payloadParameters.setValue(
         new DeleteMessageMessageContentFactory().message(deleteMessageMessageParameters));
 
-    String encodedMessage =
-        this.encodeMessageService.encode(messageHeaderParameters, payloadParameters);
-    return new EncodeMessageResponse(applicationMessageID, encodedMessage);
+
+    return this.encodeMessageService.encode(messageHeaderParameters, payloadParameters);
   }
 }

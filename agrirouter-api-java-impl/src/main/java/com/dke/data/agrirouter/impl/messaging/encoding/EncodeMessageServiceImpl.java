@@ -1,6 +1,9 @@
 package com.dke.data.agrirouter.impl.messaging.encoding;
 
+import static com.dke.data.agrirouter.impl.RequestFactory.MEDIA_TYPE_PROTOBUF;
+
 import agrirouter.request.Request;
+import com.dke.data.agrirouter.api.dto.encoding.EncodeMessageResponse;
 import com.dke.data.agrirouter.api.exception.CouldNotEncodeMessageException;
 import com.dke.data.agrirouter.api.service.messaging.encoding.EncodeMessageService;
 import com.dke.data.agrirouter.api.service.parameters.MessageHeaderParameters;
@@ -8,18 +11,34 @@ import com.dke.data.agrirouter.api.service.parameters.PayloadParameters;
 import com.dke.data.agrirouter.api.util.TimestampUtil;
 import com.dke.data.agrirouter.impl.NonEnvironmentalService;
 import com.google.protobuf.Any;
+import com.google.protobuf.ByteString;
+import com.sap.iotservices.common.protobuf.gateway.MeasureRequestMessageProtos;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Base64;
+import javax.ws.rs.core.MediaType;
 import org.apache.commons.lang3.StringUtils;
 
 /** Internal service implementation. */
 public class EncodeMessageServiceImpl extends NonEnvironmentalService
     implements EncodeMessageService {
 
-  public String encode(
+  private MediaType mediaType = MediaType.APPLICATION_JSON_TYPE;
+
+  public void setRequestFormatJSON() {
+    mediaType = MediaType.APPLICATION_JSON_TYPE;
+  }
+
+  public void setRequestFormatProtobuf() {
+    mediaType = MEDIA_TYPE_PROTOBUF;
+  }
+
+  public MediaType getRequestFormat() {
+    return mediaType;
+  }
+
+  public EncodeMessageResponse encode(
       MessageHeaderParameters messageHeaderParameters, PayloadParameters payloadParameters) {
-    this.logMethodBegin(messageHeaderParameters, payloadParameters);
 
     if (null == messageHeaderParameters || null == payloadParameters) {
       throw new IllegalArgumentException("Parameters cannot be NULL");
@@ -36,10 +55,26 @@ public class EncodeMessageServiceImpl extends NonEnvironmentalService
       this.payload(payloadParameters).writeDelimitedTo(streamedMessage);
 
       this.getNativeLogger().trace("Encoding message.");
-      String encodedMessage = Base64.getEncoder().encodeToString(streamedMessage.toByteArray());
+      byte[] encodedByteArray = streamedMessage.toByteArray();
 
-      this.logMethodEnd(encodedMessage);
-      return encodedMessage;
+      String encodedMessageBase64 = "";
+      MeasureRequestMessageProtos.MeasureRequestMessage measureMessageProtobuf = null;
+      if (getRequestFormat() == MediaType.APPLICATION_JSON_TYPE) {
+        encodedMessageBase64 = Base64.getEncoder().encodeToString(encodedByteArray);
+        this.logMethodEnd(encodedMessageBase64);
+      } else {
+        MeasureRequestMessageProtos.MeasureRequestMessage.Builder measureRequestBuilder =
+            MeasureRequestMessageProtos.MeasureRequestMessage.newBuilder();
+
+        measureRequestBuilder.setMessage(ByteString.copyFrom(encodedByteArray));
+        measureMessageProtobuf = measureRequestBuilder.build();
+      }
+
+      return new EncodeMessageResponse(
+          messageHeaderParameters.applicationMessageId,
+          encodedMessageBase64,
+          measureMessageProtobuf);
+
     } catch (IOException e) {
       throw new CouldNotEncodeMessageException(e);
     }

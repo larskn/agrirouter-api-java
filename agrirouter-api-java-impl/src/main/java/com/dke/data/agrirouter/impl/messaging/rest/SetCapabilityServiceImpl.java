@@ -1,5 +1,7 @@
 package com.dke.data.agrirouter.impl.messaging.rest;
 
+import static com.dke.data.agrirouter.impl.RequestFactory.MEDIA_TYPE_PROTOBUF;
+
 import agrirouter.request.Request;
 import agrirouter.request.payload.endpoint.Capabilities;
 import com.dke.data.agrirouter.api.dto.encoding.EncodeMessageResponse;
@@ -20,11 +22,29 @@ import com.dke.data.agrirouter.impl.validation.ResponseValidator;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import javax.ws.rs.core.MediaType;
 
 public class SetCapabilityServiceImpl extends EnvironmentalService
     implements SetCapabilityService, MessageSender, ResponseValidator {
 
   private final EncodeMessageService encodeMessageService;
+
+  private MediaType mediaType = MediaType.APPLICATION_JSON_TYPE;
+
+  @Override
+  public void setRequestFormatJSON() {
+    mediaType = MediaType.APPLICATION_JSON_TYPE;
+  }
+
+  @Override
+  public void setRequestFormatProtobuf() {
+    mediaType = MEDIA_TYPE_PROTOBUF;
+  }
+
+  @Override
+  public MediaType getResponseFormat() {
+    return mediaType;
+  }
 
   public SetCapabilityServiceImpl(Environment environment) {
     super(environment);
@@ -38,8 +58,7 @@ public class SetCapabilityServiceImpl extends EnvironmentalService
     EncodeMessageResponse encodeMessageResponse = encodeMessage(parameters);
     SendMessageParameters sendMessageParameters = new SendMessageParameters();
     sendMessageParameters.setOnboardingResponse(parameters.getOnboardingResponse());
-    sendMessageParameters.setEncodedMessages(
-        Collections.singletonList(encodeMessageResponse.getEncodedMessage()));
+    sendMessageParameters.setMessages(encodeMessageResponse);
 
     MessageSenderResponse response = this.sendMessage(sendMessageParameters);
 
@@ -86,8 +105,7 @@ public class SetCapabilityServiceImpl extends EnvironmentalService
     payloadParameters.setValue(
         new CapabilitiesMessageContentFactory().message(capabilitiesMessageParameters));
 
-    String encodedMessage =
-        this.encodeMessageService.encode(messageHeaderParameters, payloadParameters);
-    return new EncodeMessageResponse(applicationMessageID, encodedMessage);
+
+    return this.encodeMessageService.encode(messageHeaderParameters, payloadParameters);
   }
 }
