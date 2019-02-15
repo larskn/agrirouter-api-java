@@ -28,8 +28,17 @@ open class SendMessageParameters : ParameterValidation {
     var mediatype: MediaType =MediaType.APPLICATION_JSON_TYPE
 
     fun setMessages(encodeMessageResponse:EncodeMessageResponse){
-        encodedMessages = listOf<String>(encodeMessageResponse.encodedMessageBase64)
-        measureMessages = listOf<MeasureRequestMessageProtos.MeasureRequestMessage>(encodeMessageResponse.encodedMessageProtobuf)
+        if(encodeMessageResponse.encodedMessageBase64 != null) {
+            encodedMessages = listOf<String>(encodeMessageResponse.encodedMessageBase64)
+        } else {
+            encodedMessages = listOf<String>()
+        }
+
+        if(encodeMessageResponse.encodedMessageProtobuf != null) {
+            measureMessages = listOf<MeasureRequestMessageProtos.MeasureRequestMessage>(encodeMessageResponse.encodedMessageProtobuf)
+        } else {
+            measureMessages = listOf<MeasureRequestMessageProtos.MeasureRequestMessage>()
+        }
     }
 
     override fun validate() {

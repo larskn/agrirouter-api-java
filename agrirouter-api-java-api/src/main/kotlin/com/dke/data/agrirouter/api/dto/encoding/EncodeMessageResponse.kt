@@ -12,6 +12,6 @@ import com.sap.iotservices.common.protobuf.gateway.MeasureRequestMessageProtos
  */
 data class EncodeMessageResponse(
         val applicationMessageID: String,
-        val encodedMessageBase64: String,
-        val encodedMessageProtobuf: MeasureRequestMessageProtos.MeasureRequestMessage
+        val encodedMessageBase64 : String? = null,
+        val encodedMessageProtobuf : MeasureRequestMessageProtos.MeasureRequestMessage? = null
 )

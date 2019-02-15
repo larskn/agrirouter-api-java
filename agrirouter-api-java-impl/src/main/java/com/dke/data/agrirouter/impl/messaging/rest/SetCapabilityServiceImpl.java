@@ -29,26 +29,30 @@ public class SetCapabilityServiceImpl extends EnvironmentalService
 
   private final EncodeMessageService encodeMessageService;
 
-  private MediaType mediaType = MediaType.APPLICATION_JSON_TYPE;
+  private MediaType mediaType;
+
 
   @Override
   public void setRequestFormatJSON() {
     mediaType = MediaType.APPLICATION_JSON_TYPE;
+    encodeMessageService.setRequestFormatJSON();
   }
 
   @Override
   public void setRequestFormatProtobuf() {
     mediaType = MEDIA_TYPE_PROTOBUF;
+    encodeMessageService.setRequestFormatProtobuf();
   }
 
   @Override
-  public MediaType getResponseFormat() {
+  public MediaType getRequestFormat() {
     return mediaType;
   }
 
   public SetCapabilityServiceImpl(Environment environment) {
     super(environment);
     this.encodeMessageService = new EncodeMessageServiceImpl();
+    this.mediaType = MediaType.APPLICATION_JSON_TYPE;
   }
 
   @Override

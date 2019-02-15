@@ -26,15 +26,17 @@ public class MessageQueryServiceImpl extends EnvironmentalService
   @Override
   public void setRequestFormatJSON() {
     mediaType = MediaType.APPLICATION_JSON_TYPE;
+    this.messageQueryService.setRequestFormatJSON();
   }
 
   @Override
   public void setRequestFormatProtobuf() {
     mediaType = MEDIA_TYPE_PROTOBUF;
+    this.messageQueryService.setRequestFormatProtobuf();
   }
 
   @Override
-  public MediaType getResponseFormat() {
+  public MediaType getRequestFormat() {
     return mediaType;
   }
 
@@ -42,7 +44,9 @@ public class MessageQueryServiceImpl extends EnvironmentalService
     super(environment);
     this.messageQueryService =
         new MessageQueryService(
-            new EncodeMessageServiceImpl(), TechnicalMessageType.DKE_FEED_MESSAGE_QUERY);
+            new EncodeMessageServiceImpl(), TechnicalMessageType.DKE_FEED_MESSAGE_QUERY
+        );
+    this.setRequestFormatJSON();
   }
 
   @Override

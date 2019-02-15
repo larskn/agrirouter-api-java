@@ -22,20 +22,23 @@ public class SendRawMessageServiceImpl
   public SendRawMessageServiceImpl() {
 
     this.encodeMessageService = new EncodeMessageServiceImpl();
+    this.setRequestFormatJSON();
   }
 
   @Override
   public void setRequestFormatJSON() {
     mediaType = MediaType.APPLICATION_JSON_TYPE;
+    this.encodeMessageService.setRequestFormatJSON();
   }
 
   @Override
   public void setRequestFormatProtobuf() {
     mediaType = MEDIA_TYPE_PROTOBUF;
+    this.encodeMessageService.setRequestFormatProtobuf();
   }
 
   @Override
-  public MediaType getResponseFormat() {
+  public MediaType getRequestFormat() {
     return mediaType;
   }
 

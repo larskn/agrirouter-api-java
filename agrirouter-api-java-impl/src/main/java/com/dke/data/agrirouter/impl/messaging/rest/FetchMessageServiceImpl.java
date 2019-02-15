@@ -25,7 +25,15 @@ public class FetchMessageServiceImpl implements FetchMessageService, MessageFetc
   private MediaType mediaType;
 
   public FetchMessageServiceImpl() {
-    setResponseFormatJSON();
+    this(false);
+  }
+
+  public FetchMessageServiceImpl(boolean useProtobuf){
+    if(useProtobuf) {
+      setResponseFormatProtobuf();
+    } else {
+      setResponseFormatJSON();
+    }
   }
 
   @Override
