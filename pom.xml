@@ -9,6 +9,7 @@
     <packaging>pom</packaging>
 
     <name>AGRIROUTER API JAVA</name>
+    <description>This project contains the API for the communication with the agrirouter. Everything you need for the onboarding process, secure communication and much more.</description>
     <url>https://github.com/DKE-Data/agrirouter-api-java</url>
     <licenses>
         <license>

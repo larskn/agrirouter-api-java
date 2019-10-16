@@ -10,6 +10,7 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <name>AGRIROUTER API JAVA - CONVENIENCE</name>
+    <description>This project contains the API for the communication with the agrirouter. Everything you need for the onboarding process, secure communication and much more.</description>
     <artifactId>agrirouter-api-java-convenience</artifactId>
 
     <dependencies>
